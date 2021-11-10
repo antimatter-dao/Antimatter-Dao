@@ -23,7 +23,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     fontFamily: 'Roboto',
     fontWeight: 400,
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    height: 48,
+    height: 44,
     paddingLeft: 20,
     borderRadius: 14
   },

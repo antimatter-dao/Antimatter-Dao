@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { styled } from '@mui/material'
 import Header from '../components/Header'
 import Polling from '../components/essential/Polling'
@@ -7,8 +7,9 @@ import Popups from '../components/essential/Popups'
 import Web3ReactManager from '../components/essential/Web3ReactManager'
 import WarningModal from '../components/Modal/WarningModal'
 import ComingSoon from './ComingSoon'
+import Dashboard from './Dashboard'
 import { ModalProvider } from 'context/ModalContext'
-import Footer from 'components/Footer'
+import { routes } from 'constants/routes'
 
 const AppWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -31,17 +32,16 @@ const BodyWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  minHeight: `calc(100vh - ${theme.height.header} - ${theme.height.footer})`,
-  padding: '50px 0 80px',
+  minHeight: `calc(100vh - ${theme.height.header})`,
+  padding: `50px 0 80px ${theme.width.sidebar}`,
   justifyContent: 'center',
   alignItems: 'center',
   flex: 1,
   overflowY: 'auto',
   overflowX: 'hidden',
   position: 'relative',
-  [theme.breakpoints.down('md')]: {
-    minHeight: `calc(100vh - ${theme.height.header} - ${theme.height.mobileHeader})`,
-    paddingTop: 20
+  [theme.breakpoints.down('sm')]: {
+    padding: `20px 0 80px`
   }
 }))
 
@@ -58,11 +58,17 @@ export default function App() {
               <WarningModal />
               <Web3ReactManager>
                 <Switch>
-                  <Route exact strict path="/test1" component={ComingSoon} />
+                  <Route exact strict path={routes.dashboard} component={Dashboard} />
+                  <Route exact strict path={routes.trading_rewards} component={ComingSoon} />
+                  <Route exact strict path={routes.stake} component={ComingSoon} />
+                  <Route exact strict path={routes.bond} component={ComingSoon} />
+                  <Route exact strict path={routes.bridge} component={ComingSoon} />
+                  <Route path="/">
+                    <Redirect to={routes.dashboard} />
+                  </Route>
                 </Switch>
               </Web3ReactManager>
             </BodyWrapper>
-            <Footer />
           </ContentWrapper>
         </AppWrapper>
       </ModalProvider>

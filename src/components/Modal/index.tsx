@@ -51,7 +51,7 @@ export default function Modal(props: Props) {
             ...{
               width: { xs: 'calc(100vw - 32px)!important', md: width || 480 },
               maxWidth: maxWidth || 480,
-              background: theme => theme.gradient.gradient1,
+              background: theme => theme.palette.background.paper,
               border: hasBorder ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
               padding: padding || 0,
               boxSizing: 'border-box',
@@ -60,10 +60,7 @@ export default function Modal(props: Props) {
               overflowX: 'hidden',
               position: 'absolute',
               overflowY: 'auto',
-              maxHeight: theme => ({
-                xs: `calc(100vh - ${theme.height.header} - ${theme.height.mobileHeader})`,
-                md: `calc(100vh - ${theme.height.header})`
-              })
+              maxHeight: theme => `calc(100vh - ${theme.height.header})`
             },
             ...(!isCardOnMobile
               ? {
@@ -74,7 +71,7 @@ export default function Modal(props: Props) {
                     width: '100%!important',
                     maxWidth: 'unset!important',
                     maxHeight: 'unset',
-                    height: `calc(100vh - ${theme.height.mobileHeader} - ${theme.height.header})`,
+                    height: `calc(100vh - ${theme.height.header})`,
                     margin: theme.height.header,
                     borderRadius: '20px 20px 0 0'
                   }

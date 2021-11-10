@@ -1,4 +1,5 @@
 import { createTheme, styled, ThemeProvider as MuiThemeProvider, StyledEngineProvider } from '@mui/material/styles'
+import { darken } from '@mui/system'
 
 interface Gradient {
   gradient1: string
@@ -8,6 +9,9 @@ interface Height {
   header: string
   mobileHeader: string
   footer: string
+}
+interface Width {
+  sidebar: string
 }
 
 interface TextColor {
@@ -33,69 +37,61 @@ declare module '@mui/material/styles' {
     bgColor: BgColor
     gradient: Gradient
     height: Height
-  }
-  interface DeprecatedThemeOptions {
-    textColor: TextColor
-    bgColor: BgColor
-    gradient: Gradient
-    height: Height
+    width: Width
   }
 }
 
 declare module '@mui/material/styles/createTheme' {
-  interface DeprecatedThemeOptions {
-    textColor: TextColor
-    bgColor: BgColor
-    gradient: Gradient
-    height: Height
-  }
   interface ThemeOptions {
     textColor: TextColor
     bgColor: BgColor
     gradient: Gradient
     height: Height
+    width: Width
   }
   interface Theme {
     textColor: TextColor
     bgColor: BgColor
     gradient: Gradient
     height: Height
+    width: Width
   }
 }
 
 export const theme = {
   palette: {
     primary: {
-      light: '#2E2247',
-      main: '#9867FF',
-      dark: '#7433FF',
-      contrastText: '#FFFFFF'
+      light: '#A3DAAC;',
+      main: '#31B047',
+      dark: darken('#31B047', 0.5),
+      contrastText: '#252525'
     },
     secondary: {
-      light: '#1D152D',
-      main: '#211735',
-      dark: '#3E276B',
-      contrastText: '#9867FF'
+      light: '#D4F3D8',
+      main: '#11BF2D',
+      dark: darken('#11BF2D', 0.5),
+      contrastText: '#252525'
     },
     error: {
-      main: '#F53030'
+      main: '#FF0000',
+      light: '#FFD7D7'
     },
     warning: {
-      main: '#9867FF'
+      main: '#F0B90B'
     },
     info: {
-      main: '#9867FF'
+      main: '#F0B90B'
     },
     success: {
-      main: '#2DAB50'
+      main: '#31B047'
     },
     background: {
-      default: '#1C1C1F',
-      paper: '#191919'
+      default: '#F2F5FA',
+      paper: '#FFFFFF'
     },
     text: {
-      primary: '#FFFFFF',
-      secondary: '#333333',
+      primary: '#252525',
+      secondary: '#292929',
       disabled: '#999999'
     },
     action: {
@@ -124,12 +120,15 @@ export const theme = {
     bg5: '#A1A1A1'
   },
   gradient: {
-    gradient1: '#000000 linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%)'
+    gradient1: '#ffffff linear-gradient(154.62deg, #77C803 9.44%, #28A03E 59.25%);'
   },
   height: {
     header: '88px',
     mobileHeader: '77px',
     footer: '60px'
+  },
+  width: {
+    sidebar: '250px'
   },
   shape: {
     border: '1px solid',
@@ -145,7 +144,7 @@ export const theme = {
 export const override: any = {
   MuiCssBaseline: {
     styleOverrides: {
-      body: { backgroundColor: '#1C1C1F', fontSize: 16 },
+      body: { backgroundColor: theme.palette.background.default, fontSize: 16 },
       'html, input, textarea, button': {
         fontFamily: 'Roboto, sans-serif',
         fontDisplay: 'fallback'

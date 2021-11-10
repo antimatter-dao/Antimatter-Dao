@@ -1,19 +1,40 @@
+import { useState, useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Typography, useTheme, AppBar, Box, MenuItem, styled as muiStyled, styled } from '@mui/material'
-import { ExternalLink } from 'theme/components'
+import {
+  AppBar,
+  styled,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Drawer,
+  IconButton,
+  useTheme,
+  MenuItem,
+  Box
+} from '@mui/material'
+import { Menu } from '@mui/icons-material'
+import { ChainList } from 'constants/chain'
+import Select from 'components/Select/Select'
+import LogoText from 'components/LogoText'
+// import { ExternalLink } from 'theme/components'
 import Web3Status from './Web3Status'
-import { HideOnMobile } from 'theme/index'
-import PlainSelect from 'components/Select/PlainSelect'
 import Image from 'components/Image'
-import ChainSwap from '../../assets/svg/chain_swap.svg'
+import ChainSwap from 'assets/svg/antimatter.svg'
+import { ReactComponent as DashboardIcon } from 'assets/svg/dashboard_icon.svg'
+import { ReactComponent as TradingRewardIcon } from 'assets/svg/trading_reward_icon.svg'
+import { ReactComponent as StakeIcon } from 'assets/svg/stake_icon.svg'
+import { ReactComponent as BondIcon } from 'assets/svg/bond_icon.svg'
+import { ReactComponent as BridgeIcon } from 'assets/svg/bridge_icon.svg'
 import { routes } from 'constants/routes'
-import MobileHeader from './MobileHeader'
+import { useActiveWeb3React } from 'hooks'
 
 interface TabContent {
   title: string
   route?: string
   link?: string
   titleContent?: JSX.Element
+  icon?: JSX.Element
 }
 
 interface Tab extends TabContent {
@@ -21,22 +42,11 @@ interface Tab extends TabContent {
 }
 
 export const Tabs: Tab[] = [
-  { title: 'Test1', route: routes.test1 },
-  { title: 'Test2', route: routes.test2 },
-  { title: 'Test3', route: routes.test3 },
-  { title: 'Test4', link: 'https://www.google.com/' },
-  {
-    title: 'About',
-    subTab: [
-      { title: 'About1', link: 'https://www.google.com/' },
-      { title: 'About2', link: 'https://www.google.com/' },
-      {
-        title: 'faq',
-        titleContent: <FAQButton />,
-        route: 'faq'
-      }
-    ]
-  }
+  { title: 'Dashboard', route: routes.dashboard, icon: <DashboardIcon id="dashboradIcon" /> },
+  { title: 'Trading Rewards', route: routes.trading_rewards, icon: <TradingRewardIcon /> },
+  { title: 'Stake', route: routes.stake, icon: <StakeIcon /> },
+  { title: 'Bond', route: routes.bond, icon: <BondIcon /> },
+  { title: 'Bridge', route: routes.bridge, icon: <BridgeIcon /> }
 ]
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -47,113 +57,133 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   boxShadow: 'none',
-  padding: '0 60px 00 40px',
-  [theme.breakpoints.down('md')]: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    top: 'unset',
-    borderTop: '1px solid ' + theme.bgColor.bg4,
-    justifyContent: 'center'
-  },
-  '& .link': {
-    textDecoration: 'none',
-    fontSize: 14,
-    color: '#FFFFFF',
-    opacity: 0.5,
-    marginRight: 28,
-    '&.active': {
-      opacity: 1
-    },
-    '&:hover': {
-      opacity: 1
-    }
-  }
+  padding: '0 60px 00 40px'
 }))
 
 const MainLogo = styled(NavLink)({
-  '& img': {
-    width: 180.8,
-    height: 34.7
-  },
   '&:hover': {
     cursor: 'pointer'
   }
 })
 
-const LinksWrapper = muiStyled('div')({
-  marginLeft: 60.2
-})
+const StyledNavLink = styled(NavLink)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.text.primary,
+  opacity: 0.6,
+  display: 'flex',
+  alignItems: 'center',
+  '&.active': {
+    opacity: 1,
+    '& svg': {
+      stroke: theme.palette.primary.main
+    },
+    '& #dashboradIcon': {
+      fill: theme.palette.primary.main,
+      stroke: 'none'
+    }
+  },
+  '&:hover': {
+    opacity: 1
+  }
+}))
+
+const container = window !== undefined ? () => window.document.body : undefined
 
 export default function Header() {
-  return (
-    <>
-      <MobileHeader />
-      <StyledAppBar>
-        <HideOnMobile breakpoint="md">
-          <Box display="flex" alignItems="center">
-            <MainLogo id={'chainswap'} to={'/'}>
-              <Image src={ChainSwap} alt={'chainswap'} />
-            </MainLogo>
-            <LinksWrapper>
-              {Tabs.map(({ title, route, subTab, link, titleContent }, idx) =>
-                subTab ? (
-                  <PlainSelect placeholder="about" key={title + idx}>
-                    {subTab.map((sub, idx) =>
-                      sub.link ? (
-                        <MenuItem key={sub.link + idx}>
-                          <ExternalLink href={sub.link} className={'link'}>
-                            {sub.titleContent ?? sub.title}
-                          </ExternalLink>
-                        </MenuItem>
-                      ) : (
-                        <MenuItem key={sub.title + idx}>
-                          <NavLink to={sub.route ?? ''} className={'link'}>
-                            {sub.titleContent ?? sub.title}
-                          </NavLink>
-                        </MenuItem>
-                      )
-                    )}
-                  </PlainSelect>
-                ) : link ? (
-                  <ExternalLink href={link} className={'link'} key={link + idx}>
-                    {titleContent ?? title}
-                  </ExternalLink>
-                ) : (
-                  <NavLink key={title + idx} id={`${route}-nav-link`} to={route ?? ''} className={'link'}>
-                    {titleContent ?? title}
-                  </NavLink>
-                )
-              )}
-            </LinksWrapper>
-          </Box>
-        </HideOnMobile>
-        <Web3Status />
-      </StyledAppBar>
-    </>
-  )
-}
-
-function FAQButton() {
+  const { chainId } = useActiveWeb3React()
+  const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
-  return (
-    <Box display="flex" alignItems="center" justifyContent="center">
-      <span
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: '50%',
-          border: `1px solid ${theme.palette.success.main}`,
-          width: '18px',
-          height: '18px',
-          marginRight: '12px',
-          color: theme.palette.success.main
+  const drawer = useMemo(
+    () => (
+      <Box
+        sx={{
+          padding: '50px 40px'
         }}
       >
-        <Typography variant="body1">?</Typography>
-      </span>
-      FAQ
-    </Box>
+        <MainLogo id={'chainswap'} to={'/'}>
+          <Image src={ChainSwap} alt={'chainswap'} />
+        </MainLogo>
+        <List>
+          {Tabs.map(({ title, route, icon }, idx) => (
+            <ListItem key={title} sx={{ padding: '15px 0' }}>
+              <StyledNavLink
+                key={title + idx}
+                id={`${route}-nav-link`}
+                to={route ?? ''}
+                onClick={() => setMobileOpen(false)}
+                className="link"
+              >
+                <ListItemIcon sx={{ minWidth: '40px', color: 'currentColor' }}>{icon}</ListItemIcon>
+                <ListItemText
+                  primary={title}
+                  primaryTypographyProps={{
+                    sx: { fontSize: '16px' }
+                  }}
+                />
+              </StyledNavLink>
+            </ListItem>
+          ))}
+        </List>
+        <Web3Status />
+      </Box>
+    ),
+    []
+  )
+  return (
+    <>
+      <Drawer
+        container={container}
+        variant="temporary"
+        open={mobileOpen}
+        onClose={() => {
+          setMobileOpen(false)
+        }}
+        ModalProps={{
+          keepMounted: true
+        }}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: theme.width.sidebar }
+        }}
+      >
+        {drawer}
+      </Drawer>
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: 'none', sm: 'block' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: theme.width.sidebar
+          }
+        }}
+        open
+      >
+        {drawer}
+      </Drawer>
+      <StyledAppBar>
+        <IconButton onClick={() => setMobileOpen(true)}>
+          <Menu />
+        </IconButton>
+        {chainId && ChainList[chainId] && (
+          <Select
+            defaultValue={ChainList[chainId].symbol}
+            value={ChainList[chainId].symbol}
+            onChange={() => {}}
+            width="140px"
+          >
+            {ChainList.map(option => (
+              <MenuItem
+                value={option.symbol}
+                key={option.symbol}
+                selected={ChainList[chainId].symbol === option.symbol}
+              >
+                <LogoText logo={option.logo} text={option.symbol} gapSize={'small'} fontSize={14} />
+              </MenuItem>
+            ))}
+          </Select>
+        )}
+      </StyledAppBar>
+    </>
   )
 }

@@ -1,5 +1,7 @@
 export const routes = {
-  test1: '/test1',
-  test2: '/test2',
-  test3: '/test3'
+  dashboard: '/dashboard',
+  trading_rewards: '/trading_rewards',
+  stake: '/stake',
+  bond: '/bone',
+  bridge: '/bridge'
 }

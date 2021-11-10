@@ -60,9 +60,9 @@ export default function Select(props: Props) {
       {label && <StyledInputLabel>{label}</StyledInputLabel>}
       <StyledSelect
         sx={{
-          backgroundColor: primary ? theme.palette.primary.main : theme.palette.grey.A400,
+          backgroundColor: primary ? theme.palette.primary.main : theme.palette.background.paper,
           width: width || '100%',
-          height: height || '48px',
+          height: height || '44px',
           '&:before': {
             content: value || defaultValue ? "''" : `"${placeholder}"`,
             position: 'absolute',
@@ -73,7 +73,7 @@ export default function Select(props: Props) {
             fontWeight: 400
           },
           '&:hover': {
-            backgroundColor: disabled ? theme.palette.grey.A400 : theme.palette.primary.main
+            backgroundColor: disabled ? theme.palette.background.paper : theme.palette.primary.main
           },
           '& .MuiSelect-icon': {
             display: disabled ? 'none' : 'block'
@@ -85,21 +85,24 @@ export default function Select(props: Props) {
         MenuProps={{
           sx: {
             '& .MuiPaper-root': {
-              width: '100%',
+              width: width ?? '100%',
               borderRadius: '10px',
               mt: '12px',
+              transform: width ? 'translateX(-12px)!important' : 'none',
               border: '1px solid rgba(255, 255, 255, 0.2)',
               '& li': {
                 fontSize: 16,
                 fontWeight: 500,
-                color: '#FFFFFF',
                 borderBottom: '1px solid rgba(255,255,255,0.1)',
                 display: 'flex',
                 alignItems: 'center',
-                padding: '12px 0'
+                padding: '12px 0',
+                '&.Mui-selected': {
+                  backgroundColor: 'transparent'
+                }
               },
               '& li:hover': {
-                backgroundColor: 'rgba(255,255,255,0.05)'
+                backgroundColor: theme => theme.palette.secondary.light
               },
               '& li:last-child': {
                 borderBottom: 'none'
