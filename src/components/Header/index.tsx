@@ -11,7 +11,8 @@ import {
   IconButton,
   useTheme,
   MenuItem,
-  Box
+  Box,
+  Typography
 } from '@mui/material'
 import { Menu } from '@mui/icons-material'
 import { ChainList } from 'constants/chain'
@@ -26,6 +27,7 @@ import { ReactComponent as TradingRewardIcon } from 'assets/svg/trading_reward_i
 import { ReactComponent as StakeIcon } from 'assets/svg/stake_icon.svg'
 import { ReactComponent as BondIcon } from 'assets/svg/bond_icon.svg'
 import { ReactComponent as BridgeIcon } from 'assets/svg/bridge_icon.svg'
+import { ReactComponent as ClapIcon } from 'assets/svg/clap_icon.svg'
 import { routes } from 'constants/routes'
 import { useActiveWeb3React } from 'hooks'
 
@@ -56,8 +58,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  boxShadow: 'none',
-  padding: '0 60px 00 40px'
+  boxShadow: 'none'
 }))
 
 const MainLogo = styled(NavLink)({
@@ -129,6 +130,16 @@ export default function Header() {
     ),
     []
   )
+  const greeting = useMemo(
+    () => (
+      <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+        <Typography sx={{ fontSize: 16, fontWeight: 400, opacity: 0.4 }}>Welcome to Antimatter Dao</Typography>
+        <ClapIcon />
+      </Box>
+    ),
+    []
+  )
+
   return (
     <>
       <Drawer
@@ -165,24 +176,43 @@ export default function Header() {
         <IconButton onClick={() => setMobileOpen(true)}>
           <Menu />
         </IconButton>
-        {chainId && ChainList[chainId] && (
-          <Select
-            defaultValue={ChainList[chainId].symbol}
-            value={ChainList[chainId].symbol}
-            onChange={() => {}}
-            width="140px"
-          >
-            {ChainList.map(option => (
-              <MenuItem
-                value={option.symbol}
-                key={option.symbol}
-                selected={ChainList[chainId].symbol === option.symbol}
-              >
-                <LogoText logo={option.logo} text={option.symbol} gapSize={'small'} fontSize={14} />
-              </MenuItem>
-            ))}
-          </Select>
-        )}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: {
+              xs: '100%',
+              md: 'calc(100% - 250px)'
+            },
+            alignItems: 'center',
+            padding: '48px 48px 0 38px'
+          }}
+        >
+          <div>
+            {greeting}
+            <Typography variant="h2" sx={{ fontSize: 32, fontWeight: 700 }}>
+              Dashboard
+            </Typography>
+          </div>
+          {chainId && ChainList[chainId] && (
+            <Select
+              defaultValue={ChainList[chainId].symbol}
+              value={ChainList[chainId].symbol}
+              onChange={() => {}}
+              width="140px"
+            >
+              {ChainList.map(option => (
+                <MenuItem
+                  value={option.symbol}
+                  key={option.symbol}
+                  selected={ChainList[chainId].symbol === option.symbol}
+                >
+                  <LogoText logo={option.logo} text={option.symbol} gapSize={'small'} fontSize={14} />
+                </MenuItem>
+              ))}
+            </Select>
+          )}
+        </Box>
       </StyledAppBar>
     </>
   )
