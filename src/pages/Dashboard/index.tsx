@@ -83,9 +83,7 @@ export default function Dashboard() {
                     width="80px"
                     height="32px"
                     backgroundColor={priceTimeInterval === option ? theme.palette.primary.main : '#FFFFFF'}
-                    color={
-                      priceTimeInterval === option ? theme.palette.primary.contrastText : theme.palette.text.primary
-                    }
+                    color={priceTimeInterval === option ? theme.textColor.text1 : theme.palette.text.primary}
                     style={{
                       border: `1px solid ${priceTimeInterval === option ? 'transparent' : 'rgba(0,0,0,0.1)'}`
                     }}
@@ -117,9 +115,7 @@ export default function Dashboard() {
                 width="80px"
                 height="32px"
                 backgroundColor={mktValueTimeInterval === option ? theme.palette.primary.main : '#FFFFFF'}
-                color={
-                  mktValueTimeInterval === option ? theme.palette.primary.contrastText : theme.palette.text.primary
-                }
+                color={mktValueTimeInterval === option ? theme.textColor.text1 : theme.palette.text.primary}
                 style={{
                   border: `1px solid ${mktValueTimeInterval === option ? 'transparent' : 'rgba(0,0,0,0.1)'}`
                 }}
