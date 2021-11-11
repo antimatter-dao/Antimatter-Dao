@@ -64,7 +64,7 @@ export const theme = {
       light: '#A3DAAC;',
       main: '#31B047',
       dark: darken('#31B047', 0.5),
-      contrastText: '#252525'
+      contrastText: '#FFFFFF'
     },
     secondary: {
       light: '#D4F3D8',

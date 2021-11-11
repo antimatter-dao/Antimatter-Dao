@@ -4,7 +4,7 @@ import { ButtonBase, useTheme } from '@mui/material'
 interface Props {
   onClick?: (() => void) | null
   primary?: boolean
-  children: React.ReactNode
+  children?: React.ReactNode
   width?: string | number
   height?: string | number
   fontSize?: string | number
@@ -24,15 +24,14 @@ export default function OutlineButton(props: Props) {
       disabled={disabled}
       sx={{
         width: width || '100%',
-        border: theme =>
-          `1px solid ${color ? color : primary ? theme.palette.primary.main : theme.palette.text.secondary}`,
+        border: theme => `1px solid ${color ? color : primary ? theme.palette.primary.main : 'rgba(0, 0, 0, 0.1)'}`,
         fontSize: fontSize,
         fontWeight: primary ? '500' : '400',
         height: height || 60,
-        color: primary ? theme.palette.primary.main : theme.palette.primary.contrastText,
-        borderRadius: borderRadius ?? 1,
+        color: primary ? theme.palette.primary.main : theme.textColor.text5,
+        borderRadius: borderRadius ?? `${theme.shape.borderRadius}px`,
         '&:hover': {
-          color: primary ? theme.palette.primary.dark : theme.palette.primary.contrastText,
+          color: primary ? theme.palette.primary.dark : theme.textColor.text5,
           borderColor: primary ? theme.palette.primary.dark : theme.palette.primary.main
         },
         '&:disabled': {
