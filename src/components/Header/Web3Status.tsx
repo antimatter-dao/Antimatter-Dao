@@ -82,7 +82,6 @@ const UserButtonWrap = styled('div')({
 // })
 
 const ActionButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.error.main,
   fontSize: '14px',
   [theme.breakpoints.down('sm')]: {
     maxWidth: 320,
@@ -217,14 +216,14 @@ function Web3StatusInner() {
     )
   } else if (error) {
     return (
-      <ActionButton width="140px" height="36px" onClick={toggleWalletModal}>
+      <ActionButton backgroundColor={theme.palette.grey.A400} width="140px" height="36px" onClick={toggleWalletModal}>
         {/* <Activity size={16} style={{ marginRight: 10 }} /> */}
         {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
       </ActionButton>
     )
   } else {
     return (
-      <ActionButton width="140px" height="36px" onClick={toggleWalletModal}>
+      <ActionButton backgroundColor={theme.palette.grey.A400} width="140px" height="36px" onClick={toggleWalletModal}>
         Connect Wallet
       </ActionButton>
     )
