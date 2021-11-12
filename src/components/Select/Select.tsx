@@ -76,7 +76,8 @@ export default function Select(props: Props) {
             backgroundColor: disabled ? theme.palette.background.paper : theme.palette.primary.main
           },
           '& .MuiSelect-icon': {
-            display: disabled ? 'none' : 'block'
+            display: disabled ? 'none' : 'block',
+            color: theme.palette.text.secondary
           }
         }}
         value={value}
@@ -89,7 +90,6 @@ export default function Select(props: Props) {
               borderRadius: '10px',
               mt: '12px',
               transform: width ? 'translateX(-12px)!important' : 'none',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
               '& li': {
                 fontSize: 16,
                 fontWeight: 500,
@@ -102,7 +102,7 @@ export default function Select(props: Props) {
                 }
               },
               '& li:hover': {
-                backgroundColor: theme => theme.palette.secondary.light
+                backgroundColor: theme => theme.palette.primary.light
               },
               '& li:last-child': {
                 borderBottom: 'none'

@@ -1,5 +1,4 @@
 import { createTheme, styled, ThemeProvider as MuiThemeProvider, StyledEngineProvider } from '@mui/material/styles'
-import { darken } from '@mui/system'
 
 interface Gradient {
   gradient1: string
@@ -61,16 +60,16 @@ declare module '@mui/material/styles/createTheme' {
 export const theme = {
   palette: {
     primary: {
-      light: '#A3DAAC;',
+      light: '#ADDFB5',
       main: '#31B047',
-      dark: darken('#31B047', 0.5),
-      contrastText: '#252525'
+      dark: '#129026',
+      contrastText: '#ffffff'
     },
     secondary: {
-      light: '#D4F3D8',
-      main: '#11BF2D',
-      dark: darken('#11BF2D', 0.5),
-      contrastText: '#252525'
+      light: '#31B047',
+      main: '#D4F3D8',
+      dark: '#129026',
+      contrastText: '#ffffff'
     },
     error: {
       main: '#FF0000',
@@ -91,8 +90,8 @@ export const theme = {
     },
     text: {
       primary: '#252525',
-      secondary: '#292929',
-      disabled: '#999999'
+      secondary: 'rgba(0, 0, 0, 0.6)',
+      disabled: '#F2F5FA'
     },
     action: {
       disabledOpacity: 0.8
@@ -105,12 +104,12 @@ export const theme = {
     }
   },
   textColor: {
-    text1: '#FFFFFF',
-    text2: '#CCCCCC',
-    text3: '#999999',
-    text4: '#727272',
-    text5: '#333333',
-    primary: '#9867FF'
+    text1: '#252525',
+    text2: '#333333',
+    text3: '#727272',
+    text4: '#999999',
+    text5: '#CCCCCC',
+    primary: '#31B047'
   },
   bgColor: {
     bg1: '#000000',
@@ -123,7 +122,7 @@ export const theme = {
     gradient1: '#ffffff linear-gradient(154.62deg, #77C803 9.44%, #28A03E 59.25%);'
   },
   height: {
-    header: '88px',
+    header: '110px',
     mobileHeader: '77px',
     footer: '60px'
   },
@@ -146,14 +145,22 @@ export const override: any = {
     styleOverrides: {
       body: { backgroundColor: theme.palette.background.default, fontSize: 16 },
       'html, input, textarea, button': {
-        fontFamily: 'Roboto, sans-serif',
+        fontFamily: 'SF Pro, sans-serif',
         fontDisplay: 'fallback'
       },
       '@supports (font-variation-settings: normal)': {
         'html, input, textarea, button ': {
-          fontFamily: 'Roboto, sans-serif',
+          fontFamily: 'SF Pro, sans-serif',
           fontDisplay: 'fallback'
         }
+      }
+    }
+  },
+  MuiButtonBase: {
+    styleOverrides: {
+      root: {
+        fontSize: 16,
+        fontWeight: 500
       }
     }
   },
@@ -240,7 +247,7 @@ export const override: any = {
   MuiTypography: {
     styleOverrides: {
       root: {
-        fontFamily: 'Roboto'
+        fontFamily: 'SF Pro'
       },
       body1: {
         fontSize: 14
@@ -249,12 +256,12 @@ export const override: any = {
         fontSize: 12
       },
       h5: {
-        fontFamily: 'Futura PT',
-        fontSize: 28
+        fontSize: 28,
+        fontWeight: 500
       },
       h6: {
-        fontFamily: 'Futura PT',
-        fontSize: 22
+        fontSize: 22,
+        fontWeight: 500
       },
       caption: {
         fontSize: 12,

@@ -20,18 +20,18 @@ export default function TextButton(props: Props) {
   return (
     <ButtonBase
       onClick={onClick}
-      style={style}
       disabled={disabled}
       sx={{
         textDecoration: underline ? 'underline' : 'none',
-        color: primary ? theme.palette.primary.main : theme.palette.primary.contrastText,
+        color: primary ? theme.palette.primary.main : theme.palette.text.primary,
         fontSize: fontSize || 16,
         fontWeight: fontWeight || 500,
         opacity: opacity || 1,
         '&:hover': {
           opacity: 1,
-          color: primary ? theme.palette.primary.dark : theme.palette.primary.main
-        }
+          color: primary ? theme.palette.primary.light : theme.palette.primary.main
+        },
+        ...style
       }}
     >
       {props.children}

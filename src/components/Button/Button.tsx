@@ -23,7 +23,6 @@ export default function Button(props: Props) {
       onClick={onClick}
       disabled={disabled}
       sx={{
-        ...style,
         width: width || '100%',
         height: height || 60,
         fontSize: fontSize || 16,
@@ -33,16 +32,34 @@ export default function Button(props: Props) {
         backgroundColor: backgroundColor || theme.palette.primary.main,
         color: color || theme.textColor.text1,
         '&:hover': {
-          background: theme.palette.primary.dark
+          backgroundColor: theme.palette.primary.dark
         },
         '&:disabled': {
-          opacity: 0.24,
-          backgroundColor: theme.palette.primary.dark,
-          color: '#464647'
-        }
+          backgroundColor: theme.palette.primary.light
+        },
+        ...style
       }}
     >
       {props.children}
     </ButtonBase>
+  )
+}
+
+export function BlackButton({ style, ...props }: Props) {
+  const theme = useTheme()
+  return (
+    <Button
+      {...props}
+      style={{
+        backgroundColor: theme.palette.text.primary,
+        '&:hover': {
+          background: '#515151'
+        },
+        '&:disabled': {
+          backgroundColor: '#B9B9B9'
+        },
+        ...style
+      }}
+    />
   )
 }

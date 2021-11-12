@@ -18,7 +18,7 @@ import Spinner from 'components/Spinner'
 // import usePrevious from '../../hooks/usePrevious'
 // import Divider from 'components/Divider'
 import TextButton from 'components/Button/TextButton'
-import Button from 'components/Button/Button'
+import { BlackButton } from 'components/Button/Button'
 // import { ReactComponent as UcenterIcon } from 'assets/svg/ucenter.svg'
 // import { useHistory } from 'react-router'
 // import { UserInfoTabRoute, UserInfoTabs } from 'pages/Account'
@@ -81,7 +81,8 @@ const UserButtonWrap = styled('div')({
 //   }
 // })
 
-const ActionButton = styled(Button)(({ theme }) => ({
+const ActionButton = styled(BlackButton)(({ theme }) => ({
+  backgroundColor: theme.palette.error.main,
   fontSize: '14px',
   [theme.breakpoints.down('sm')]: {
     maxWidth: 320,
@@ -216,14 +217,14 @@ function Web3StatusInner() {
     )
   } else if (error) {
     return (
-      <ActionButton backgroundColor={theme.palette.grey.A400} width="140px" height="36px" onClick={toggleWalletModal}>
+      <ActionButton width="140px" height="36px" onClick={toggleWalletModal}>
         {/* <Activity size={16} style={{ marginRight: 10 }} /> */}
         {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
       </ActionButton>
     )
   } else {
     return (
-      <ActionButton backgroundColor={theme.palette.grey.A400} width="140px" height="36px" onClick={toggleWalletModal}>
+      <ActionButton width="140px" height="36px" onClick={toggleWalletModal}>
         Connect Wallet
       </ActionButton>
     )

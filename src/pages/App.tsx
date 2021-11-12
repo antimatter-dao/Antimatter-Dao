@@ -10,6 +10,7 @@ import ComingSoon from './ComingSoon'
 import Dashboard from './Dashboard'
 import { ModalProvider } from 'context/ModalContext'
 import { routes } from 'constants/routes'
+import Stake from './Stake'
 
 const AppWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -33,7 +34,7 @@ const BodyWrapper = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   width: '100%',
   minHeight: `calc(100vh - ${theme.height.header})`,
-  padding: `50px 0 80px ${theme.width.sidebar}`,
+  padding: `50px 32px 80px calc(${theme.width.sidebar} + 32px)`,
   justifyContent: 'center',
   alignItems: 'center',
   flex: 1,
@@ -60,7 +61,7 @@ export default function App() {
                 <Switch>
                   <Route exact strict path={routes.dashboard} component={Dashboard} />
                   <Route exact strict path={routes.trading_rewards} component={ComingSoon} />
-                  <Route exact strict path={routes.stake} component={ComingSoon} />
+                  <Route exact strict path={routes.stake} component={Stake} />
                   <Route exact strict path={routes.bond} component={ComingSoon} />
                   <Route exact strict path={routes.bridge} component={ComingSoon} />
                   <Route path="/">
