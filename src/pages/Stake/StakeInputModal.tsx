@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
-import { tryParseAmount } from 'utils/parseAmount'
+import { parsedGreaterThan, tryParseAmount } from 'utils/parseAmount'
 import Modal from 'components/Modal'
 import InputNumerical from 'components/Input/InputNumerical'
 import OutlineButton from 'components/Button/OutlineButton'
@@ -11,6 +11,7 @@ import useModal from 'hooks/useModal'
 import TransactionSubmittedModal from 'components/Modal/TransactionModals/TransactiontionSubmittedModal'
 import TransacitonPendingModal from 'components/Modal/TransactionModals/TransactionPendingModal'
 import { useTransaction } from 'state/transactions/hooks'
+import { CurrencyAmount } from 'constants/token'
 
 export enum StakeType {
   DEPOSIT,
@@ -26,7 +27,7 @@ export default function StakeInputModal({
 }: {
   type: StakeType
   isOpen: boolean
-  balance: string
+  balance: CurrencyAmount | undefined
   onDismiss: () => void
   onAction: (val: string | undefined, setHash: (hash: string) => void) => () => void
 }) {
@@ -35,6 +36,7 @@ export default function StakeInputModal({
   const { showModal, hideModal } = useModal()
   const [pending, setPending] = useState(false)
   const [hash, setHash] = useState('')
+  const balanceStr = balance !== undefined ? balance.toFixed(4) : '0'
 
   const txn = useTransaction(hash)
 
@@ -65,21 +67,28 @@ export default function StakeInputModal({
 
   return (
     <Modal closeIcon customIsOpen={isOpen} customOnDismiss={onDismiss}>
-      <Box padding="24px 32px" display="grid" gap="32px">
+      <Box padding="22px 32px" display="grid" gap="32px">
         <Typography fontSize={20} sx={{ color: theme => theme.palette.text.secondary }}>
           {type === StakeType.DEPOSIT ? 'Deposit MATTER Tokens' : 'Withdraw MATTER Tokens'}
         </Typography>
-        <InputNumerical
-          label="Amount"
-          onMax={() => {
-            setValue(balance)
-          }}
-          balance={balance}
-          value={value}
-          onChange={e => {
-            setValue(e.target.value)
-          }}
-        />
+        <Box>
+          <InputNumerical
+            label="Amount"
+            onMax={() => {
+              setValue(balanceStr)
+            }}
+            balance={balanceStr}
+            value={value}
+            onChange={e => {
+              setValue(e.target.value)
+            }}
+          />
+          {parsedGreaterThan(value, balance?.raw.toString() ?? '0') && (
+            <Typography fontSize={14} color="primary" sx={{ height: 21 }}>
+              Insufficient balance
+            </Typography>
+          )}
+        </Box>
         <Box display="flex" gap="16px">
           <OutlineButton onClick={onDismiss} primary>
             Cancel

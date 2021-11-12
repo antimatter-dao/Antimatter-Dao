@@ -1,5 +1,5 @@
 import { parseUnits } from '@ethersproject/units'
-import { CurrencyAmount, Token, TokenAmount, Currency } from 'constants/token'
+import { CurrencyAmount, Token, TokenAmount, Currency, ETHER } from 'constants/token'
 import JSBI from 'jsbi'
 
 export function tryParseAmount(value?: string, currency?: Currency): CurrencyAmount | undefined {
@@ -36,4 +36,13 @@ export const parseBalance = (val: string | undefined, token: Token, toSignifican
   } else {
     return amount
   }
+}
+
+export const parsedGreaterThan = (userInput: string, balance: string) => {
+  if (userInput && balance) {
+    const v1 = tryParseAmount(userInput, ETHER)?.raw
+    const v2 = JSBI.BigInt(balance.toString())
+    return v1 && v2 ? JSBI.greaterThan(v1, v2) : undefined
+  }
+  return
 }

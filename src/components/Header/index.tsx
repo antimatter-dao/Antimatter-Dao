@@ -60,9 +60,13 @@ export const Tabs: { tag: string; tabs: Tab[] }[] = [
   {
     tag: 'community',
     tabs: [
-      { title: 'Governance', link: routes.dashboard, icon: <GovernanceIcon className="filledSvg" /> },
-      { title: 'Docs', link: routes.trading_rewards, icon: <DocsIcon /> },
-      { title: 'Forum', link: routes.stake, icon: <ForumIcon /> }
+      {
+        title: 'Governance',
+        link: 'https://governance.antimatter.finance/',
+        icon: <GovernanceIcon className="filledSvg" />
+      },
+      { title: 'Docs', link: 'https://docs.antimatter.finance/ ', icon: <DocsIcon /> },
+      { title: 'Forum', link: 'https://forum.antimatter.finance/', icon: <ForumIcon /> }
     ]
   }
 ]
@@ -83,6 +87,8 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 }))
 
 const MainLogo = styled(NavLink)({
+  display: 'flex',
+  alignItems: 'center',
   '&:hover': {
     cursor: 'pointer'
   }
@@ -142,17 +148,20 @@ export default function Header() {
     () => (
       <Box
         sx={{
-          padding: '50px 40px'
+          padding: '50px 40px',
+          minHeight: '100%'
         }}
+        gridTemplateRows="auto auto auto 1fr"
         display="grid"
+        justifyContent="space-between"
         gap="52px"
       >
-        <Box display="flex" gap="10px" alignItems="center">
+        <Box display="flex" gap="10px" alignItems="center" sx={{ height: 28, marginLeft: '-10px' }}>
           <MainLogo id={'chainswap'} to={'/'}>
             <Image src={ChainSwap} alt={'chainswap'} />
           </MainLogo>
-          <Divider orientation="vertical" color="#00000001" />
-          <Typography>Dao</Typography>
+          <Divider orientation="vertical" color="#00000030" sx={{ width: '2px', height: 22 }} />
+          <Typography fontSize="16px">Dao</Typography>
         </Box>
 
         {Tabs.map(({ tag, tabs }) => (
@@ -171,7 +180,7 @@ export default function Header() {
               <ListItem key={title} sx={{ padding: '10px 0' }}>
                 {link ? (
                   <StyledExternalLink href={link}>
-                    <ListItemIcon sx={{ color: 'currentColor' }}>{icon}</ListItemIcon>
+                    <ListItemIcon sx={{ color: 'currentColor', minWidth: 40 }}>{icon}</ListItemIcon>
                     <ListItemText
                       primary={title}
                       primaryTypographyProps={{
@@ -187,7 +196,7 @@ export default function Header() {
                     onClick={() => setMobileOpen(false)}
                     className="link"
                   >
-                    <ListItemIcon sx={{ color: 'currentColor' }}>{icon}</ListItemIcon>
+                    <ListItemIcon sx={{ color: 'currentColor', minWidth: 40 }}>{icon}</ListItemIcon>
                     <ListItemText
                       primary={title}
                       primaryTypographyProps={{
@@ -201,7 +210,9 @@ export default function Header() {
           </List>
         ))}
 
-        <Web3Status />
+        <Box sx={{ mt: 'auto', alignSelf: 'flex-end', height: '100%', display: 'flex', alignItems: 'flex-end' }}>
+          <Web3Status />
+        </Box>
       </Box>
     ),
     []

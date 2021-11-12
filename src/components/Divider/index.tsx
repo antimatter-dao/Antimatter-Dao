@@ -18,7 +18,8 @@ export default function Divider({ extension, orientation, color, ...props }: Pro
         border: 'none',
         height: orientation === 'vertical' ? '100%' : '1px',
         backgroundColor: color ? color : orientation === 'vertical' ? theme.textColor.text1 : theme.bgColor.bg4,
-        margin: extension ? `0 -${extension}px` : '0'
+        margin: extension ? `0 -${extension}px` : '0',
+        ...props?.sx
       }}
     />
   )

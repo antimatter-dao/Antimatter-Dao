@@ -28,9 +28,7 @@ export default function Stake() {
   const { stakeCallback, unstakeCallback, compoundCallback } = useStakeCallback()
   const addTransaction = useTransactionAdder()
   const { apy, earned, stakedBalance, totalDeposited } = useStakingInfo()
-  const matterBalance_ = useCurrencyBalance(account ?? undefined, Matter)
-
-  const matterBalance = matterBalance_ ? matterBalance_.toFixed(4) : '0'
+  const matterBalance = useCurrencyBalance(account ?? undefined, Matter)
 
   const onDismiss = useCallback(() => {
     setDepositModalOpen(false)
@@ -117,10 +115,10 @@ export default function Stake() {
                   </Typography>
                 </Box>
               </Box>
-              <Box display="grid">
+              {/* <Box display="grid">
                 <Typography>04 h : 55 m : 02 s to next rebase</Typography>
                 <Typography sx={{ color: theme => theme.palette.primary.main }}>Get MATTER at a discount</Typography>
-              </Box>
+              </Box> */}
             </Box>
             <Box display="flex" gap="20px">
               <Card gray style={{ width: '100%' }}>
@@ -153,14 +151,16 @@ export default function Stake() {
                 <Typography variant="inherit" color={theme.palette.text.secondary}>
                   MATTER Earned
                 </Typography>
-                <SmallButton
-                  variant="outlined"
-                  onClick={() => {
-                    setCompoundModalOpen(true)
-                  }}
-                >
-                  Compound
-                </SmallButton>
+                {earned && earned !== '0' && (
+                  <SmallButton
+                    variant="outlined"
+                    onClick={() => {
+                      setCompoundModalOpen(true)
+                    }}
+                  >
+                    Compound
+                  </SmallButton>
+                )}
               </Box>
               <Box display="flex" justifyContent="space-between" width="100%">
                 <Typography fontWeight={700} fontSize={24}>
@@ -198,7 +198,7 @@ export default function Stake() {
                           setDepositModalOpen(true)
                         }}
                       >
-                        +Stake
+                        + Stake
                       </SmallButton>
                     )}
                   </>
@@ -214,7 +214,7 @@ export default function Stake() {
                 My Balance
               </Typography>
               <Typography fontWeight={700} fontSize={24}>
-                {matterBalance}Matter
+                {matterBalance !== undefined ? matterBalance.toFixed(4) : '-'}Matter
               </Typography>
             </Box>
           </Card>
