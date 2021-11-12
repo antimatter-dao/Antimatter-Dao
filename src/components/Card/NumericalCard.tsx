@@ -9,7 +9,6 @@ interface Props {
   value?: string
   subValue?: string
   unit?: string
-  changeRate?: string
   fontSize?: string
   gray?: boolean
   rate?: string

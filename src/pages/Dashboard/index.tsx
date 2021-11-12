@@ -76,7 +76,7 @@ export default function Dashboard() {
       <Box sx={{ width: '100%', mt: 48 }}>
         <Grid container spacing={20}>
           <Grid item xs={9}>
-            <ChartCard title="MATTER PRICE" value="-" unit="$">
+            <ChartCard title="MATTER PRICE" value="-" unit="$" rate="0">
               {/* Chart */}
               <Box sx={{ display: 'flex', gap: '12px' }}>
                 {[

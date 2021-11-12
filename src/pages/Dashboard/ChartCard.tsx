@@ -7,12 +7,12 @@ interface Props {
   width?: string | number
   value?: string | number
   unit?: string
-  changeRate?: string
+  rate?: string
   children?: React.ReactNode
 }
 
 export default function ChartCard(props: Props) {
-  const { title, width, children, value, unit } = props
+  const { title, width, children, value, unit, rate } = props
   const theme = useTheme()
 
   return (
@@ -34,6 +34,28 @@ export default function ChartCard(props: Props) {
           <Box sx={{ display: 'flex', alignItems: 'end', mt: 12 }}>
             <Typography sx={{ fontSize: 44, fontWeight: 700 }}>{value}</Typography>
             {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4 }}>{unit}</Typography>}
+            {rate && (
+              <Box
+                sx={{
+                  ml: 15,
+                  backgroundColor: 'rgba(17, 191, 45, 0.16)',
+                  width: '56px',
+                  height: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '12px'
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: '#11BF2D'
+                  }}
+                >
+                  +{rate}%
+                </Typography>
+              </Box>
+            )}
           </Box>
         </Box>
         <Box>{children}</Box>
