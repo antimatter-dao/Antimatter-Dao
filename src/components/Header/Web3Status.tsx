@@ -54,17 +54,13 @@ function Web3StatusInner() {
           SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK'))
       )
       .map(k => SUPPORTED_WALLETS[k].name)[0]
-    return (
-      <Typography fontSize="0.825rem" fontWeight={500}>
-        Connected with {name}
-      </Typography>
-    )
+    return <Typography sx={{ fontSize: 12, opacity: 0.6 }}>Connected with {name}</Typography>
   }
 
   if (account) {
     return (
       <Box sx={{ cursor: 'pointer' }} onClick={toggleWalletModal}>
-        <Typography sx={{ fontSize: 12, opacity: 0.6 }}>{formatConnectorName()}</Typography>
+        {formatConnectorName()}
         <Box
           sx={{
             width: 160,
