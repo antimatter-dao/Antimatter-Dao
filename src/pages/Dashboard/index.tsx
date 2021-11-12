@@ -107,7 +107,7 @@ export default function Dashboard() {
                 height="32px"
                 backgroundColor={mktValueTimeInterval === option ? theme.palette.primary.main : '#FFFFFF'}
                 fontSize="12px"
-                active={priceTimeInterval === option}
+                active={mktValueTimeInterval === option}
               >
                 {option}
               </DefaultButton>

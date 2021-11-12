@@ -17,15 +17,26 @@ export default function NumericalCard(props: Props) {
 
   return (
     <Card primary={primary}>
-      <Box padding="20px 24px" gap="28px" height="132px">
+      <Box
+        sx={{
+          padding: '20px 24px 28px',
+          gap: '28px',
+          height: '132px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'
+        }}
+      >
         <Typography variant="inherit" color={theme.palette.text.secondary}>
           {title}
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'end', mt: 30 }}>
-          <Typography sx={{ fontSize: 24, fontWeight: 700 }}>{value}</Typography>
-          {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4 }}>{unit}</Typography>}
+        <Box>
+          <Box sx={{ display: 'flex', alignItems: 'end' }}>
+            <Typography sx={{ fontSize: 24, fontWeight: 700 }}>{value}</Typography>
+            {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4 }}>{unit}</Typography>}
+          </Box>
+          {subValue && <Typography sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }}>{subValue}</Typography>}
         </Box>
-        {subValue && <Typography sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }}>{subValue}</Typography>}
       </Box>
     </Card>
   )
