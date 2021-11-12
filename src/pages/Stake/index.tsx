@@ -16,7 +16,7 @@ import { Matter } from 'constants/index'
 import { useCurrencyBalance } from 'state/wallet/hooks'
 
 export default function Stake() {
-  const [depositModalOpen, setDepositModalOpen] = useState(true)
+  const [depositModalOpen, setDepositModalOpen] = useState(false)
   const [withdrawModalOpen, setWithdrawModalOpen] = useState(false)
 
   const theme = useTheme()
