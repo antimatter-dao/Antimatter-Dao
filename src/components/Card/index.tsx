@@ -8,7 +8,8 @@ export default function Card({
   padding,
   width,
   style,
-  gray
+  gray,
+  primary
 }: {
   children: JSX.Element
   color?: string
@@ -16,11 +17,13 @@ export default function Card({
   width?: string | number
   style?: React.CSSProperties & SxProps<Theme>
   gray?: boolean
+  primary?: boolean
 }) {
   return (
     <Paper
       sx={{
-        background: theme => (gray ? theme.palette.background.default : color ?? '#ffffff'),
+        background: theme =>
+          primary ? theme.gradient.gradient1 : gray ? theme.palette.background.default : color ?? '#ffffff',
         border: '1px solid transparent,',
         boxShadow: 'none',
         padding,

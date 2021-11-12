@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 import NumericalCard from 'components/Card/NumericalCard'
 import ChartCard from 'components/Card/ChartCard'
-import Card from 'components/Card/Card'
 import Button from 'components/Button/Button'
 import { Box, Grid, useTheme } from '@mui/material'
 
@@ -32,35 +31,29 @@ export default function Dashboard() {
           <Grid item xs={9}>
             <Grid container spacing={6}>
               <Grid item xs={4}>
-                <NumericalCard title="Total Locked Value" value="12345.00" unit="$" height={132} />
+                <NumericalCard title="Total Locked Value" value="-" unit="$" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard title="Total Trading Volume" value="12345.00" unit="$" height={132} />
+                <NumericalCard title="Total Trading Volume" value="-" unit="$" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard title="MATTER Market Cap" value="125,345,868" unit="UST" height={132} />
+                <NumericalCard title="MATTER Market Cap" value="-" unit="UST" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard title="CirculatingSupply" value="125,345,869" unit="MATTER" height={132} />
+                <NumericalCard title="CirculatingSupply" value="-" unit="MATTER" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard title="Total Locked Value" value="56" unit="%" height={132} />
+                <NumericalCard title="Total Locked Value" value="-" unit="%" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard
-                  title="Total Locked Value"
-                  value="10,800.00"
-                  subValue="~12345.00$"
-                  unit="MATTER"
-                  height={132}
-                />
+                <NumericalCard title="Total Locked Value" value="-" unit="MATTER" />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={3}>
             <Box sx={{ display: 'flex', gap: '6px', flexDirection: 'column' }}>
-              <NumericalCard title="Cumulative Transaction Fees" value="12345.00" unit="USDT" primary height={132} />
-              <NumericalCard title="Current APY" value="1000%" primary height={132} />
+              <NumericalCard title="Cumulative Transaction Fees" value="-" unit="USDT" primary />
+              <NumericalCard title="Current APY" value="-" unit="%" primary />
             </Box>
           </Grid>
         </Grid>
@@ -68,7 +61,7 @@ export default function Dashboard() {
       <Box sx={{ width: '100%', mt: 48 }}>
         <Grid container spacing={20}>
           <Grid item xs={9}>
-            <ChartCard title="MATTER PRICE" value="2.817" unit="$" height="430px">
+            <ChartCard title="MATTER PRICE" value="-" unit="$">
               {/* Chart */}
               <Box sx={{ display: 'flex', gap: '12px' }}>
                 {[
@@ -83,7 +76,10 @@ export default function Dashboard() {
                     width="80px"
                     height="32px"
                     backgroundColor={priceTimeInterval === option ? theme.palette.primary.main : '#FFFFFF'}
-                    color={priceTimeInterval === option ? theme.textColor.text1 : theme.palette.text.primary}
+                    fontSize="12px"
+                    color={
+                      priceTimeInterval === option ? theme.palette.primary.contrastText : theme.palette.text.primary
+                    }
                     style={{
                       border: `1px solid ${priceTimeInterval === option ? 'transparent' : 'rgba(0,0,0,0.1)'}`
                     }}
@@ -94,13 +90,11 @@ export default function Dashboard() {
               </Box>
             </ChartCard>
           </Grid>
-          <Grid item xs={3}>
-            <Card title="MATTER PRICE" />
-          </Grid>
+          <Grid item xs={3}></Grid>
         </Grid>
       </Box>
       <Box sx={{ width: '100%', mt: 48 }}>
-        <ChartCard title="Market Value of Treasury Assets" value="2,498,436.00" unit="$" height="430px">
+        <ChartCard title="Market Value of Treasury Assets" value="-" unit="$">
           {/* Chart */}
           <Box sx={{ display: 'flex', gap: '12px' }}>
             {[
@@ -115,6 +109,7 @@ export default function Dashboard() {
                 width="80px"
                 height="32px"
                 backgroundColor={mktValueTimeInterval === option ? theme.palette.primary.main : '#FFFFFF'}
+                fontSize="12px"
                 color={mktValueTimeInterval === option ? theme.textColor.text1 : theme.palette.text.primary}
                 style={{
                   border: `1px solid ${mktValueTimeInterval === option ? 'transparent' : 'rgba(0,0,0,0.1)'}`

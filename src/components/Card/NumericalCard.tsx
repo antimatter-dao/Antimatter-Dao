@@ -1,11 +1,10 @@
-import { Box, Typography } from '@mui/material'
-import Card from './Card'
+import { Box, Typography, useTheme } from '@mui/material'
+import Card from './index'
 
 interface Props {
   title: string
   primary?: boolean
   width?: string | number
-  height?: string | number
   value?: string
   subValue?: string
   unit?: string
@@ -13,15 +12,21 @@ interface Props {
 }
 
 export default function NumericalCard(props: Props) {
-  const { title, primary, width, height, value, subValue, unit } = props
+  const { title, primary, value, subValue, unit } = props
+  const theme = useTheme()
 
   return (
-    <Card title={title} width={width} height={height} primary={primary}>
-      <Box sx={{ display: 'flex', alignItems: 'end', mt: 30 }}>
-        <Typography sx={{ fontSize: 24, fontWeight: 700 }}>{value}</Typography>
-        {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4 }}>{unit}</Typography>}
+    <Card primary={primary}>
+      <Box padding="20px 24px" gap="28px" height="132px">
+        <Typography variant="inherit" color={theme.palette.text.secondary}>
+          {title}
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'end', mt: 30 }}>
+          <Typography sx={{ fontSize: 24, fontWeight: 700 }}>{value}</Typography>
+          {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4 }}>{unit}</Typography>}
+        </Box>
+        {subValue && <Typography sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }}>{subValue}</Typography>}
       </Box>
-      {subValue && <Typography sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }}>{subValue}</Typography>}
     </Card>
   )
 }
