@@ -8,6 +8,7 @@ import { Chain } from 'models/chain'
 import SwitchButton from 'components/Select/ChainSwap/SwitcherButton'
 import InputNumericalSimple from 'components/Input/InputNumericalSimple'
 import { useWalletModalToggle } from 'state/application/hooks'
+import { useActiveWeb3React } from 'hooks'
 
 const Label = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
@@ -29,7 +30,8 @@ interface Props {
 
 export default function BridgeCard(props: Props) {
   const theme = useTheme()
-  const { fromChain, toChain, quota, approx, available, value, onMax, onChange } = props
+  const { fromChain, toChain, quota, approx, available, value, onMax, onChange, onApprove } = props
+  const { account } = useActiveWeb3React()
 
   const toggleWalletModal = useWalletModalToggle()
 
@@ -116,9 +118,15 @@ export default function BridgeCard(props: Props) {
         <Box mb="28px">
           <InputNumericalSimple placeholder="Enter Amount" value={value || ''} onMax={onMax} onChange={onChange} />
         </Box>
-        <Button height="44px" onClick={toggleWalletModal}>
-          Connect Wallet
-        </Button>
+        {account ? (
+          <Button height="44px" onClick={onApprove}>
+            Approve
+          </Button>
+        ) : (
+          <Button height="44px" onClick={toggleWalletModal}>
+            Connect Wallet
+          </Button>
+        )}
       </Box>
     </Card>
   )
