@@ -4,6 +4,11 @@ import ChartCard from './ChartCard'
 import BridgeCard from './BridgeCard'
 import { DefaultButton } from 'components/Button/Button'
 import { Box, Grid, useTheme } from '@mui/material'
+import { ChainList } from 'constants/chain'
+
+const data = {
+  available: '0.0'
+}
 
 enum TIME_INTERVAL {
   TEN_DAYS = '10 Days',
@@ -16,6 +21,7 @@ export default function Dashboard() {
   const theme = useTheme()
   const [priceTimeInterval, setPriceTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
   const [mktValueTimeInterval, setMktValueTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
+  const [amount, setAmount] = useState('')
 
   const onPriceTimeInterval = useCallback(option => {
     setPriceTimeInterval(option)
@@ -23,6 +29,14 @@ export default function Dashboard() {
 
   const onMktValueTimeInterval = useCallback(option => {
     setMktValueTimeInterval(option)
+  }, [])
+
+  const onMax = useCallback(() => {
+    setAmount(data.available || '')
+  }, [])
+
+  const onChange = useCallback((e: any) => {
+    setAmount(e.target.value)
   }, [])
 
   return (
@@ -86,7 +100,13 @@ export default function Dashboard() {
             </ChartCard>
           </Grid>
           <Grid item xs={3}>
-            <BridgeCard />
+            <BridgeCard
+              fromChain={ChainList[0]}
+              toChain={ChainList[1]}
+              onMax={onMax}
+              onChange={onChange}
+              value={amount}
+            />
           </Grid>
         </Grid>
       </Box>

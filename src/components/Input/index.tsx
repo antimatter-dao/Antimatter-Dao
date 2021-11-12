@@ -14,6 +14,7 @@ export interface InputProps {
   type?: string
   endAdornment?: React.ReactNode
   maxWidth?: string | number
+  height?: string | number
 }
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -23,7 +24,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     fontFamily: 'SF Pro',
     fontWeight: 400,
     backgroundColor: theme.palette.background.default,
-    height: 60,
     paddingLeft: 20,
     borderRadius: 14
   },
@@ -54,6 +54,7 @@ export default function Input({
   endAdornment,
   maxWidth,
   label,
+  height,
   ...rest
 }: InputProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'color' | 'outline' | 'size'>) {
   return (
@@ -61,6 +62,7 @@ export default function Input({
       {label && <InputLabel>{label}</InputLabel>}
       <StyledInputBase
         sx={{
+          height: height || 60,
           [`&.${inputBaseClasses.root}`]: {
             border: `1px solid ${outlined ? 'rgba(255,255,255,.4)' : 'transparent'}`
           }

@@ -63,9 +63,6 @@ export function OutlinedCard({
         ...style
       }}
     >
-      <Box>
-        <Typography sx={{ fontSize: 16, opacity: primary ? 1 : 0.5 }}>{title}</Typography>
-      </Box>
       {children}
     </Paper>
   )
