@@ -146,9 +146,14 @@ export default function Stake() {
                 )}
               </Box>
               <Box display="flex" justifyContent="space-between" width="100%">
-                <Typography fontWeight={700} fontSize={24}>
-                  {earned}Matter
-                </Typography>
+                <Box display="flex" alignItems="end">
+                  <Typography fontWeight={700} fontSize={24}>
+                    {earned}
+                  </Typography>
+                  <Typography fontWeight={700} fontSize={16} ml={4}>
+                    Matter
+                  </Typography>
+                </Box>
                 {account ? (
                   <>
                     {stakedBalance && +stakedBalance > 0 ? (
