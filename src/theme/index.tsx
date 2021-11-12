@@ -90,7 +90,7 @@ export const theme = {
     },
     text: {
       primary: '#252525',
-      secondary: 'rgba(0, 0, 0, 0.5)',
+      secondary: 'rgba(0, 0, 0, 0.6)',
       disabled: '#F2F5FA'
     },
     action: {
@@ -145,12 +145,12 @@ export const override: any = {
     styleOverrides: {
       body: { backgroundColor: theme.palette.background.default, fontSize: 16 },
       'html, input, textarea, button': {
-        fontFamily: 'Roboto, sans-serif',
+        fontFamily: 'SF Pro, sans-serif',
         fontDisplay: 'fallback'
       },
       '@supports (font-variation-settings: normal)': {
         'html, input, textarea, button ': {
-          fontFamily: 'Roboto, sans-serif',
+          fontFamily: 'SF Pro, sans-serif',
           fontDisplay: 'fallback'
         }
       }
@@ -247,7 +247,7 @@ export const override: any = {
   MuiTypography: {
     styleOverrides: {
       root: {
-        fontFamily: 'Roboto'
+        fontFamily: 'SF Pro'
       },
       body1: {
         fontSize: 14

@@ -1,7 +1,15 @@
 import React from 'react'
-import { ButtonBase, useTheme } from '@mui/material'
+import { ButtonBase, useTheme, Theme } from '@mui/material'
+import { SxProps } from '@mui/system'
 
-interface Props {
+export default function SmallButton({
+  onClick,
+  disabled,
+  fontSize,
+  children,
+  variant,
+  sx
+}: {
   onClick?: () => void
   background?: string
   disabled?: boolean
@@ -10,10 +18,8 @@ interface Props {
   fontSize?: string | number
   outlined?: boolean
   variant?: 'primary' | 'secondary' | 'outlined'
-}
-
-export default function SmallButton(props: Props) {
-  const { onClick, disabled, fontSize, children, variant } = props
+  sx?: React.CSSProperties & SxProps<Theme>
+}) {
   const theme = useTheme()
 
   return (
@@ -25,7 +31,6 @@ export default function SmallButton(props: Props) {
         width: 'max-content',
         borderRadius: '40px',
         fontWeight: 400,
-        minWidth: 56,
         height: 'max-content',
         fontSize: fontSize || 14,
         backgroundColor:
@@ -62,7 +67,8 @@ export default function SmallButton(props: Props) {
           opacity: theme.palette.action.disabledOpacity,
           backgroundColor: theme.palette.primary.light,
           color: '#464647'
-        }
+        },
+        ...sx
       }}
     >
       {children}

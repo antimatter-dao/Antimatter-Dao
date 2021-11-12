@@ -21,10 +21,12 @@ export default function StakeInputModal({
   type,
   isOpen,
   onDismiss,
-  onAction
+  onAction,
+  balance
 }: {
   type: StakeType
   isOpen: boolean
+  balance: string
   onDismiss: () => void
   onAction: (val: string | undefined, setHash: (hash: string) => void) => () => void
 }) {
@@ -63,21 +65,25 @@ export default function StakeInputModal({
 
   return (
     <Modal closeIcon customIsOpen={isOpen} customOnDismiss={onDismiss}>
-      <Box padding="20px 32px" display="grid" gap="32px">
+      <Box padding="24px 32px" display="grid" gap="32px">
         <Typography fontSize={20} sx={{ color: theme => theme.palette.text.secondary }}>
-          {type === StakeType.DEPOSIT ? 'Deposit MATTER Tokens' : 'Withdraw sMATTER Tokens'}
+          {type === StakeType.DEPOSIT ? 'Deposit MATTER Tokens' : 'Withdraw MATTER Tokens'}
         </Typography>
         <InputNumerical
           label="Amount"
-          onMax={() => {}}
-          balance="100.00"
+          onMax={() => {
+            setValue(balance)
+          }}
+          balance={balance}
           value={value}
           onChange={e => {
             setValue(e.target.value)
           }}
         />
         <Box display="flex" gap="16px">
-          <OutlineButton onClick={onDismiss}>Cancel</OutlineButton>
+          <OutlineButton onClick={onDismiss} primary>
+            Cancel
+          </OutlineButton>
           {approvalState !== ApprovalState.APPROVED && (
             <ActionButton
               pending={approvalState === ApprovalState.PENDING}

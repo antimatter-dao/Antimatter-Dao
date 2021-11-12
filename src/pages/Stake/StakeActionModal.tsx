@@ -1,23 +1,27 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import Modal from 'components/Modal'
-import InputNumerical from 'components/Input/InputNumerical'
 import OutlineButton from 'components/Button/OutlineButton'
 import ActionButton from 'components/Button/ActionButton'
 import useModal from 'hooks/useModal'
 import TransactionSubmittedModal from 'components/Modal/TransactionModals/TransactiontionSubmittedModal'
 import { useTransaction } from 'state/transactions/hooks'
 
-export default function StakeCompoundModal({
+export default function StakeActionModal({
   isOpen,
   onDismiss,
-  onAction
+  onAction,
+  balance,
+  title
 }: {
   isOpen: boolean
   onDismiss: () => void
-  onAction: () => void
+  onAction: (setHash: (hash: string) => void) => () => void
+  balance?: string
+  title: string
+  buttonActionText?: string
+  buttonPendingText?: string
 }) {
-  const [value, setValue] = useState('')
   const { showModal } = useModal()
   const [pending, setPending] = useState(false)
   const [hash, setHash] = useState('')
@@ -32,7 +36,6 @@ export default function StakeCompoundModal({
       if (txn?.receipt?.status === 1) {
         setPending(false)
         setHash('')
-        setValue('')
         onDismiss()
         showModal(<TransactionSubmittedModal hash={txn.receipt.transactionHash} header="Successful" />)
       }
@@ -45,25 +48,23 @@ export default function StakeCompoundModal({
 
   return (
     <Modal closeIcon customIsOpen={isOpen} customOnDismiss={onDismiss}>
-      <Box padding="20px 32px" display="grid" gap="32px">
+      <Box padding="24px 32px" display="grid" gap="32px">
         <Typography fontSize={20} sx={{ color: theme => theme.palette.text.secondary }}>
-          MATTER Compound
+          {title}
         </Typography>
-        <InputNumerical
-          label="Amount"
-          onMax={() => {}}
-          balance="100.00"
-          value={value}
-          onChange={e => {
-            setValue(e.target.value)
-          }}
-        />
+        <Typography fontWeight="700" fontSize="44px">
+          {balance}
+          <Typography fontSize="16px" fontWeight="700" component="span">
+            Matter
+          </Typography>
+        </Typography>
         <Box display="flex" gap="16px">
-          <OutlineButton onClick={onDismiss}>Cancel</OutlineButton>
+          <OutlineButton onClick={onDismiss} primary>
+            Cancel
+          </OutlineButton>
 
           <ActionButton
-            error={value ? undefined : 'Amount required'}
-            onAction={onAction}
+            onAction={onAction(hash => setHash(hash))}
             pending={pending}
             pendingText="Confirming"
             actionText="Confirm"

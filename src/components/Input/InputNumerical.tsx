@@ -41,7 +41,7 @@ export default function NumericalInput({
       {(label || balance) && (
         <Box display="flex" justifyContent="space-between">
           <InputLabel>{label}</InputLabel>
-          {balance && <InputLabel style={{ fontSize: '12px' }}>Available: {balance} MATTER</InputLabel>}
+          {!!balance && <InputLabel style={{ fontSize: '12px' }}>Available: {balance} MATTER</InputLabel>}
         </Box>
       )}
       <Input

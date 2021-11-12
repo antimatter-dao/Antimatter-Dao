@@ -11,7 +11,7 @@ export default {
 } as ComponentMeta<typeof MuiTypography>
 
 const DefaultTemplate: ComponentStory<typeof Typography> = ({ children, ...args }: any) => (
-  <Typography {...args}>{children ?? 'Default    fontSize: 16px, fontFamily: Roboto'}</Typography>
+  <Typography {...args}>{children ?? 'Default    fontSize: 16px, fontFamily: SF Pro'}</Typography>
 )
 
 export const Default = DefaultTemplate.bind({})
@@ -19,13 +19,13 @@ export const Default = DefaultTemplate.bind({})
 export const h5 = DefaultTemplate.bind({})
 h5.args = {
   variant: 'h5',
-  children: 'fontSize: 28, fontFamily: Futura PT'
+  children: 'fontSize: 28'
 }
 
 export const h6 = DefaultTemplate.bind({})
 h6.args = {
   variant: 'h6',
-  children: 'fontSize: 22, fontFamily: Futura PT'
+  children: 'fontSize: 22'
 }
 export const body1 = DefaultTemplate.bind({})
 body1.args = {
