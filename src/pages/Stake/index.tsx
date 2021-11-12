@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { Box, Typography, useTheme } from '@mui/material'
 import Card from 'components/Card/Card'
+import NumericalCard from 'components/Card/NumericalCard'
 import { ReactComponent as MatterCircle } from 'assets/svg/stake_matter_circle.svg'
 import SmallButton from 'components/Button/SmallButton'
 import StakeInputModal, { StakeType } from './StakeInputModal'
@@ -121,26 +122,8 @@ export default function Stake() {
               </Box> */}
             </Box>
             <Box display="flex" gap="20px">
-              <Card gray style={{ width: '100%' }}>
-                <Box padding="20px 24px" gap="28px">
-                  <Typography variant="inherit" color={theme.palette.text.secondary}>
-                    APY
-                  </Typography>
-                  <Typography fontWeight={700} fontSize={24}>
-                    {apy}%
-                  </Typography>
-                </Box>
-              </Card>
-              <Card gray style={{ width: '100%' }}>
-                <Box padding="20px 24px" gap="28px">
-                  <Typography variant="inherit" color={theme.palette.text.secondary}>
-                    Total Value Deposited
-                  </Typography>
-                  <Typography fontWeight={700} fontSize={24}>
-                    {totalDeposited}$
-                  </Typography>
-                </Box>
-              </Card>
+              <NumericalCard title="APY" value={apy} unit="%" gray />
+              <NumericalCard title="Total Value Deposited" value={totalDeposited} unit="$" gray />
             </Box>
           </Box>
         </Card>
@@ -208,27 +191,21 @@ export default function Stake() {
               </Box>
             </Box>
           </Card>
-          <Card>
-            <Box padding="20px 24px" gap="152px" display="grid" height="100%">
-              <Typography variant="inherit" color={theme.palette.text.secondary}>
-                My Balance
-              </Typography>
-              <Typography fontWeight={700} fontSize={24}>
-                {matterBalance !== undefined ? matterBalance.toFixed(4) : '-'}Matter
-              </Typography>
-            </Box>
-          </Card>
 
-          <Card>
-            <Box padding="20px 24px" gap="152px" display="grid" height="100%">
-              <Typography variant="inherit" color={theme.palette.text.secondary}>
-                Your Staked Balance:
-              </Typography>
-              <Typography fontWeight={700} fontSize={24}>
-                {stakedBalance}MATTER
-              </Typography>
-            </Box>
-          </Card>
+          <NumericalCard
+            title="My Wallet Balance"
+            value={matterBalance !== undefined ? matterBalance.toFixed(4) : '-'}
+            unit="Matter"
+            fontSize="44px"
+            height="280px"
+          />
+          <NumericalCard
+            title="Your Staked Balance"
+            value={stakedBalance}
+            unit="Matter"
+            fontSize="44px"
+            height="280px"
+          />
         </Box>
       </Box>
       <StakeInputModal

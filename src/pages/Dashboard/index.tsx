@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import NumericalCard from 'pages/Dashboard/NumericalCard'
+import NumericalCard from 'components/Card/NumericalCard'
 import ChartCard from './ChartCard'
 import BridgeCard from './BridgeCard'
 import { DefaultButton } from 'components/Button/Button'
