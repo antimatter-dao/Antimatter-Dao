@@ -71,12 +71,13 @@ export default function NumericalCard(props: Props) {
             <Typography
               sx={{
                 fontSize: fontSize || 24,
-                fontWeight: 700
+                fontWeight: 700,
+                lineHeight: 1
               }}
             >
               {value}
             </Typography>
-            {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4 }}>{unit}</Typography>}
+            {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4, lineHeight: 1 }}>{unit}</Typography>}
           </Box>
           {subValue && <Typography sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }}>{subValue}</Typography>}
         </Box>

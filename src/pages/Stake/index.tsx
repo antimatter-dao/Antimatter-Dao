@@ -147,10 +147,10 @@ export default function Stake() {
               </Box>
               <Box display="flex" justifyContent="space-between" width="100%">
                 <Box display="flex" alignItems="end">
-                  <Typography fontWeight={700} fontSize={24}>
+                  <Typography fontWeight={700} fontSize={44} lineHeight={1}>
                     {earned}
                   </Typography>
-                  <Typography fontWeight={700} fontSize={16} ml={4}>
+                  <Typography fontWeight={700} fontSize={16} ml={4} lineHeight={1}>
                     Matter
                   </Typography>
                 </Box>
@@ -182,6 +182,7 @@ export default function Stake() {
                       </Box>
                     ) : (
                       <SmallButton
+                        sx={{ height: 44, width: 108, borderRadius: '12px', padding: 0 }}
                         onClick={() => {
                           setDepositModalOpen(true)
                         }}
