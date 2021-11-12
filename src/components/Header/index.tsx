@@ -241,6 +241,9 @@ export default function Header() {
         sx={{
           display: { xs: 'none', sm: 'block' },
           boxShadow: 'none',
+          '& .MuiPaper-root': {
+            borderColor: 'transparent'
+          },
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: theme.width.sidebar
