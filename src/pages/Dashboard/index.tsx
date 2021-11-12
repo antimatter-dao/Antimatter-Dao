@@ -43,29 +43,29 @@ export default function Dashboard() {
     <Box sx={{ padding: '0 42px 0 38px' }}>
       <Box width="100%">
         <Grid container spacing={20}>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <Grid container spacing={6}>
-              <Grid item xs={4}>
+              <Grid item xs={6} md={4}>
                 <NumericalCard title="Total Locked Value" value="-" unit="$" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6} md={4}>
                 <NumericalCard title="Total Trading Volume" value="-" unit="$" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6} md={4}>
                 <NumericalCard title="MATTER Market Cap" value="-" unit="UST" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6} md={4}>
                 <NumericalCard title="Circulating Supply" value="-" unit="MATTER" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6} md={4}>
                 <NumericalCard title="Total MATTER Staked" value="-" unit="%" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6} md={4}>
                 <NumericalCard title="MATTER Buyback" value="-" unit="MATTER" rate="0" />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <Box sx={{ display: 'flex', gap: '6px', flexDirection: 'column' }}>
               <NumericalCard title="Cumulative Transaction Fees" value="-" unit="USDT" primary />
               <NumericalCard title="Current APY" value="-" unit="%" primary />
@@ -75,7 +75,7 @@ export default function Dashboard() {
       </Box>
       <Box sx={{ width: '100%', mt: 48 }}>
         <Grid container spacing={20}>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <ChartCard title="MATTER PRICE" value="-" unit="$" rate="0">
               {/* Chart */}
               <Box sx={{ display: 'flex', gap: '12px' }}>
@@ -99,7 +99,7 @@ export default function Dashboard() {
               </Box>
             </ChartCard>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <BridgeCard
               fromChain={ChainList[0]}
               toChain={ChainList[1]}
