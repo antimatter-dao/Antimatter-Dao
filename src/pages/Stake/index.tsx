@@ -146,7 +146,7 @@ export default function Stake() {
             </Box>
           </Box>
         </Card>
-        <Box display="grid" gridTemplateColumns=" 2fr 1.5fr 1fr" gap="20px" maxWidth="100%" sx={{ width: '100%' }}>
+        <Box display="grid" gridTemplateColumns=" 2fr 1.5fr 1.5fr" gap="20px" maxWidth="100%" sx={{ width: '100%' }}>
           <Card>
             <Box padding="20px 24px" gap="152px" display="grid" height="100%">
               <Box display="flex" justifyContent="space-between" width="100%">
