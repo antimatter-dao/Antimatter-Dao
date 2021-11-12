@@ -1,5 +1,37 @@
-import { Paper, useTheme } from '@mui/material'
+import { Paper, useTheme, Theme } from '@mui/material'
+import { SxProps } from '@mui/system'
 import React from 'react'
+
+export default function Card({
+  children,
+  color,
+  padding,
+  width,
+  style,
+  gray
+}: {
+  children: JSX.Element
+  color?: string
+  padding?: string | number
+  width?: string | number
+  style?: React.CSSProperties & SxProps<Theme>
+  gray?: boolean
+}) {
+  return (
+    <Paper
+      sx={{
+        background: theme => (gray ? theme.palette.background.default : color ?? '#ffffff'),
+        border: '1px solid transparent,',
+        boxShadow: 'none',
+        padding,
+        width,
+        ...style
+      }}
+    >
+      {children}
+    </Paper>
+  )
+}
 
 export function OutlinedCard({
   children,
@@ -8,11 +40,11 @@ export function OutlinedCard({
   width,
   style
 }: {
-  children: JSX.Element
+  children: JSX.Element | React.ReactNode
   color?: string
   padding?: string | number
   width?: string | number
-  style?: React.CSSProperties
+  style?: React.CSSProperties & SxProps<Theme>
 }) {
   const theme = useTheme()
 

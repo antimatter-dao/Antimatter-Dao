@@ -11,14 +11,14 @@ export function CloseIcon({ onClick }: { onClick?: () => void }) {
       sx={{
         padding: 0,
         position: 'absolute',
-        top: '24px',
-        right: '24px',
+        top: '20px',
+        right: '20px',
         '&:hover $closeIcon': {
           color: theme => theme.palette.text.primary
         }
       }}
     >
-      <MuiCloseIcon sx={{ color: theme => theme.palette.grey[500] }} />
+      <MuiCloseIcon sx={{ color: theme => theme.palette.text.secondary }} />
     </IconButton>
   )
 }

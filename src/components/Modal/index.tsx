@@ -49,8 +49,8 @@ export default function Modal(props: Props) {
           ref: node,
           sx: {
             ...{
-              width: { xs: 'calc(100vw - 32px)!important', md: width || 480 },
-              maxWidth: maxWidth || 480,
+              width: { xs: 'calc(100vw - 32px)!important', md: width || 488 },
+              maxWidth: maxWidth || 488,
               background: theme => theme.palette.background.paper,
               border: hasBorder ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
               padding: padding || 0,
@@ -66,14 +66,13 @@ export default function Modal(props: Props) {
               ? {
                   [theme.breakpoints.down('md')]: {
                     border: 'none',
-                    borderTop: '1px solid ' + theme.palette.grey.A200,
-                    borderBottom: '1px solid ' + theme.palette.grey.A200,
                     width: '100%!important',
                     maxWidth: 'unset!important',
                     maxHeight: 'unset',
                     height: `calc(100vh - ${theme.height.header})`,
-                    margin: theme.height.header,
-                    borderRadius: '20px 20px 0 0'
+                    borderRadius: '20px 20px 0 0',
+                    marginTop: theme.height.header,
+                    marginBottom: 0
                   }
                 }
               : {})

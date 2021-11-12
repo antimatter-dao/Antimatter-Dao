@@ -19,18 +19,18 @@ export interface InputProps {
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   [`&.${inputBaseClasses.root}`]: {
     fontSize: 16,
-    color: '#FFFFFF',
+    color: theme.palette.text.primary,
     fontFamily: 'Roboto',
     fontWeight: 400,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    height: 44,
+    backgroundColor: theme.palette.background.default,
+    height: 60,
     paddingLeft: 20,
     borderRadius: 14
   },
   [`&.${inputBaseClasses.focused}`]: { border: `1px solid ${theme.palette.primary.main} !important` },
   [`& .${inputBaseClasses.input}`]: {
     '&::-webkit-outer-spin-button': {
-      '-webkit-appearance': 'none'
+      WebkitAppearance: 'none'
     },
     '&::-webkit-inner-spin-button': {
       '-webkit-appearance': 'none'

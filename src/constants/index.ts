@@ -122,3 +122,13 @@ export const BLOCKED_ADDRESSES: string[] = [
   '0xA7e5d5A720f06526557c513402f2e6B5fA20b008',
   '0x8576aCC5C05D6Ce88f4e49bf65BdF0C62F91353C'
 ]
+
+export const Matter = new Token(
+  3,
+  '0x9B99CcA871Be05119B2012fd4474731dd653FEBe',
+  18,
+  'MATER',
+  'Antimatter.Finance Governance Token'
+)
+
+export const ANTIMATTER_DAO_ADDRESS = '0xCB8429f22541E8F5cd8ea6c20BFFdcE7cDA65227'

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import {
   AppBar,
   styled,
@@ -11,7 +11,8 @@ import {
   IconButton,
   useTheme,
   MenuItem,
-  Box
+  Box,
+  Typography
 } from '@mui/material'
 import { Menu } from '@mui/icons-material'
 import { ChainList } from 'constants/chain'
@@ -57,7 +58,11 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   boxShadow: 'none',
-  padding: '0 60px 00 40px'
+  padding: '44px 32px 0',
+  paddingLeft: `calc(${theme.width.sidebar} + 32px)`,
+  [theme.breakpoints.down('sm')]: {
+    padding: '20px 24px 0'
+  }
 }))
 
 const MainLogo = styled(NavLink)({
@@ -91,6 +96,7 @@ const container = window !== undefined ? () => window.document.body : undefined
 
 export default function Header() {
   const { chainId } = useActiveWeb3React()
+  const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
   const drawer = useMemo(
@@ -162,9 +168,19 @@ export default function Header() {
         {drawer}
       </Drawer>
       <StyledAppBar>
-        <IconButton onClick={() => setMobileOpen(true)}>
+        <IconButton onClick={() => setMobileOpen(true)} sx={{ display: { xs: 'block', sm: 'none' } }}>
           <Menu />
         </IconButton>
+        <Box display="grid" gap="8px">
+          <Box display="flex" gap="4px">
+            <Typography color="rgba(0,0,0,0.5)">Welcome to Antimatter Dao</Typography>
+            <span>👋</span>
+          </Box>
+
+          <Typography fontWeight={700} fontSize={32} sx={{ color: theme => theme.palette.text.primary }}>
+            {Tabs.find(tab => tab.route === location.pathname)?.title ?? ''}
+          </Typography>
+        </Box>
         {chainId && ChainList[chainId] && (
           <Select
             defaultValue={ChainList[chainId].symbol}
