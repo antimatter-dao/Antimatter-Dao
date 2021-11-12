@@ -1,35 +1,72 @@
+import { Paper, useTheme, Theme, Box, Typography } from '@mui/material'
+import { SxProps } from '@mui/system'
 import React from 'react'
-import { Box, Typography, styled, useTheme } from '@mui/material'
 
-interface Props {
-  title: string
-  primary?: boolean
-  width?: string | number
-  height?: string | number
+export default function Card({
+  children,
+  color,
+  padding,
+  width,
+  style,
+  gray,
+  primary
+}: {
   children?: React.ReactNode
+  color?: string
+  padding?: string | number
+  width?: string | number
+  style?: React.CSSProperties & SxProps<Theme>
+  gray?: boolean
+  primary?: boolean
+}) {
+  return (
+    <Paper
+      sx={{
+        background: theme =>
+          primary ? theme.gradient.gradient1 : gray ? theme.palette.background.default : color ?? '#ffffff',
+        border: '1px solid transparent',
+        borderRadius: '20px',
+        boxShadow: 'none',
+        padding,
+        width,
+        ...style
+      }}
+    >
+      {children}
+    </Paper>
+  )
 }
 
-const Root = styled(Box)(({ theme }) => ({
-  borderRadius: 20,
-  padding: '20px 24px 28px'
-}))
-
-export default function Card(props: Props) {
-  const { title, primary, children, width, height } = props
+export function OutlinedCard({
+  children,
+  color,
+  padding,
+  width,
+  style
+}: {
+  children: JSX.Element | React.ReactNode
+  color?: string
+  padding?: string | number
+  width?: string | number
+  style?: React.CSSProperties & SxProps<Theme>
+}) {
   const theme = useTheme()
+
   return (
-    <Root
+    <Paper
+      variant="outlined"
       sx={{
-        background: primary ? theme.gradient.gradient1 : theme.textColor.text1,
-        color: primary ? theme.textColor.text1 : theme.bgColor.bg1,
+        backgroundColor: 'transparent',
+        border: `1px solid ${color ?? theme.palette.grey.A400}`,
+        padding,
         width,
-        height
+        ...style
       }}
     >
       <Box>
         <Typography sx={{ fontSize: 16, opacity: primary ? 1 : 0.5 }}>{title}</Typography>
       </Box>
       {children}
-    </Root>
+    </Paper>
   )
 }

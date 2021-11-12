@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from './index'
+import Card from 'components/Card/Card'
 import { Box, Typography, useTheme } from '@mui/material'
 
 interface Props {

@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, useTheme } from '@mui/material'
 import Button from 'components/Button/Button'
 import { ReactComponent as CrossCircle } from 'assets/componentsIcon/statusIcon/error_icon.svg'
-import { OutlinedCard } from 'components/Card'
+import { OutlinedCard } from 'components/Card/Card'
 import Spinner from 'components/Spinner'
 
 export default function PendingView({

@@ -31,7 +31,7 @@ export default function Button(props: Props) {
         transition: '.3s',
         borderRadius: `${theme.shape.borderRadius}px`,
         backgroundColor: backgroundColor || theme.palette.primary.main,
-        color: color || theme.textColor.text1,
+        color: color || theme.palette.primary.contrastText,
         '&:hover': {
           backgroundColor: theme.palette.primary.dark
         },

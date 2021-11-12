@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from '@mui/material'
-import Card from './index'
+import Card from 'components/Card/Card'
 
 interface Props {
   title: string

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Box, Typography, useTheme } from '@mui/material'
-import Card from 'components/Card'
+import Card from 'components/Card/Card'
 import { ReactComponent as MatterCircle } from 'assets/svg/stake_matter_circle.svg'
 import SmallButton from 'components/Button/SmallButton'
 import StakeInputModal, { StakeType } from './StakeInputModal'

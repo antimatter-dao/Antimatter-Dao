@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
-import NumericalCard from 'components/Card/NumericalCard'
-import ChartCard from 'components/Card/ChartCard'
+import NumericalCard from 'pages/Dashboard/NumericalCard'
+import ChartCard from './ChartCard'
+import BridgeCard from './BridgeCard'
 import { DefaultButton } from 'components/Button/Button'
 import { Box, Grid, useTheme } from '@mui/material'
 
@@ -84,7 +85,9 @@ export default function Dashboard() {
               </Box>
             </ChartCard>
           </Grid>
-          <Grid item xs={3}></Grid>
+          <Grid item xs={3}>
+            <BridgeCard />
+          </Grid>
         </Grid>
       </Box>
       <Box sx={{ width: '100%', mt: 48 }}>
