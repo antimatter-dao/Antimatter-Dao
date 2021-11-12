@@ -12,10 +12,11 @@ interface Props {
   changeRate?: string
   fontSize?: string
   gray?: boolean
+  rate?: string
 }
 
 export default function NumericalCard(props: Props) {
-  const { title, primary, value, subValue, unit, fontSize, gray, width, height } = props
+  const { title, primary, value, subValue, unit, fontSize, gray, width, height, rate } = props
   const theme = useTheme()
 
   return (
@@ -30,12 +31,36 @@ export default function NumericalCard(props: Props) {
           justifyContent: 'space-between'
         }}
       >
-        <Typography
-          variant="inherit"
-          color={primary ? theme.palette.primary.contrastText : theme.palette.text.secondary}
-        >
-          {title}
-        </Typography>
+        <Box display="flex">
+          <Typography
+            variant="inherit"
+            color={primary ? theme.palette.primary.contrastText : theme.palette.text.secondary}
+          >
+            {title}
+          </Typography>
+          {rate && (
+            <Box
+              sx={{
+                ml: 15,
+                backgroundColor: 'rgba(17, 191, 45, 0.16)',
+                width: '56px',
+                height: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '12px'
+              }}
+            >
+              <Typography
+                sx={{
+                  color: '#11BF2D'
+                }}
+              >
+                +{rate}%
+              </Typography>
+            </Box>
+          )}
+        </Box>
         <Box>
           <Box
             sx={{

@@ -55,13 +55,13 @@ export default function Dashboard() {
                 <NumericalCard title="MATTER Market Cap" value="-" unit="UST" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard title="CirculatingSupply" value="-" unit="MATTER" />
+                <NumericalCard title="Circulating Supply" value="-" unit="MATTER" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard title="Total Locked Value" value="-" unit="%" />
+                <NumericalCard title="Total MATTER Staked" value="-" unit="%" />
               </Grid>
               <Grid item xs={4}>
-                <NumericalCard title="Total Locked Value" value="-" unit="MATTER" />
+                <NumericalCard title="MATTER Buyback" value="-" unit="MATTER" rate="0" />
               </Grid>
             </Grid>
           </Grid>
