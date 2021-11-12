@@ -48,13 +48,30 @@ export default function BridgeCard(props: Props) {
             justifyContent: 'space-between',
             width: '100%',
             alignItems: 'center',
-            mt: '14px',
+            position: 'relative',
+            gap: 8,
+            mt: 14
+          }}
+        >
+          <Box width="100%">
+            <Label sx={{ mb: 8 }}>Send</Label>
+          </Box>
+          <Box width="100%">
+            <Label sx={{ mb: 8 }}>To</Label>
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            alignItems: 'center',
             position: 'relative',
             gap: 8
           }}
         >
           <Box width="100%">
-            <Label sx={{ mb: 8 }}>Send</Label>
             <OutlinedCard width="100%" color={theme.textColor.text4}>
               <Box display="grid" gap="8px" padding="12px 16px" width="100%" height="92px">
                 <Image src={fromChain?.logo || ''} style={{ height: 28, width: 28, objectFit: 'contain' }} />
@@ -68,14 +85,12 @@ export default function BridgeCard(props: Props) {
             sx={{
               position: 'absolute',
               left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -12%)'
+              transform: 'translateX(-50%)'
             }}
           >
             <SwitchButton />
           </Box>
           <Box width="100%">
-            <Label sx={{ mb: 8 }}>To</Label>
             <OutlinedCard width="100%" color={theme.textColor.text4}>
               <Box display="grid" gap="8px" padding="12px 16px" width="100%" height="92px">
                 <Image src={toChain?.logo || ''} style={{ height: 28, width: 28, objectFit: 'contain' }} />
