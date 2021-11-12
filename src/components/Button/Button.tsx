@@ -13,6 +13,7 @@ interface Props {
   fontSize?: string | number
   classname?: string
   style?: React.CSSProperties & SxProps<Theme>
+  active?: boolean
 }
 
 export default function Button(props: Props) {
@@ -57,6 +58,25 @@ export function BlackButton({ style, ...props }: Props) {
         },
         '&:disabled': {
           backgroundColor: '#B9B9B9'
+        },
+        ...style
+      }}
+    />
+  )
+}
+
+export function DefaultButton({ style, active, ...props }: Props) {
+  const theme = useTheme()
+
+  return (
+    <Button
+      {...props}
+      style={{
+        color: active ? theme.palette.primary.contrastText : theme.palette.text.primary,
+        backgroundColor: active ? theme.palette.primary.main : theme.palette.primary.contrastText,
+        border: `1px solid ${active ? 'transparent' : 'rgba(0,0,0,0.1)'}`,
+        '&:hover': {
+          background: theme.palette.primary.main
         },
         ...style
       }}

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import NumericalCard from 'components/Card/NumericalCard'
 import ChartCard from 'components/Card/ChartCard'
-import Button from 'components/Button/Button'
+import { DefaultButton } from 'components/Button/Button'
 import { Box, Grid, useTheme } from '@mui/material'
 
 enum TIME_INTERVAL {
@@ -70,22 +70,16 @@ export default function Dashboard() {
                   TIME_INTERVAL.THREE_MONTHS,
                   TIME_INTERVAL.SIX_MONTHS
                 ].map((option, idx) => (
-                  <Button
+                  <DefaultButton
                     key={idx}
                     onClick={() => onPriceTimeInterval(option)}
                     width="80px"
                     height="32px"
-                    backgroundColor={priceTimeInterval === option ? theme.palette.primary.main : '#FFFFFF'}
                     fontSize="12px"
-                    color={
-                      priceTimeInterval === option ? theme.palette.primary.contrastText : theme.palette.text.primary
-                    }
-                    style={{
-                      border: `1px solid ${priceTimeInterval === option ? 'transparent' : 'rgba(0,0,0,0.1)'}`
-                    }}
+                    active={priceTimeInterval === option}
                   >
                     {option}
-                  </Button>
+                  </DefaultButton>
                 ))}
               </Box>
             </ChartCard>
@@ -103,20 +97,17 @@ export default function Dashboard() {
               TIME_INTERVAL.THREE_MONTHS,
               TIME_INTERVAL.SIX_MONTHS
             ].map((option, idx) => (
-              <Button
+              <DefaultButton
                 key={idx}
                 onClick={() => onMktValueTimeInterval(option)}
                 width="80px"
                 height="32px"
                 backgroundColor={mktValueTimeInterval === option ? theme.palette.primary.main : '#FFFFFF'}
                 fontSize="12px"
-                color={mktValueTimeInterval === option ? theme.textColor.text1 : theme.palette.text.primary}
-                style={{
-                  border: `1px solid ${mktValueTimeInterval === option ? 'transparent' : 'rgba(0,0,0,0.1)'}`
-                }}
+                active={priceTimeInterval === option}
               >
                 {option}
-              </Button>
+              </DefaultButton>
             ))}
           </Box>
         </ChartCard>
