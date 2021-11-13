@@ -14,14 +14,16 @@ interface Props {
   gray?: boolean
   rate?: string
   actions?: React.ReactNode
+  children?: React.ReactNode
 }
 
 export default function NumericalCard(props: Props) {
-  const { title, primary, value, subValue, unit, fontSize, gray, width, height, rate, actions } = props
+  const { title, primary, value, subValue, unit, fontSize, gray, width, height, rate, actions, children } = props
   const theme = useTheme()
 
   return (
-    <Card primary={primary} gray={gray} width={width || '100%'}>
+    <Card primary={primary} gray={gray} width={width || '100%'} style={{ position: 'relative' }}>
+      {children}
       <Box
         sx={{
           padding: '20px 24px 28px',
@@ -66,7 +68,7 @@ export default function NumericalCard(props: Props) {
           <Box
             sx={{
               display: 'flex',
-              alignItems: 'end',
+              alignItems: 'flex-end',
               color: primary ? theme.palette.primary.contrastText : theme.palette.text.primary
             }}
           >

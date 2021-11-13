@@ -109,7 +109,7 @@
   },
   {
     "inputs": [],
-    "name": "APY",
+    "name": "APR",
     "outputs": [
       {
         "internalType": "uint256",
@@ -814,7 +814,7 @@
       },
       {
         "internalType": "address[]",
-        "name": "pathAPY_",
+        "name": "pathAPR_",
         "type": "address[]"
       }
     ],

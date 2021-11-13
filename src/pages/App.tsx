@@ -12,6 +12,7 @@ import TradingRewards from './TradingRewards'
 import { ModalProvider } from 'context/ModalContext'
 import { routes } from 'constants/routes'
 import Stake from './Stake'
+import Bond from './Bond'
 
 const AppWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -36,7 +37,7 @@ const BodyWrapper = styled('div')(({ theme }) => ({
   width: '100%',
   minHeight: `calc(100vh - ${theme.height.header})`,
   padding: `50px 32px 80px calc(${theme.width.sidebar} + 32px)`,
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   alignItems: 'center',
   flex: 1,
   overflowY: 'auto',
@@ -63,7 +64,7 @@ export default function App() {
                   <Route exact strict path={routes.dashboard} component={Dashboard} />
                   <Route exact strict path={routes.trading_rewards} component={TradingRewards} />
                   <Route exact strict path={routes.stake} component={Stake} />
-                  <Route exact strict path={routes.bond} component={ComingSoon} />
+                  <Route exact strict path={routes.bond} component={Bond} />
                   <Route exact strict path={routes.bridge} component={ComingSoon} />
                   <Route path="/">
                     <Redirect to={routes.dashboard} />
