@@ -45,8 +45,8 @@ export default function NumericalInput({
         </Box>
       )}
       <Input
-        sx={{ height: 44 }}
         {...props} // universal input options
+        height={44}
         maxWidth={maxWidth}
         onChange={handleChange}
         inputMode="decimal"
