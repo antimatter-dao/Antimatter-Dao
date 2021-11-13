@@ -37,20 +37,18 @@ export function useStakingInfo() {
   const contract = useAntiMatterDaoContract()
   const args = useMemo(() => [account ?? undefined], [account])
 
-  // const apyRes = useSingleCallResult(contract, 'APY')
-  // const totalDepositedRes = useSingleCallResult(contract, 'TVL')
+  const apyRes = useSingleCallResult(contract, 'APR')
+  const totalDepositedRes = useSingleCallResult(contract, 'TVL')
   const earnedRes = useSingleCallResult(contract, 'earned', args)
   const stakedBalanceRes = useSingleCallResult(contract, 'balanceOf', args)
 
   const res = useMemo(() => {
     return {
-      // apy: apyRes?.result?.[0],
-      //totalDeposited: totalDepositedRes?.result?.[0],
-      apy: '10',
-      totalDeposited: '3,835,616.00',
-      earned: parseBalance(earnedRes?.result?.[0], Matter),
-      stakedBalance: parseBalance(stakedBalanceRes?.result?.[0], Matter)
+      apy: apyRes?.result?.[0].toString() ?? '-',
+      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], Matter) : '-',
+      earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter) : '-',
+      stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter) : '-'
     }
-  }, [earnedRes?.result, stakedBalanceRes?.result])
+  }, [apyRes?.result, earnedRes.result, stakedBalanceRes.result, totalDepositedRes?.result])
   return res
 }

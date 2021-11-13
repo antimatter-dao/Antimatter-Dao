@@ -1,23 +1,23 @@
 import { styled } from '@mui/material'
 
-export const SwitchTabWrapper = styled('div')({
-  borderBottom: '1px solid rgb(255,255,255, 0.1)',
+export const SwitchTabWrapper = styled('div')(({ theme }) => ({
+  borderBottom: '1px solid ' + theme.palette.background.default,
   whiteSpace: 'nowrap'
-})
+}))
 
-export const Tab = styled('button')(({ selected }: { selected: boolean }) => ({
+export const Tab = styled('button', { shouldForwardProp: () => true })(({ theme, selected }: any) => ({
   border: 'none',
   background: 'none',
   padding: '14px 0',
   marginRight: '40px',
   fontSize: '16px',
   fontWeight: 700,
-  color: selected ? 'rgba(255,255,255, 1)' : 'rgba(255,255,255, 0.4)',
-  borderBottom: selected ? '3px solid rgba(255,255,255, 1)' : '3px solid transparent',
+  color: selected ? theme.palette.text.primary : theme.palette.text.secondary,
+  borderBottom: selected ? '3px solid ' + theme.palette.primary.main : '3px solid transparent',
   transition: '0.3s',
   cursor: 'pointer',
   '&:hover': {
-    color: '#fff'
+    color: theme.palette.primary.main
   }
 }))
 
