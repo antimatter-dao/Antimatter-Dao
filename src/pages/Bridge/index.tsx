@@ -4,6 +4,7 @@ import { ReactComponent as EthToBsc } from 'assets/svg/eth_to_bsc.svg'
 import { ReactComponent as MatterAndUsdt } from 'assets/svg/matter_and_usdt.svg'
 import Tabs from 'components/Tabs/Tabs'
 import TabContentBridge from './TabContentBridge'
+import TabContentStake from './TabContentStake'
 
 export default function Bridge() {
   const theme = useTheme()
@@ -79,7 +80,7 @@ export default function Bridge() {
       </Card>
       <Card width="100%">
         <Box padding="32px 24px">
-          <Tabs tabContents={[<TabContentBridge key={0} balance={'-'} />]} />
+          <Tabs tabContents={[<TabContentBridge key={0} balance={'-'} />, <TabContentStake key={1} />]} />
         </Box>
       </Card>
     </Box>

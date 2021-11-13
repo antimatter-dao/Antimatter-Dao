@@ -15,7 +15,7 @@ export default function Divider({ extension, orientation, color, ...props }: Pro
       {...props}
       sx={{
         width: extension ? `calc(100% + ${extension * 2}px` : orientation === 'vertical' ? '1px' : '100%',
-        border: 'none',
+        // border: 'none',
         height: orientation === 'vertical' ? '100%' : '1px',
         backgroundColor: color ? color : orientation === 'vertical' ? theme.textColor.text1 : theme.bgColor.bg4,
         margin: extension ? `0 -${extension}px` : '0',
