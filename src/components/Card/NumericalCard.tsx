@@ -1,3 +1,4 @@
+import React from 'react'
 import { Box, Typography, useTheme } from '@mui/material'
 import Card from 'components/Card/Card'
 
@@ -12,10 +13,11 @@ interface Props {
   fontSize?: string
   gray?: boolean
   rate?: string
+  actions?: React.ReactNode
 }
 
 export default function NumericalCard(props: Props) {
-  const { title, primary, value, subValue, unit, fontSize, gray, width, height, rate } = props
+  const { title, primary, value, subValue, unit, fontSize, gray, width, height, rate, actions } = props
   const theme = useTheme()
 
   return (
@@ -80,6 +82,7 @@ export default function NumericalCard(props: Props) {
             {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4, lineHeight: 1 }}>{unit}</Typography>}
           </Box>
           {subValue && <Typography sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }}>{subValue}</Typography>}
+          <Box mt={20}>{actions}</Box>
         </Box>
       </Box>
     </Card>

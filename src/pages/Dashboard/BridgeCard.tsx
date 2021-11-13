@@ -134,12 +134,14 @@ export default function BridgeCard(props: Props) {
           <InputNumericalSimple placeholder="Enter Amount" value={value || ''} onMax={onMax} onChange={onChange} />
         </Box>
         {account ? (
-          <Button height="44px" onClick={onApprove}>
-            Approve
+          <Button height="44px" onClick={onApprove} disabled>
+            {/* Approve */}
+            Coming Soon...
           </Button>
         ) : (
-          <Button height="44px" onClick={toggleWalletModal}>
-            Connect Wallet
+          <Button height="44px" onClick={toggleWalletModal} disabled>
+            {/* Connect Wallet */}
+            Coming Soon...
           </Button>
         )}
       </Box>
