@@ -193,13 +193,7 @@ export default function Stake() {
             fontSize="44px"
             height="280px"
           />
-          <NumericalCard
-            title="Your Staked Balance"
-            value={stakedBalance}
-            unit="Matter"
-            fontSize="44px"
-            height="280px"
-          />
+          <NumericalCard title="My Staked Balance" value={stakedBalance} unit="Matter" fontSize="44px" height="280px" />
         </Box>
       </Box>
       <StakeInputModal

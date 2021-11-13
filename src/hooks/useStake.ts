@@ -1,4 +1,5 @@
 import { useMemo, useCallback } from 'react'
+// import JSBI from 'jsbi'
 import { useAntiMatterDaoContract } from './useContract'
 import { useSingleCallResult } from 'state/multicall/hooks'
 import { useActiveWeb3React } from 'hooks'
@@ -44,7 +45,7 @@ export function useStakingInfo() {
 
   const res = useMemo(() => {
     return {
-      apy: apyRes?.result?.[0].toString() ?? '-',
+      apy: apyRes?.result?.[0] ? (+parseBalance(apyRes?.result?.[0], Matter) / 100).toString() : '-',
       totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], Matter) : '-',
       earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter) : '-',
       stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter) : '-'
@@ -52,3 +53,7 @@ export function useStakingInfo() {
   }, [apyRes?.result, earnedRes.result, stakedBalanceRes.result, totalDepositedRes?.result])
   return res
 }
+// ? JSBI.exponentiate(
+//     JSBI.exponentiate(JSBI.BigInt(Math.E), JSBI.BigInt(apyRes?.result?.[0])),
+//     JSBI.BigInt(-1)
+//   ).toString()

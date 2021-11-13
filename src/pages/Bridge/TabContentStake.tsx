@@ -50,7 +50,7 @@ export default function TabContentBridge() {
                 fontWeight: 500
               }}
             >
-              Your Balance
+              My Balance
             </Typography>
             <Box display="flex" alignItems="end" lineHeight={1}>
               <Typography variant="inherit" fontSize={16} fontWeight={700}>
@@ -71,7 +71,7 @@ export default function TabContentBridge() {
                 fontWeight: 500
               }}
             >
-              Your Staked Balance
+              My Staked Balance
             </Typography>
             <Box display="flex" alignItems="end" lineHeight={1}>
               <Typography variant="inherit" fontSize={16} fontWeight={700}>

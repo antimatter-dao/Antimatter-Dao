@@ -4,8 +4,8 @@ import { Typography, useTheme } from '@mui/material'
 import Card, { OutlinedCard } from 'components/Card/Card'
 import { SwitchTabWrapper, Tab } from 'components/SwitchTab'
 import Table from 'components/Table'
+import InputNumerical from 'components/Input/InputNumerical'
 import NumericalCard from 'components/Card/NumericalCard'
-import NumericalInput from 'components/Input/InputNumericalSimple'
 import Button from 'components/Button/Button'
 
 const tabTypes = {
@@ -47,26 +47,20 @@ export default function Bond() {
         <Box display="grid" gap="34px">
           <SwitchTab currentTab={currentTab} onTabClick={handleCurrentTab} />
           {tabTypes[currentTab] === tabTypes.bond ? (
-            <Table
-              header={['Bond', 'Price', 'ROI', 'Purchased', '']}
-              rows={[
-                [1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1]
-              ]}
-            />
+            <Table header={['Bond', 'Price', 'ROI', 'Purchased', '']} rows={[['Coming Soon...', '', '', '', '']]} />
           ) : (
             <Box display="flex" gap="60px">
               <Box display="grid" width="100%" gap="8px">
-                <Typography>Note</Typography>
-                <OutlinedCard>
-                  <Box display="grid" padding="20px 24px">
+                <Typography color={theme.palette.text.secondary}>Note</Typography>
+                <OutlinedCard color={'#00000010'}>
+                  <Box display="grid" padding="20px 24px" gap="8px">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                       <circle cx="9" cy="9" r="9" fill="#2663FF" />
                       <rect x="8" y="8" width="2" height="6" rx="1" fill="white" />
                       <rect x="8" y="4" width="2" height="2" rx="1" fill="white" />
                     </svg>
 
-                    <p>
+                    <p style={{ margin: 0 }}>
                       If you choose to purchase with no lockup,the contract will use half of the fund to direct market
                       buy MATTER from DEX and use the other half of the fund to buy MATTER from treasury at the market
                       price without slippage.
@@ -75,7 +69,14 @@ export default function Bond() {
                 </OutlinedCard>
               </Box>
               <Box width="100%" gap="28px" display="grid">
-                <NumericalInput value="" label="Amount you want to purchase" balance="-" onMax={() => {}} />
+                <InputNumerical
+                  unit="USDT"
+                  label="Amount you want to purchase"
+                  onMax={() => {}}
+                  balance={'-'}
+                  value={''}
+                  onChange={() => {}}
+                />
                 <Button disabled>Coming Soon...</Button>
               </Box>
             </Box>

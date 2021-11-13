@@ -14,8 +14,9 @@ export default function NumericalInput({
   onMax,
   balance,
   label,
+  unit,
   ...props
-}: InputProps & InputHTMLAttributes<HTMLInputElement> & { onMax?: () => void; balance?: string }) {
+}: InputProps & InputHTMLAttributes<HTMLInputElement> & { onMax?: () => void; balance?: string; unit?: string }) {
   const enforcer = (nextUserInput: string) => {
     const fixed = nextUserInput.replace(/,/g, '.')
     if (fixed === '' || inputRegex.test(escapeRegExp(fixed))) {
@@ -41,7 +42,11 @@ export default function NumericalInput({
       {(label || balance) && (
         <Box display="flex" justifyContent="space-between">
           <InputLabel>{label}</InputLabel>
-          {!!balance && <InputLabel style={{ fontSize: '12px' }}>Available: {balance} MATTER</InputLabel>}
+          {!!balance && (
+            <InputLabel style={{ fontSize: '12px' }}>
+              Available: {balance} {unit ?? 'MATTER'}
+            </InputLabel>
+          )}
         </Box>
       )}
       <Input
@@ -62,7 +67,7 @@ export default function NumericalInput({
         endAdornment={
           onMax && (
             <Box gap="20px" display="flex" alignItems="center" paddingLeft="20px" paddingBottom="2px">
-              <span>MATTER</span>
+              <span>{unit ?? 'MATTER'}</span>
               <SecondaryButton
                 primary
                 onClick={onMax}

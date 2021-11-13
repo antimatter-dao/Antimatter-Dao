@@ -31,7 +31,7 @@ export default function PendingView({
       ) : (
         <>
           <OutlinedCard color={theme.palette.primary.main} style={{ margin: '20px' }} padding="16px" width="80%">
-            <Box display="flex" gap="16px" width="100%">
+            <Box display="flex" gap="16px" width="100%" alignItems="center">
               <Spinner />
               Initializing...
             </Box>

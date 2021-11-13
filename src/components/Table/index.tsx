@@ -81,10 +81,12 @@ const StyledTableRow = styled(TableRow)({
   '& .MuiTableCell-root': {
     justifyContent: 'flex-start',
     '&:first-child': {
+      padding: '14px 20px',
       borderTopLeftRadius: 8,
       borderBottomLeftRadius: 8
     },
     '&:last-child': {
+      padding: '14px 20px',
       borderTopRightRadius: 8,
       borderBottomRightRadius: 8
     }
@@ -130,7 +132,10 @@ export default function Table({ header, rows }: { header: string[]; rows: (strin
                 {header.map((headerString, index) => (
                   <CardRow key={index}>
                     <Typography variant="inherit">{headerString}</Typography>
-                    <Typography style={{ color: '#fff' }}> {data[index] ?? null}</Typography>
+                    <Typography sx={{ color: theme => theme.palette.text.secondary }}>
+                      {' '}
+                      {data[index] ?? null}
+                    </Typography>
                   </CardRow>
                 ))}
               </Box>
