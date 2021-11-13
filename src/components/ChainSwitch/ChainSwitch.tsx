@@ -72,7 +72,7 @@ export default function ChainSwitch(props: Props) {
         </Box>
         <Box width="100%">
           <OutlinedCard width="100%" color={theme.textColor.text4}>
-            <Box display="grid" gap="8px" padding="12px 16px" width="100%" height={height || '92px'}>
+            <Box display="grid" gap="8px" padding="12px 16px" width="100%" height={height || '92'}>
               <Image src={toChain?.logo || ''} style={{ height: 28, width: 28, objectFit: 'contain' }} />
               <Typography variant="inherit" sx={{ fontSize: 12 }}>
                 {toChain?.name || ''}

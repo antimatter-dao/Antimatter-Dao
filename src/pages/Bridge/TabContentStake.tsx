@@ -10,10 +10,10 @@ export default function TabContentBridge() {
       <Box width="50%" display="flex" gap={20} mt={42}>
         <MatterAndUsdt />
         <Box>
-          <Typography fontSize={24} fontWeight={700}>
+          <Typography variant="inherit" fontSize={24} fontWeight={700}>
             MATTER-USDT LP
           </Typography>
-          <Typography fontSize={12} fontWeight={400} color="#7D7D7D">
+          <Typography variant="inherit" fontSize={12} fontWeight={400} color="#7D7D7D">
             Ethereum
           </Typography>
         </Box>
@@ -22,6 +22,7 @@ export default function TabContentBridge() {
         <Box display="flex" height={44} gap={33} mt={61}>
           <Box>
             <Typography
+              variant="inherit"
               sx={{
                 color: theme => theme.palette.text.secondary,
                 fontSize: 12,
@@ -31,18 +32,18 @@ export default function TabContentBridge() {
               Amount of Quota Provided
             </Typography>
             <Box display="flex" alignItems="end" lineHeight={1}>
-              <Typography fontSize={16} fontWeight={700}>
+              <Typography variant="inherit" fontSize={16} fontWeight={700}>
                 -
               </Typography>
-              <Typography fontSize={14} fontWeight={700} ml={4}>
+              <Typography variant="inherit" fontSize={14} fontWeight={700} ml={4}>
                 MATTER
               </Typography>
             </Box>
           </Box>
           <Divider orientation="vertical" color="rgba(0,0,0,0.1)" />
-
           <Box>
             <Typography
+              variant="inherit"
               sx={{
                 color: theme => theme.palette.text.secondary,
                 fontSize: 12,
@@ -52,10 +53,10 @@ export default function TabContentBridge() {
               Your Balance
             </Typography>
             <Box display="flex" alignItems="end" lineHeight={1}>
-              <Typography fontSize={16} fontWeight={700}>
+              <Typography variant="inherit" fontSize={16} fontWeight={700}>
                 -
               </Typography>
-              <Typography fontSize={14} fontWeight={700} ml={4}>
+              <Typography variant="inherit" fontSize={14} fontWeight={700} ml={4}>
                 LP
               </Typography>
             </Box>
@@ -63,6 +64,7 @@ export default function TabContentBridge() {
           <Divider orientation="vertical" color="rgba(0,0,0,0.1)" />
           <Box>
             <Typography
+              variant="inherit"
               sx={{
                 color: theme => theme.palette.text.secondary,
                 fontSize: 12,
@@ -72,10 +74,10 @@ export default function TabContentBridge() {
               Your Staked Balance
             </Typography>
             <Box display="flex" alignItems="end" lineHeight={1}>
-              <Typography fontSize={16} fontWeight={700}>
+              <Typography variant="inherit" fontSize={16} fontWeight={700}>
                 -
               </Typography>
-              <Typography fontSize={14} fontWeight={700} ml={4}>
+              <Typography variant="inherit" fontSize={14} fontWeight={700} ml={4}>
                 LP
               </Typography>
             </Box>

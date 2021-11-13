@@ -16,7 +16,7 @@ export default function TabContentBridge(props: Props) {
   return (
     <Box display="flex">
       <Box width="50%" height="100%">
-        <ChainSwitch key={0} fromChain={ChainList[0]} toChain={ChainList[1]} height={148} />
+        <ChainSwitch fromChain={ChainList[0]} toChain={ChainList[1]} height={148} />
       </Box>
       <Box padding="22px 32px" display="grid" gap="32px" width="50%">
         <InputNumerical

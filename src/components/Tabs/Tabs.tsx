@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react'
-import { Tabs as MuiTabs, Tab, Typography, Box } from '@mui/material'
+import { Tabs as MuiTabs, Tab, Box } from '@mui/material'
 
 interface Props {
   tabContents: React.ReactNode[]
 }
 
 function TabPanel({ children, value, index }: { children: React.ReactNode; value: number; index: number }) {
-  return <div hidden={value !== index}>{value === index && <Typography>{children}</Typography>}</div>
+  return <div hidden={value !== index}>{value === index && children}</div>
 }
 
 export default function Tabs(props: Props) {
