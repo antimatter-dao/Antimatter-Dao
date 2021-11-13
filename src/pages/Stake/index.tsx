@@ -129,59 +129,61 @@ export default function Stake() {
         </Card>
         <Box display="grid" gridTemplateColumns=" 2fr 1.5fr 1.5fr" gap="20px" maxWidth="100%" sx={{ width: '100%' }}>
           <NumericalCard title="MATTER Earned" value={earned} unit="Matter" fontSize="44px" height="280px">
-            {earned && earned !== '0' && (
-              <SmallButton
-                variant="outlined"
-                onClick={() => {
-                  setCompoundModalOpen(true)
-                }}
-                sx={{ position: 'absolute', right: '24px', top: '11px' }}
-              >
-                Compound
-              </SmallButton>
-            )}
-            <Box sx={{ position: 'absolute', right: '24px', bottom: '34px' }}>
-              {account ? (
-                <>
-                  {stakedBalance && +stakedBalance > 0 ? (
-                    <Box display="flex" gap="8px">
+            <>
+              {earned && earned !== '0' && (
+                <SmallButton
+                  variant="outlined"
+                  onClick={() => {
+                    setCompoundModalOpen(true)
+                  }}
+                  sx={{ position: 'absolute', right: '24px', top: '11px' }}
+                >
+                  Compound
+                </SmallButton>
+              )}
+              <Box sx={{ position: 'absolute', right: '24px', bottom: '34px' }}>
+                {account ? (
+                  <>
+                    {stakedBalance && +stakedBalance > 0 ? (
+                      <Box display="flex" gap="8px">
+                        <SmallButton
+                          sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
+                          onClick={() => {
+                            setDepositModalOpen(true)
+                          }}
+                        >
+                          <svg viewBox="0 0 10 10" width="10" height="10">
+                            <rect y="4" width="10" height="2" fill="white" />
+                            <rect x="6" width="10" height="2" transform="rotate(90 6 0)" fill="white" />
+                          </svg>
+                        </SmallButton>
+                        <SmallButton
+                          sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
+                          onClick={() => {
+                            setWithdrawModalOpen(true)
+                          }}
+                        >
+                          <svg viewBox="0 0 10 2" width="10" height="2">
+                            <rect width="10" height="2" fill="white" />
+                          </svg>
+                        </SmallButton>
+                      </Box>
+                    ) : (
                       <SmallButton
-                        sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
+                        sx={{ height: 44, width: 108, borderRadius: '12px', padding: 0 }}
                         onClick={() => {
                           setDepositModalOpen(true)
                         }}
                       >
-                        <svg viewBox="0 0 10 10" width="10" height="10">
-                          <rect y="4" width="10" height="2" fill="white" />
-                          <rect x="6" width="10" height="2" transform="rotate(90 6 0)" fill="white" />
-                        </svg>
+                        + Stake
                       </SmallButton>
-                      <SmallButton
-                        sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
-                        onClick={() => {
-                          setWithdrawModalOpen(true)
-                        }}
-                      >
-                        <svg viewBox="0 0 10 2" width="10" height="2">
-                          <rect width="10" height="2" fill="white" />
-                        </svg>
-                      </SmallButton>
-                    </Box>
-                  ) : (
-                    <SmallButton
-                      sx={{ height: 44, width: 108, borderRadius: '12px', padding: 0 }}
-                      onClick={() => {
-                        setDepositModalOpen(true)
-                      }}
-                    >
-                      + Stake
-                    </SmallButton>
-                  )}
-                </>
-              ) : (
-                <SmallButton onClick={toggleWalletModal}>Connect</SmallButton>
-              )}
-            </Box>
+                    )}
+                  </>
+                ) : (
+                  <SmallButton onClick={toggleWalletModal}>Connect</SmallButton>
+                )}
+              </Box>
+            </>
           </NumericalCard>
 
           <NumericalCard

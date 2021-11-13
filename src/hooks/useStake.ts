@@ -41,14 +41,11 @@ export function useStakingInfo() {
   const totalDepositedRes = useSingleCallResult(contract, 'TVL')
   const earnedRes = useSingleCallResult(contract, 'earned', args)
   const stakedBalanceRes = useSingleCallResult(contract, 'balanceOf', args)
-  console.log(apyRes, totalDepositedRes)
 
   const res = useMemo(() => {
     return {
-      apy: apyRes?.result?.[0],
-      totalDeposited: totalDepositedRes?.result?.[0],
-      // apy: '10',
-      // totalDeposited: '3,835,616.00',
+      apy: apyRes?.result?.[0].toString() ?? '-',
+      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], Matter) : '-',
       earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter) : '-',
       stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter) : '-'
     }
