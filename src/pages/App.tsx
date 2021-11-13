@@ -9,6 +9,7 @@ import WarningModal from '../components/Modal/WarningModal'
 import ComingSoon from './ComingSoon'
 import Dashboard from './Dashboard'
 import TradingRewards from './TradingRewards'
+import Bridge from './Bridge'
 import { ModalProvider } from 'context/ModalContext'
 import { routes } from 'constants/routes'
 import Stake from './Stake'
@@ -64,7 +65,7 @@ export default function App() {
                   <Route exact strict path={routes.trading_rewards} component={TradingRewards} />
                   <Route exact strict path={routes.stake} component={Stake} />
                   <Route exact strict path={routes.bond} component={ComingSoon} />
-                  <Route exact strict path={routes.bridge} component={ComingSoon} />
+                  <Route exact strict path={routes.bridge} component={Bridge} />
                   <Route path="/">
                     <Redirect to={routes.dashboard} />
                   </Route>
