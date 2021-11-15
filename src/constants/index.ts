@@ -132,3 +132,7 @@ export const Matter = new Token(
 )
 
 export const ANTIMATTER_DAO_ADDRESS = '0xCB8429f22541E8F5cd8ea6c20BFFdcE7cDA65227'
+
+export const CURRENT_SUPPORTED_CHAINS = {
+  stake: [3]
+}
