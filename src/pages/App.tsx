@@ -13,11 +13,13 @@ import { ModalProvider } from 'context/ModalContext'
 import { routes } from 'constants/routes'
 import Stake from './Stake'
 import Bond from './Bond'
+import ComingSoonMoadal from 'components/Modal/ComingSoonModal'
 
 const AppWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-start',
   overflowX: 'hidden',
+  position: 'relative',
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
     height: '100vh'
@@ -53,6 +55,7 @@ export default function App() {
     <Suspense fallback={null}>
       <ModalProvider>
         <AppWrapper id="app">
+          <ComingSoonMoadal />
           <ContentWrapper>
             <Header />
             <BodyWrapper id="body">

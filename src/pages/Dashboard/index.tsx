@@ -74,8 +74,8 @@ export default function Dashboard() {
         </Grid>
       </Box>
       <Box sx={{ width: '100%', mt: 48 }}>
-        <Grid container spacing={20}>
-          <Grid item xs={12} md={9}>
+        <Grid container spacing={20} gridTemplateColumns="2fr minmax(max-content, auto)" flexWrap="nowrap">
+          <Grid item width="100%">
             <ChartCard title="MATTER PRICE" value="-" unit="$" rate="0">
               {/* Chart */}
               <Box sx={{ display: 'flex', gap: '12px' }}>
@@ -99,7 +99,7 @@ export default function Dashboard() {
               </Box>
             </ChartCard>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item>
             <BridgeCard
               fromChain={ChainList[0]}
               toChain={ChainList[1]}

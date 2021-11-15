@@ -48,7 +48,7 @@ export default function Stake() {
           setHash(r.hash)
           const matterToken = new TokenAmount(Matter, val)
           addTransaction(r, {
-            summary: `Stake ${matterToken.toSignificant()} MATTER`
+            summary: `Stake ${matterToken.toExact()} MATTER`
           })
         })
         .catch(e => {
