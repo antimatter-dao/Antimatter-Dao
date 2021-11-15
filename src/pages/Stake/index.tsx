@@ -15,6 +15,7 @@ import { useActiveWeb3React } from 'hooks'
 import { useWalletModalToggle } from 'state/application/hooks'
 import { Matter } from 'constants/index'
 import { useCurrencyBalance } from 'state/wallet/hooks'
+import { TokenAmount } from 'constants/token'
 
 export default function Stake() {
   const [depositModalOpen, setDepositModalOpen] = useState(false)
@@ -45,8 +46,9 @@ export default function Stake() {
         .then(r => {
           hideModal()
           setHash(r.hash)
+          const matterToken = new TokenAmount(Matter, val)
           addTransaction(r, {
-            summary: `Stake ${val} MATTER`
+            summary: `Stake ${matterToken.toSignificant()} MATTER`
           })
         })
         .catch(e => {
