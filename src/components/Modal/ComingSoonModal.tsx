@@ -5,7 +5,7 @@ import { routes } from 'constants/routes'
 import { Dots } from 'theme/components'
 import useBreakpoint from 'hooks/useBreakpoint'
 
-const Wrapper = styled('div')(({ theme }) => ({
+const Wrapper = styled('div')({
   height: '100vh',
   width: '100%',
   top: 0,
@@ -15,9 +15,9 @@ const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center'
-}))
+})
 
-const Backdrop = styled('div')(({ theme }) => ({
+const Backdrop = styled('div')({
   backgroundColor: '#ffffff50',
   zIndex: 1111,
   height: '100vh',
@@ -26,7 +26,7 @@ const Backdrop = styled('div')(({ theme }) => ({
   top: 0,
   left: 0,
   backdropFilter: 'blur(2px)'
-}))
+})
 
 export default function ComingSoonMoadal() {
   const [isOpen, setIsOpen] = useState(false)
