@@ -89,6 +89,7 @@ export default function Select(props: Props) {
               width: width ?? '100%',
               borderRadius: '10px',
               mt: '12px',
+              boxShadow: theme => theme.shadows[4],
               transform: width ? 'translateX(-12px)!important' : 'none',
               '& li': {
                 fontSize: 16,

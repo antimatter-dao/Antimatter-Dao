@@ -53,6 +53,7 @@ export default function Modal(props: Props) {
               maxWidth: maxWidth || 488,
               background: theme => theme.palette.background.paper,
               border: hasBorder ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
+              boxShadow: 'unset',
               padding: padding || 0,
               boxSizing: 'border-box',
               borderRadius: 2,
@@ -81,8 +82,7 @@ export default function Modal(props: Props) {
         BackdropProps={{
           sx: {
             ...{
-              backgroundColor: 'rgba(0,0,0,0.7)',
-              opacity: 0.4
+              backgroundColor: 'rgba(0,0,0,0.6)'
             },
             ...(!isCardOnMobile
               ? {

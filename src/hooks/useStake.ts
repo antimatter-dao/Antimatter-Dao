@@ -47,8 +47,8 @@ export function useStakingInfo() {
     return {
       apy: apyRes?.result?.[0] ? (+parseBalance(apyRes?.result?.[0], Matter) / 100).toString() : '-',
       totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], Matter) : '-',
-      earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter) : '-',
-      stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter) : '-'
+      earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter, 4) : '-',
+      stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter, 4) : '-'
     }
   }, [apyRes?.result, earnedRes.result, stakedBalanceRes.result, totalDepositedRes?.result])
   return res
