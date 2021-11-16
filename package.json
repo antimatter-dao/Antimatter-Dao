@@ -1,6 +1,6 @@
 {
-  "name": "@chainswap/interface",
-  "description": "Chainswap Interface",
+  "name": "@antimatter-finance/dao",
+  "description": "antimatter-finance dao",
   "homepage": ".",
   "private": true,
   "devDependencies": {
