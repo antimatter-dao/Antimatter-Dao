@@ -79,7 +79,7 @@ export default function NumericalCard(props: Props) {
                 lineHeight: 1
               }}
             >
-              {value !== undefined && +value ? (+value < 0.01 ? '<0.01' : value) : 0}
+              {value !== undefined && +value ? (+value < 0.01 ? '<0.01' : value) : value}
             </Typography>
             {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4, lineHeight: 1 }}>{unit}</Typography>}
           </Box>
