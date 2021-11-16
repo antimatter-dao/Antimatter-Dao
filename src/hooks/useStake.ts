@@ -45,11 +45,11 @@ export function useStakingInfo() {
   const stakedBalanceRes = useSingleCallResult(contract, 'balanceOf', args)
 
   const res = useMemo(() => {
-    const USDT8 = new Token(chainId ?? 1, '0xdac17f958d2ee523a2206206994597c13d831ec7', 8, 'USDT8')
+    const USDC = new Token(chainId ?? 1, '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', 6, 'USDC')
 
     return {
       apy: apyRes?.result?.[0] ? (+parseBalance(apyRes?.result?.[0], Matter) * 100).toString() : '-',
-      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], USDT8) : '-',
+      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], USDC) : '-',
       earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter, 4) : '-',
       stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter, 4) : '-'
     }
