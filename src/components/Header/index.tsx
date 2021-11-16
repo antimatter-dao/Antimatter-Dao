@@ -10,14 +10,14 @@ import {
   Drawer,
   IconButton,
   useTheme,
-  MenuItem,
+  // MenuItem,
   Box,
   Typography
 } from '@mui/material'
 import { Menu } from '@mui/icons-material'
-import { ChainList, ChainListMap } from 'constants/chain'
-import Select from 'components/Select/Select'
-import LogoText from 'components/LogoText'
+// import { ChainList, ChainListMap } from 'constants/chain'
+// import Select from 'components/Select/Select'
+// import LogoText from 'components/LogoText'
 import Divider from 'components/Divider'
 import { ExternalLink } from 'theme/components'
 import Web3Status from './Web3Status'
@@ -32,7 +32,7 @@ import { ReactComponent as GovernanceIcon } from 'assets/svg/governance_icon.svg
 import { ReactComponent as DocsIcon } from 'assets/svg/docs_icon.svg'
 import { ReactComponent as ForumIcon } from 'assets/svg/forum_icon.svg'
 import { routes } from 'constants/routes'
-import { useActiveWeb3React } from 'hooks'
+// import { useActiveWeb3React } from 'hooks'
 
 interface TabContent {
   title: string
@@ -139,7 +139,7 @@ const StyledExternalLink = styled(ExternalLink)(({ theme }) => ({
 const container = window !== undefined ? () => window.document.body : undefined
 
 export default function Header() {
-  const { chainId } = useActiveWeb3React()
+  // const { chainId } = useActiveWeb3React()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
@@ -268,7 +268,7 @@ export default function Header() {
             {Tabs[0].tabs.find(tab => tab.route === location.pathname)?.title ?? ''}
           </Typography>
         </Box>
-        {chainId && ChainListMap[chainId] && (
+        {/* {chainId && ChainListMap[chainId] && (
           <Select
             defaultValue={ChainListMap[chainId].symbol}
             value={ChainListMap[chainId].symbol}
@@ -285,7 +285,7 @@ export default function Header() {
               </MenuItem>
             ))}
           </Select>
-        )}
+        )} */}
       </StyledAppBar>
     </>
   )

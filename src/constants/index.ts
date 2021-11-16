@@ -8,8 +8,8 @@ import { ChainId } from './chain'
 export const MIN_ETH: JSBI = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .01 ETH
 
 export const BAST_TOKEN: { [chainId in ChainId]: Token } = {
-  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', 18, 'MATTER', 'Matter'),
-  [ChainId.ROPSTEN]: new Token(ChainId.MAINNET, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', 18, 'MATTER', 'Matter'),
+  [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x9b99cca871be05119b2012fd4474731dd653febe', 18, 'MATTER', 'Matter'),
+  [ChainId.ROPSTEN]: new Token(ChainId.ROPSTEN, '0x9b99cca871be05119b2012fd4474731dd653febe', 18, 'MATTER', 'Matter'),
   [ChainId.RINKEBY]: new Token(ChainId.MAINNET, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', 18, 'MATTER', 'Matter'),
   [ChainId.GÖRLI]: new Token(ChainId.MAINNET, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', 18, 'MATTER', 'Matter'),
   [ChainId.KOVAN]: new Token(ChainId.MAINNET, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', 18, 'MATTER', 'Matter')
@@ -124,7 +124,7 @@ export const BLOCKED_ADDRESSES: string[] = [
 ]
 
 export const Matter = new Token(
-  3,
+  1,
   '0x9B99CcA871Be05119B2012fd4474731dd653FEBe',
   18,
   'MATER',
@@ -134,5 +134,5 @@ export const Matter = new Token(
 export const ANTIMATTER_DAO_ADDRESS = '0xCB8429f22541E8F5cd8ea6c20BFFdcE7cDA65227'
 
 export const CURRENT_SUPPORTED_CHAINS = {
-  stake: [3]
+  stake: [1]
 }
