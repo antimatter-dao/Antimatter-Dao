@@ -5,6 +5,7 @@ import { useSingleCallResult } from 'state/multicall/hooks'
 import { useActiveWeb3React } from 'hooks'
 import { Matter } from 'constants/index'
 import { parseBalance } from 'utils/parseAmount'
+import { Token } from 'constants/token'
 
 export function useStakeCallback(): {
   stakeCallback: undefined | ((val: string) => Promise<any>)
@@ -34,7 +35,7 @@ export function useStakeCallback(): {
 }
 
 export function useStakingInfo() {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const contract = useAntiMatterDaoContract()
   const args = useMemo(() => [account ?? undefined], [account])
 
@@ -44,13 +45,15 @@ export function useStakingInfo() {
   const stakedBalanceRes = useSingleCallResult(contract, 'balanceOf', args)
 
   const res = useMemo(() => {
+    const USDT8 = new Token(chainId ?? 1, '0xdac17f958d2ee523a2206206994597c13d831ec7', 8, 'USDT8')
+
     return {
-      apy: apyRes?.result?.[0] ? (+parseBalance(apyRes?.result?.[0], Matter) / 100).toString() : '-',
-      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], Matter) : '-',
+      apy: apyRes?.result?.[0] ? (+parseBalance(apyRes?.result?.[0], Matter) * 100).toString() : '-',
+      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], USDT8) : '-',
       earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter, 4) : '-',
       stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter, 4) : '-'
     }
-  }, [apyRes?.result, earnedRes.result, stakedBalanceRes.result, totalDepositedRes?.result])
+  }, [apyRes?.result, chainId, earnedRes.result, stakedBalanceRes.result, totalDepositedRes?.result])
   return res
 }
 // ? JSBI.exponentiate(

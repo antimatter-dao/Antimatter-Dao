@@ -97,7 +97,13 @@ export default function StakeInputModal({
             <ActionButton
               pending={approvalState === ApprovalState.PENDING}
               pendingText="Approving"
-              error={value ? undefined : 'Amount required'}
+              error={
+                value
+                  ? parsedGreaterThan(value, balance?.raw.toString() ?? '0')
+                    ? 'Insufficient balance'
+                    : undefined
+                  : 'Amount required'
+              }
               disableAction={!Number(value)}
               onAction={() => {
                 showModal(<TransacitonPendingModal />)
