@@ -3,5 +3,6 @@ export const routes = {
   trading_rewards: '/trading_rewards',
   stake: '/stake',
   bond: '/bone',
-  bridge: '/bridge'
+  bridge: '/bridge',
+  myaccount: '/myaccount'
 }

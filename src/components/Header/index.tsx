@@ -31,6 +31,7 @@ import { ReactComponent as BridgeIcon } from 'assets/svg/bridge_icon.svg'
 import { ReactComponent as GovernanceIcon } from 'assets/svg/governance_icon.svg'
 import { ReactComponent as DocsIcon } from 'assets/svg/docs_icon.svg'
 import { ReactComponent as ForumIcon } from 'assets/svg/forum_icon.svg'
+import { ReactComponent as AccountIcon } from 'assets/svg/account_icon.svg'
 import { routes } from 'constants/routes'
 import { useActiveWeb3React } from 'hooks'
 
@@ -54,7 +55,8 @@ export const Tabs: { tag: string; tabs: Tab[] }[] = [
       { title: 'Trading Rewards', route: routes.trading_rewards, icon: <TradingRewardIcon /> },
       { title: 'Stake', route: routes.stake, icon: <StakeIcon /> },
       { title: 'Bond', route: routes.bond, icon: <BondIcon /> },
-      { title: 'Bridge', route: routes.bridge, icon: <BridgeIcon /> }
+      { title: 'Bridge', route: routes.bridge, icon: <BridgeIcon /> },
+      { title: 'My Account', route: routes.myaccount, icon: <AccountIcon /> }
     ]
   },
   {

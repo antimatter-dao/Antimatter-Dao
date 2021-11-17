@@ -13,6 +13,7 @@ import { ModalProvider } from 'context/ModalContext'
 import { routes } from 'constants/routes'
 import Stake from './Stake'
 import Bond from './Bond'
+import MyAccount from './MyAccount'
 
 const AppWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -66,6 +67,7 @@ export default function App() {
                   <Route exact strict path={routes.stake} component={Stake} />
                   <Route exact strict path={routes.bond} component={Bond} />
                   <Route exact strict path={routes.bridge} component={Bridge} />
+                  <Route exact strict path={routes.myaccount} component={MyAccount} />
                   <Route path="/">
                     <Redirect to={routes.dashboard} />
                   </Route>
