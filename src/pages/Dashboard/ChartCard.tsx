@@ -21,7 +21,7 @@ export default function ChartCard(props: Props) {
         sx={{
           padding: '20px 24px 28px',
           gap: '28px',
-          height: '430px',
+          height: 'max-content',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between'
@@ -58,7 +58,7 @@ export default function ChartCard(props: Props) {
             )}
           </Box>
         </Box>
-        <Box>{children}</Box>
+        {children}
       </Box>
     </Card>
   )

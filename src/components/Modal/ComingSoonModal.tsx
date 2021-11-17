@@ -28,12 +28,14 @@ const Backdrop = styled('div')({
   backdropFilter: 'blur(2px)'
 })
 
+const availablePath = [routes.stake, routes.dashboard]
+
 export default function ComingSoonMoadal() {
   const [isOpen, setIsOpen] = useState(false)
   const isDownSm = useBreakpoint('md')
   const location = useLocation()
   useEffect(() => {
-    if (location.pathname === routes.stake && !isDownSm) {
+    if (availablePath.includes(location.pathname) && !isDownSm) {
       setIsOpen(false)
     } else {
       setIsOpen(true)

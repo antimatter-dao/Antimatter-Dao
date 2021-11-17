@@ -5,6 +5,7 @@ import BridgeCard from './BridgeCard'
 import { DefaultButton } from 'components/Button/Button'
 import { Box, Grid, useTheme } from '@mui/material'
 import { ChainList } from 'constants/chain'
+import LineChart from 'components/Chart'
 
 const data = {
   available: '0.0'
@@ -77,7 +78,24 @@ export default function Dashboard() {
         <Grid container spacing={20} gridTemplateColumns="2fr minmax(max-content, auto)" flexWrap="nowrap">
           <Grid item width="100%">
             <ChartCard title="MATTER PRICE" value="-" unit="$" rate="0">
-              {/* Chart */}
+              <LineChart
+                id="matter-price"
+                unit="USDT"
+                lineColor={theme.palette.text.primary}
+                height={172}
+                lineSeriesData={[
+                  { time: '2019-04-11', value: 80.01 },
+                  { time: '2019-04-12', value: 96.63 },
+                  { time: '2019-04-13', value: 76.64 },
+                  { time: '2019-04-14', value: 81.89 },
+                  { time: '2019-04-15', value: 74.43 },
+                  { time: '2019-04-16', value: 80.01 },
+                  { time: '2019-04-17', value: 96.63 },
+                  { time: '2019-04-18', value: 76.64 },
+                  { time: '2019-04-19', value: 81.89 },
+                  { time: '2019-04-20', value: 74.43 }
+                ]}
+              />
               <Box sx={{ display: 'flex', gap: '12px' }}>
                 {[
                   TIME_INTERVAL.TEN_DAYS,
@@ -112,7 +130,36 @@ export default function Dashboard() {
       </Box>
       <Box sx={{ width: '100%', mt: 48 }}>
         <ChartCard title="Market Value of Treasury Assets" value="-" unit="$">
-          {/* Chart */}
+          <LineChart
+            id="treasury-assets"
+            unit="DAI"
+            unit2="BNB"
+            height={162}
+            lineSeriesData={[
+              { time: '2019-04-11', value: 80.01 },
+              { time: '2019-04-12', value: 96.63 },
+              { time: '2019-04-13', value: 76.64 },
+              { time: '2019-04-14', value: 81.89 },
+              { time: '2019-04-15', value: 74.43 },
+              { time: '2019-04-16', value: 80.01 },
+              { time: '2019-04-17', value: 96.63 },
+              { time: '2019-04-18', value: 76.64 },
+              { time: '2019-04-19', value: 81.89 },
+              { time: '2019-04-20', value: 74.43 }
+            ]}
+            lineSeriesData2={[
+              { time: '2019-04-10', value: 180.01 },
+              { time: '2019-04-13', value: 196.63 },
+              { time: '2019-04-15', value: 176.64 },
+              { time: '2019-04-16', value: 181.89 },
+              { time: '2019-04-18', value: 174.43 },
+              { time: '2019-04-19', value: 180.01 },
+              { time: '2019-04-20', value: 196.63 },
+              { time: '2019-04-23', value: 176.64 },
+              { time: '2019-04-28', value: 181.89 },
+              { time: '2019-04-29', value: 174.43 }
+            ]}
+          />
           <Box sx={{ display: 'flex', gap: '12px' }}>
             {[
               TIME_INTERVAL.TEN_DAYS,
