@@ -21,7 +21,7 @@ export default function Tabs(props: Props) {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <MuiTabs value={value} onChange={onChange}>
-          {['Brige', 'Stake'].map(tab => (
+          {['Bridge', 'Stake'].map(tab => (
             <Tab
               key={tab}
               label={tab}
