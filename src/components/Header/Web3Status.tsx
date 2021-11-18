@@ -59,7 +59,7 @@ function Web3StatusInner() {
 
   if (account) {
     return (
-      <Box sx={{ cursor: 'pointer' }} onClick={toggleWalletModal}>
+      <Box sx={{ cursor: 'pointer' }} style={{ marginBottom: 15 }} onClick={toggleWalletModal}>
         {formatConnectorName()}
         <Box
           sx={{
@@ -88,13 +88,13 @@ function Web3StatusInner() {
     )
   } else if (error) {
     return (
-      <ActionButton width="140px" height="36px" onClick={toggleWalletModal}>
+      <ActionButton width="140px" height="36px" style={{ marginBottom: 15 }} onClick={toggleWalletModal}>
         {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
       </ActionButton>
     )
   } else {
     return (
-      <ActionButton width="140px" height="36px" onClick={toggleWalletModal}>
+      <ActionButton width="140px" height="36px" style={{ marginBottom: 15 }} onClick={toggleWalletModal}>
         Connect Wallet
       </ActionButton>
     )

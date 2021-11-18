@@ -69,7 +69,7 @@ export default function StakeInputModal({
     <Modal closeIcon customIsOpen={isOpen} customOnDismiss={onDismiss}>
       <Box padding="22px 32px" display="grid" gap="32px">
         <Typography fontSize={20} sx={{ color: theme => theme.palette.text.secondary }}>
-          {type === StakeType.DEPOSIT ? 'Deposit MATTER Tokens' : 'Withdraw MATTER Tokens'}
+          {type === StakeType.DEPOSIT ? 'Deposit MATTER Token' : 'Withdraw MATTER Token'}
         </Typography>
         <Box>
           <InputNumerical
@@ -84,7 +84,7 @@ export default function StakeInputModal({
             }}
           />
           {parsedGreaterThan(value, balance?.raw.toString() ?? '0') && (
-            <Typography fontSize={14} color="primary" sx={{ height: 21 }}>
+            <Typography fontSize={14} color="error" sx={{ height: 21 }}>
               Insufficient balance
             </Typography>
           )}
@@ -98,11 +98,12 @@ export default function StakeInputModal({
               pending={approvalState === ApprovalState.PENDING}
               pendingText="Approving"
               error={value ? undefined : 'Amount required'}
+              disableAction={!Number(value)}
               onAction={() => {
                 showModal(<TransacitonPendingModal />)
                 approveCallback()
               }}
-              actionText="Approve"
+              actionText={Number(value) > 0 ? 'Approve' : 'Stake'}
             />
           )}
           {approvalState === ApprovalState.APPROVED && (
@@ -112,7 +113,7 @@ export default function StakeInputModal({
                 setHash(hash)
               })}
               pending={pending}
-              pendingText="Pending Confirmat..."
+              pendingText="Pending Confirmation"
               actionText={type === StakeType.DEPOSIT ? 'Stake' : 'Unstake'}
             />
           )}

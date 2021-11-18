@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { Box, Typography, useTheme } from '@mui/material'
 import Card from 'components/Card/Card'
 import NumericalCard from 'components/Card/NumericalCard'
@@ -13,8 +13,11 @@ import TransacitonPendingModal from 'components/Modal/TransactionModals/Transact
 import MessageBox from 'components/Modal/TransactionModals/MessageBox'
 import { useActiveWeb3React } from 'hooks'
 import { useWalletModalToggle } from 'state/application/hooks'
-import { Matter } from 'constants/index'
+import { CURRENT_SUPPORTED_CHAINS, Matter } from 'constants/index'
 import { useCurrencyBalance } from 'state/wallet/hooks'
+import { TokenAmount } from 'constants/token'
+import { triggerSwitchChain } from 'utils/triggerSwitchChain'
+import { ChainListMap } from 'constants/chain'
 
 export default function Stake() {
   const [depositModalOpen, setDepositModalOpen] = useState(false)
@@ -25,7 +28,7 @@ export default function Stake() {
   const { showModal, hideModal } = useModal()
   const toggleWalletModal = useWalletModalToggle()
 
-  const { account } = useActiveWeb3React()
+  const { chainId, account, library } = useActiveWeb3React()
   const { stakeCallback, unstakeCallback, compoundCallback } = useStakeCallback()
   const addTransaction = useTransactionAdder()
   const { apy, earned, stakedBalance, totalDeposited } = useStakingInfo()
@@ -45,8 +48,9 @@ export default function Stake() {
         .then(r => {
           hideModal()
           setHash(r.hash)
+          const matterToken = new TokenAmount(Matter, val)
           addTransaction(r, {
-            summary: `Stake ${val} MATTER`
+            summary: `Stake ${matterToken.toExact()} MATTER`
           })
         })
         .catch(e => {
@@ -94,6 +98,20 @@ export default function Stake() {
     [addTransaction, compoundCallback, hideModal, showModal]
   )
 
+  const currentSupportChain = CURRENT_SUPPORTED_CHAINS.stake[0] || 1
+  const [supportChain, switchToSupportChain] = useMemo(() => {
+    if (!chainId || !account || !library) return [false, () => {}]
+    if (CURRENT_SUPPORTED_CHAINS.stake.includes(chainId)) {
+      return [true, () => {}]
+    }
+    return [
+      false,
+      () => {
+        triggerSwitchChain(library, currentSupportChain, account)
+      }
+    ]
+  }, [account, chainId, currentSupportChain, library])
+
   return (
     <>
       <Box
@@ -130,7 +148,7 @@ export default function Stake() {
         <Box display="grid" gridTemplateColumns=" 2fr 1.5fr 1.5fr" gap="20px" maxWidth="100%" sx={{ width: '100%' }}>
           <NumericalCard title="MATTER Earned" value={earned} unit="Matter" fontSize="44px" height="280px">
             <>
-              {earned && earned !== '0' && (
+              {supportChain && earned && earned !== '0' && (
                 <SmallButton
                   variant="outlined"
                   onClick={() => {
@@ -143,42 +161,48 @@ export default function Stake() {
               )}
               <Box sx={{ position: 'absolute', right: '24px', bottom: '34px' }}>
                 {account ? (
-                  <>
-                    {stakedBalance && +stakedBalance > 0 ? (
-                      <Box display="flex" gap="8px">
+                  supportChain ? (
+                    <>
+                      {stakedBalance && +stakedBalance > 0 ? (
+                        <Box display="flex" gap="8px">
+                          <SmallButton
+                            sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
+                            onClick={() => {
+                              setDepositModalOpen(true)
+                            }}
+                          >
+                            <svg viewBox="0 0 10 10" width="10" height="10">
+                              <rect y="4" width="10" height="2" fill="white" />
+                              <rect x="6" width="10" height="2" transform="rotate(90 6 0)" fill="white" />
+                            </svg>
+                          </SmallButton>
+                          <SmallButton
+                            sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
+                            onClick={() => {
+                              setWithdrawModalOpen(true)
+                            }}
+                          >
+                            <svg viewBox="0 0 10 2" width="10" height="2">
+                              <rect width="10" height="2" fill="white" />
+                            </svg>
+                          </SmallButton>
+                        </Box>
+                      ) : (
                         <SmallButton
-                          sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
+                          sx={{ height: 44, width: 108, borderRadius: '12px', padding: 0 }}
                           onClick={() => {
                             setDepositModalOpen(true)
                           }}
                         >
-                          <svg viewBox="0 0 10 10" width="10" height="10">
-                            <rect y="4" width="10" height="2" fill="white" />
-                            <rect x="6" width="10" height="2" transform="rotate(90 6 0)" fill="white" />
-                          </svg>
+                          + Stake
                         </SmallButton>
-                        <SmallButton
-                          sx={{ height: 44, width: 44, borderRadius: '12px', padding: 0 }}
-                          onClick={() => {
-                            setWithdrawModalOpen(true)
-                          }}
-                        >
-                          <svg viewBox="0 0 10 2" width="10" height="2">
-                            <rect width="10" height="2" fill="white" />
-                          </svg>
-                        </SmallButton>
-                      </Box>
-                    ) : (
-                      <SmallButton
-                        sx={{ height: 44, width: 108, borderRadius: '12px', padding: 0 }}
-                        onClick={() => {
-                          setDepositModalOpen(true)
-                        }}
-                      >
-                        + Stake
-                      </SmallButton>
-                    )}
-                  </>
+                      )}
+                    </>
+                  ) : (
+                    <SmallButton onClick={switchToSupportChain}>
+                      Switch to {ChainListMap[currentSupportChain as number]?.symbol}
+                    </SmallButton>
+                  )
                 ) : (
                   <SmallButton onClick={toggleWalletModal}>Connect</SmallButton>
                 )}
