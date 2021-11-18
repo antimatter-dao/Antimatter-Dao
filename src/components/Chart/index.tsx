@@ -9,12 +9,19 @@ import {
   LineType,
   MouseEventParams,
   isBusinessDay,
-  BusinessDay
+  BusinessDay,
+  Time
 } from 'lightweight-charts'
+
+export type LineSeriesData = Array<{
+  time: Time
+  value: number
+  rate?: string
+}>
 
 type ToolTipInfo = Partial<Omit<MouseEventParams, 'seriesPrices'>> & {
   price?: string
-  date?: string
+  date?: Time
   price2?: string
 }
 
@@ -48,9 +55,9 @@ const tooltipFunction = ({
     return businessDay.year + '-' + businessDay.month + '-' + businessDay.day
   }
 
-  const date = isBusinessDay(param.time)
+  const date: Time = isBusinessDay(param.time)
     ? businessDayToString(param.time)
-    : new Date(param.time * 1000).getTime().toString()
+    : new Date(param.time).toUTCString().slice(4, 16)
 
   setToolTipInfo({
     time: param.time,
@@ -76,8 +83,8 @@ export default function LineChart({
   id
 }: {
   style?: React.CSSProperties
-  lineSeriesData: { time: string; value: number }[]
-  lineSeriesData2?: { time: string; value: number }[]
+  lineSeriesData: LineSeriesData
+  lineSeriesData2?: LineSeriesData
   height?: number
   lineColor?: string
   unit: string
@@ -226,7 +233,7 @@ export default function LineChart({
   return (
     <>
       <Chart sx={{ ...style }} id={id + '-chart'}>
-        {toolTipInfo && (
+        {toolTipInfo && chart && (
           <Paper
             ref={toolTipRef}
             id={id + 'chartToolTip'}
@@ -240,14 +247,13 @@ export default function LineChart({
               top: 0,
               padding: '8px 12px',
               boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.1)',
-              left: toolTipInfo.date
-                ? (chart?.timeScale()?.timeToCoordinate(toolTipInfo.date)
-                    ? chart?.timeScale()?.timeToCoordinate(toolTipInfo.date)
-                    : 0) +
-                  toolTipMargin +
-                  (toolTipRef?.current?.getBoundingClientRect().width ?? 0) +
-                  'px'
-                : '0px'
+              left: (() => {
+                if (!toolTipInfo.time || !chart.timeScale()) return 0
+                const coordinate = chart?.timeScale()?.timeToCoordinate(toolTipInfo.time)
+                const val = coordinate === null ? 0 : coordinate
+                return val + toolTipMargin
+                // +(toolTipRef?.current?.getBoundingClientRect().width ?? 0) + 'px'
+              })()
             }}
           >
             <Box display="grid" gap="8px">
@@ -258,6 +264,7 @@ export default function LineChart({
                 <Typography sx={{ color: theme => theme.palette.primary.main }}>{unit}</Typography>
                 <Typography fontSize={12}>$</Typography>
                 <Typography fontSize={12}>{toolTipInfo.price}</Typography>
+                <div>{lineSeriesData.find(el => el.time === toolTipInfo.time)?.rate ?? '0%'}</div>
               </Box>
 
               {toolTipInfo.price2 && unit2 && (

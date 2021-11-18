@@ -1,11 +1,13 @@
 import { useState, useCallback } from 'react'
+import { Box, Grid, useTheme } from '@mui/material'
 import NumericalCard from 'components/Card/NumericalCard'
 import ChartCard from './ChartCard'
 import BridgeCard from './BridgeCard'
 import { DefaultButton } from 'components/Button/Button'
-import { Box, Grid, useTheme } from '@mui/material'
+import { useDashboardData } from 'hooks/useDashboardData'
 import { ChainList } from 'constants/chain'
 import LineChart from 'components/Chart'
+import Spinner from 'components/Spinner'
 
 const data = {
   available: '0.0'
@@ -23,6 +25,18 @@ export default function Dashboard() {
   const [priceTimeInterval, setPriceTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
   const [mktValueTimeInterval, setMktValueTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
   const [amount, setAmount] = useState('')
+
+  const {
+    totalSupply,
+    totalValueLocked,
+    circulatingSupply,
+    matterBuyback,
+    apy,
+    totalMatterStake,
+    totalTradingVolume,
+    totalFeeEarned,
+    matterPriceData
+  } = useDashboardData()
 
   const onPriceTimeInterval = useCallback(option => {
     setPriceTimeInterval(option)
@@ -47,29 +61,29 @@ export default function Dashboard() {
           <Grid item xs={12} md={9}>
             <Grid container spacing={6}>
               <Grid item xs={6} md={4}>
-                <NumericalCard title="Total Locked Value" value="-" unit="$" />
+                <NumericalCard title="Total Locked Value" value={totalValueLocked} unit="$" />
               </Grid>
               <Grid item xs={6} md={4}>
-                <NumericalCard title="Total Trading Volume" value="-" unit="$" />
+                <NumericalCard title="Total Trading Volume" value={totalTradingVolume} unit="$" />
               </Grid>
               <Grid item xs={6} md={4}>
-                <NumericalCard title="MATTER Market Cap" value="-" unit="UST" />
+                <NumericalCard title="MATTER Market Cap" value={totalSupply} unit="UST" />
               </Grid>
               <Grid item xs={6} md={4}>
-                <NumericalCard title="Circulating Supply" value="-" unit="MATTER" />
+                <NumericalCard title="Circulating Supply" value={circulatingSupply} unit="MATTER" />
               </Grid>
               <Grid item xs={6} md={4}>
-                <NumericalCard title="Total MATTER Staked" value="-" unit="%" />
+                <NumericalCard title="Total MATTER Staked" value={totalMatterStake} unit="%" />
               </Grid>
               <Grid item xs={6} md={4}>
-                <NumericalCard title="MATTER Buyback" value="-" unit="MATTER" rate="0" />
+                <NumericalCard title="MATTER Buyback" value={matterBuyback} unit="MATTER" rate="0" />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12} md={3}>
             <Box sx={{ display: 'flex', gap: '6px', flexDirection: 'column' }}>
-              <NumericalCard title="Cumulative Transaction Fees" value="-" unit="USDT" primary />
-              <NumericalCard title="Current APY" value="-" unit="%" primary />
+              <NumericalCard title="Cumulative Transaction Fees" value={totalFeeEarned} unit="USDT" primary />
+              <NumericalCard title="Current APY" value={apy} unit="%" primary />
             </Box>
           </Grid>
         </Grid>
@@ -78,24 +92,19 @@ export default function Dashboard() {
         <Grid container spacing={20} gridTemplateColumns="2fr minmax(max-content, auto)" flexWrap="nowrap">
           <Grid item width="100%">
             <ChartCard title="MATTER PRICE" value="-" unit="$" rate="0">
-              <LineChart
-                id="matter-price"
-                unit="USDT"
-                lineColor={theme.palette.text.primary}
-                height={172}
-                lineSeriesData={[
-                  { time: '2019-04-11', value: 80.01 },
-                  { time: '2019-04-12', value: 96.63 },
-                  { time: '2019-04-13', value: 76.64 },
-                  { time: '2019-04-14', value: 81.89 },
-                  { time: '2019-04-15', value: 74.43 },
-                  { time: '2019-04-16', value: 80.01 },
-                  { time: '2019-04-17', value: 96.63 },
-                  { time: '2019-04-18', value: 76.64 },
-                  { time: '2019-04-19', value: 81.89 },
-                  { time: '2019-04-20', value: 74.43 }
-                ]}
-              />
+              {matterPriceData ? (
+                <LineChart
+                  id="matter-price"
+                  unit="USDT"
+                  lineColor={theme.palette.text.primary}
+                  height={172}
+                  lineSeriesData={matterPriceData}
+                />
+              ) : (
+                <Box height={172}>
+                  <Spinner color={theme.palette.primary.main} size={40} />
+                </Box>
+              )}
               <Box sx={{ display: 'flex', gap: '12px' }}>
                 {[
                   TIME_INTERVAL.TEN_DAYS,

@@ -35,12 +35,12 @@ export default function ComingSoonMoadal() {
   const isDownSm = useBreakpoint('md')
   const location = useLocation()
   useEffect(() => {
-    if (availablePath.includes(location.pathname) && !isDownSm) {
+    if (availablePath.includes(location.pathname) /*&& !isDownSm*/) {
       setIsOpen(false)
     } else {
       setIsOpen(true)
     }
-  }, [isDownSm, location.pathname])
+  }, [location.pathname])
 
   return (
     <>
