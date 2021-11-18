@@ -31,7 +31,8 @@ export default function Stake() {
   const { chainId, account, library } = useActiveWeb3React()
   const { stakeCallback, unstakeCallback, compoundCallback } = useStakeCallback()
   const addTransaction = useTransactionAdder()
-  const { apy, earned, stakedBalance, totalDeposited } = useStakingInfo()
+  const { apy, earned, stakedBalance, totalDeposited, totalStakedBalance } = useStakingInfo()
+
   const matterBalance = useCurrencyBalance(account ?? undefined, Matter)
 
   const onDismiss = useCallback(() => {
@@ -141,6 +142,7 @@ export default function Stake() {
             </Box>
             <Box display="flex" gap="20px">
               <NumericalCard title="APY" value={new Date().getTime() > 1637107200000 ? apy : '--'} unit="%" gray />
+              <NumericalCard title="Total Staked" value={totalStakedBalance} unit="matter" gray />
               <NumericalCard title="Total Value Deposited" value={totalDeposited} unit="$" gray />
             </Box>
           </Box>
