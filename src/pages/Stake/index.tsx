@@ -142,7 +142,7 @@ export default function Stake() {
             </Box>
             <Box display="flex" gap="20px">
               <NumericalCard title="APY" value={new Date().getTime() > 1637107200000 ? apy : '--'} unit="%" gray />
-              <NumericalCard title="Total Staked" value={totalStakedBalance} unit="matter" gray />
+              <NumericalCard title="Total Staked" value={totalStakedBalance} unit="Matter" gray />
               <NumericalCard title="Total Value Deposited" value={totalDeposited} unit="$" gray />
             </Box>
           </Box>
