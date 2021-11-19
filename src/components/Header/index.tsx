@@ -83,7 +83,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
   padding: '44px 32px 0',
   paddingLeft: `calc(${theme.width.sidebar} + 32px)`,
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     padding: '20px 24px 0'
   }
 }))
@@ -233,7 +233,7 @@ export default function Header() {
           keepMounted: true
         }}
         sx={{
-          display: { xs: 'block', sm: 'none' },
+          display: { xs: 'block', md: 'none' },
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: theme.width.sidebar }
         }}
       >
@@ -242,7 +242,7 @@ export default function Header() {
       <Drawer
         variant="permanent"
         sx={{
-          display: { xs: 'none', sm: 'block' },
+          display: { xs: 'none', md: 'block' },
           boxShadow: 'none',
           '& .MuiPaper-root': {
             borderColor: 'transparent'
@@ -257,7 +257,7 @@ export default function Header() {
         {drawer}
       </Drawer>
       <StyledAppBar>
-        <IconButton onClick={() => setMobileOpen(true)} sx={{ display: { xs: 'block', sm: 'none' } }}>
+        <IconButton onClick={() => setMobileOpen(true)} sx={{ display: { xs: 'block', md: 'none' } }}>
           <Menu />
         </IconButton>
         <Box display="grid" gap="8px">

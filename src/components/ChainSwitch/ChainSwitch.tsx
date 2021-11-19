@@ -46,14 +46,21 @@ export default function ChainSwitch(props: Props) {
           display: 'flex',
           justifyContent: 'space-between',
           width: '100%',
-          alignItems: 'center',
+          alignItems: 'stretch',
           position: 'relative',
           gap: 8
         }}
       >
         <Box width="100%">
-          <OutlinedCard width="100%" color={theme.textColor.text4}>
-            <Box display="grid" gap="8px" padding="12px 16px" width="100%" height={height || '92px'}>
+          <OutlinedCard width="100%" color={theme.textColor.text4} style={{ height: '100%' }}>
+            <Box
+              display="grid"
+              gap="8px"
+              padding="12px 16px"
+              width="100%"
+              height={height || '100%'}
+              gridTemplateRows="auto 1fr"
+            >
               <Image src={fromChain?.logo || ''} style={{ height: 28, width: 28, objectFit: 'contain' }} />
               <Typography variant="inherit" sx={{ fontSize: 12 }}>
                 {fromChain?.name || ''}
@@ -65,14 +72,22 @@ export default function ChainSwitch(props: Props) {
           sx={{
             position: 'absolute',
             left: '50%',
-            transform: 'translateX(-50%)'
+            top: '50%',
+            transform: 'translateX(-50%) translateY(-50%)'
           }}
         >
           <SwitchButton />
         </Box>
         <Box width="100%">
-          <OutlinedCard width="100%" color={theme.textColor.text4}>
-            <Box display="grid" gap="8px" padding="12px 16px" width="100%" height={height || '92px'}>
+          <OutlinedCard width="100%" color={theme.textColor.text4} style={{ height: '100%' }}>
+            <Box
+              display="grid"
+              gap="8px"
+              padding="12px 16px"
+              width="100%"
+              height={height || '100%'}
+              gridTemplateRows="auto 1fr"
+            >
               <Image src={toChain?.logo || ''} style={{ height: 28, width: 28, objectFit: 'contain' }} />
               <Typography variant="inherit" sx={{ fontSize: 12 }}>
                 {toChain?.name || ''}
