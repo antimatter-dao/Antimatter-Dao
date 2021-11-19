@@ -127,8 +127,16 @@ export const Matter = new Token(
   3,
   '0x9B99CcA871Be05119B2012fd4474731dd653FEBe',
   18,
-  'MATER',
+  'MATTER',
   'Antimatter.Finance Governance Token'
+)
+//TO DO: add real sMatter Data
+export const sMatter = new Token(
+  3,
+  '0xcc665390b03c5d324d8faf81c15ecee29a73bcb4',
+  18,
+  'sMATTER',
+  'Antimatter.Finance Staking Token'
 )
 
 export const ANTIMATTER_DAO_ADDRESS = '0xCB8429f22541E8F5cd8ea6c20BFFdcE7cDA65227'
