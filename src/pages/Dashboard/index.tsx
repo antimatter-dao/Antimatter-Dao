@@ -13,17 +13,24 @@ const data = {
   available: '0.0'
 }
 
-enum TIME_INTERVAL {
-  TEN_DAYS = '10 Days',
-  ONE_MONTH = '1 month',
-  THREE_MONTHS = ' 3 months',
-  SIX_MONTHS = '6 months'
+export enum TIME_INTERVAL {
+  ONE_DAY = 1,
+  TEN_DAYS = 10,
+  ONE_MONTH = 30
+  // THREE_MONTHS = ' 3 months',
+  // SIX_MONTHS = '6 months'
+}
+
+const TIME_INTERVAL_TITLE = {
+  [TIME_INTERVAL.ONE_DAY]: '1 day',
+  [TIME_INTERVAL.TEN_DAYS]: '10 days',
+  [TIME_INTERVAL.ONE_MONTH]: '1 month'
 }
 
 export default function Dashboard() {
   const theme = useTheme()
   const [priceTimeInterval, setPriceTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
-  const [mktValueTimeInterval, setMktValueTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
+  // const [mktValueTimeInterval, setMktValueTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
   const [amount, setAmount] = useState('')
 
   const {
@@ -42,9 +49,9 @@ export default function Dashboard() {
     setPriceTimeInterval(option)
   }, [])
 
-  const onMktValueTimeInterval = useCallback(option => {
-    setMktValueTimeInterval(option)
-  }, [])
+  // const onMktValueTimeInterval = useCallback(option => {
+  //   setMktValueTimeInterval(option)
+  // }, [])
 
   const onMax = useCallback(() => {
     setAmount(data.available || '')
@@ -55,32 +62,32 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <Box sx={{ padding: '0 42px 0 38px' }}>
+    <Box sx={{ padding: { lg: '0 28px', xl: '0 42px 0 38px' }, maxWidth: '100%' }}>
       <Box width="100%">
         <Grid container spacing={20}>
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} lg={9}>
             <Grid container spacing={6}>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="Total Locked Value" value={totalValueLocked} unit="$" />
               </Grid>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="Total Trading Volume" value={totalTradingVolume} unit="$" />
               </Grid>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="MATTER Market Cap" value={totalSupply} unit="UST" />
               </Grid>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="Circulating Supply" value={circulatingSupply} unit="MATTER" />
               </Grid>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="Total MATTER Staked" value={totalMatterStake} unit="%" />
               </Grid>
-              <Grid item xs={6} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="MATTER Buyback" value={matterBuyback} unit="MATTER" rate="0" />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} lg={3}>
             <Box sx={{ display: 'flex', gap: '6px', flexDirection: 'column' }}>
               <NumericalCard title="Cumulative Transaction Fees" value={totalFeeEarned} unit="USDT" primary />
               <NumericalCard title="Current APY" value={apy} unit="%" primary />
@@ -89,16 +96,37 @@ export default function Dashboard() {
         </Grid>
       </Box>
       <Box sx={{ width: '100%', mt: 48 }}>
-        <Grid container spacing={20} gridTemplateColumns="2fr minmax(max-content, auto)" flexWrap="nowrap">
-          <Grid item width="100%">
-            <ChartCard title="MATTER PRICE" value="-" unit="$" rate="0">
+        <Grid container gap="20px" flexWrap={{ sm: 'wrap', md: 'nowrap' }}>
+          <Grid
+            item
+            sx={{
+              width: {
+                xs: '100%',
+                md: 'calc(100% - 284px - 20px) '
+              }
+            }}
+          >
+            <ChartCard
+              title="MATTER PRICE"
+              value={
+                matterPriceData && matterPriceData[priceTimeInterval]
+                  ? matterPriceData[priceTimeInterval][matterPriceData[priceTimeInterval].length - 1].value
+                  : '-'
+              }
+              unit="$"
+              rate={
+                matterPriceData && matterPriceData[priceTimeInterval]
+                  ? matterPriceData[priceTimeInterval][matterPriceData[priceTimeInterval].length - 1].rate
+                  : '-'
+              }
+            >
               {matterPriceData ? (
                 <LineChart
                   id="matter-price"
                   unit="USDT"
                   lineColor={theme.palette.text.primary}
                   height={172}
-                  lineSeriesData={matterPriceData}
+                  lineSeriesData={matterPriceData[priceTimeInterval]}
                 />
               ) : (
                 <Box height={172}>
@@ -107,10 +135,11 @@ export default function Dashboard() {
               )}
               <Box sx={{ display: 'flex', gap: '12px' }}>
                 {[
+                  TIME_INTERVAL.ONE_DAY,
                   TIME_INTERVAL.TEN_DAYS,
-                  TIME_INTERVAL.ONE_MONTH,
-                  TIME_INTERVAL.THREE_MONTHS,
-                  TIME_INTERVAL.SIX_MONTHS
+                  TIME_INTERVAL.ONE_MONTH
+                  // TIME_INTERVAL.THREE_MONTHS,
+                  // TIME_INTERVAL.SIX_MONTHS
                 ].map((option, idx) => (
                   <DefaultButton
                     key={idx}
@@ -120,13 +149,21 @@ export default function Dashboard() {
                     fontSize="12px"
                     active={priceTimeInterval === option}
                   >
-                    {option}
+                    {TIME_INTERVAL_TITLE[option]}
                   </DefaultButton>
                 ))}
               </Box>
             </ChartCard>
           </Grid>
-          <Grid item>
+          <Grid
+            item
+            sx={{
+              width: {
+                xs: '100%',
+                md: '284px'
+              }
+            }}
+          >
             <BridgeCard
               fromChain={ChainList[0]}
               toChain={ChainList[1]}
@@ -137,7 +174,7 @@ export default function Dashboard() {
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{ width: '100%', mt: 48 }}>
+      {/* <Box sx={{ width: '100%', mt: 48 }}>
         <ChartCard title="Market Value of Treasury Assets" value="-" unit="$">
           <LineChart
             id="treasury-assets"
@@ -190,7 +227,7 @@ export default function Dashboard() {
             ))}
           </Box>
         </ChartCard>
-      </Box>
+      </Box> */}
     </Box>
   )
 }

@@ -27,6 +27,7 @@ type ToolTipInfo = Partial<Omit<MouseEventParams, 'seriesPrices'>> & {
 
 const Chart = styled('div')(`
   width: 100%;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +36,7 @@ const Chart = styled('div')(`
 `)
 
 const secondaryColor = '#F0B90B'
-const toolTipMargin = 8
+const toolTipMargin = 48
 
 const tooltipFunction = ({
   series,
@@ -233,51 +234,71 @@ export default function LineChart({
   return (
     <>
       <Chart sx={{ ...style }} id={id + '-chart'}>
-        {toolTipInfo && chart && (
-          <Paper
-            ref={toolTipRef}
-            id={id + 'chartToolTip'}
-            sx={{
-              display:
-                toolTipInfo.point && toolTipInfo.time && toolTipInfo.point.x > 0 && toolTipInfo.point.y > 0
-                  ? 'block'
-                  : 'none',
-              position: 'absolute',
-              zIndex: 2,
-              top: 0,
-              padding: '8px 12px',
-              boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.1)',
-              left: (() => {
-                if (!toolTipInfo.time || !chart.timeScale()) return 0
-                const coordinate = chart?.timeScale()?.timeToCoordinate(toolTipInfo.time)
-                const val = coordinate === null ? 0 : coordinate
-                return val + toolTipMargin
-                // +(toolTipRef?.current?.getBoundingClientRect().width ?? 0) + 'px'
-              })()
-            }}
-          >
-            <Box display="grid" gap="8px">
-              <Typography fontSize={10} sx={{ color: theme => theme.palette.text.secondary }}>
-                {toolTipInfo.date}
-              </Typography>
-              <Box display="flex" gap="8px">
-                <Typography sx={{ color: theme => theme.palette.primary.main }}>{unit}</Typography>
-                <Typography fontSize={12}>$</Typography>
-                <Typography fontSize={12}>{toolTipInfo.price}</Typography>
-                <div>{lineSeriesData.find(el => el.time === toolTipInfo.time)?.rate ?? '0%'}</div>
-              </Box>
-
-              {toolTipInfo.price2 && unit2 && (
-                <Box display="flex" gap="8px">
-                  <Typography sx={{ color: secondaryColor }}>{unit2}</Typography>
-                  <Typography fontSize={12}>$</Typography>
-                  <Typography fontSize={12}>{toolTipInfo.price2}</Typography>
-                </Box>
-              )}
+        <Paper
+          ref={toolTipRef}
+          id={id + 'chartToolTip'}
+          sx={{
+            display:
+              toolTipInfo &&
+              toolTipInfo.point &&
+              toolTipInfo.time &&
+              toolTipInfo.point.x >= 0 &&
+              toolTipInfo.point.y >= 0
+                ? 'block'
+                : 'none',
+            position: 'absolute',
+            zIndex: 10,
+            top: 0,
+            padding: '8px 12px',
+            boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.1)',
+            '& *': { cursor: 'none' },
+            left: (() => {
+              if (!toolTipInfo || !toolTipInfo.time || !chart || !chart.timeScale()) return 0
+              const coordinate = chart?.timeScale()?.timeToCoordinate(toolTipInfo.time)
+              const val = coordinate === null ? 0 : coordinate ?? 0
+              return val + toolTipMargin
+              // +(toolTipRef?.current?.getBoundingClientRect().width ?? 0) + 'px'
+            })()
+          }}
+        >
+          <Box display="grid" gap="8px">
+            <Typography fontSize={10} sx={{ color: theme => theme.palette.text.secondary }}>
+              {toolTipInfo && toolTipInfo.date}
+            </Typography>
+            <Box display="flex" gap="8px" alignItems="center">
+              <Typography sx={{ color: theme => theme.palette.primary.main }}>{unit}</Typography>
+              <Typography fontSize={12}>$</Typography>
+              <Typography fontSize={12}>{toolTipInfo && toolTipInfo.price}</Typography>
+              {toolTipInfo && <Capsule val={lineSeriesData.find(el => el.time === toolTipInfo.time)?.rate ?? '0%'} />}
             </Box>
-          </Paper>
-        )}
+
+            {toolTipInfo && toolTipInfo.price2 && unit2 && (
+              <Box display="flex" gap="8px">
+                <Typography sx={{ color: secondaryColor }}>{unit2}</Typography>
+                <Typography fontSize={12}>$</Typography>
+                <Typography fontSize={12}>{toolTipInfo.price2}</Typography>
+              </Box>
+            )}
+          </Box>
+        </Paper>
       </Chart>
     </>
+  )
+}
+
+function Capsule({ val }: { val: string }) {
+  return (
+    <Typography
+      fontSize={12}
+      sx={{
+        minWidth: '56px',
+        padding: '5px 12px',
+        borderRadius: 3,
+        backgroundColor: theme => (val[0] === '-' ? theme.palette.error.light : theme.palette.secondary.main),
+        color: theme => (val[0] === '-' ? theme.palette.error.main : theme.palette.secondary.light)
+      }}
+    >
+      {val}
+    </Typography>
   )
 }

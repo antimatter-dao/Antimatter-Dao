@@ -12,16 +12,17 @@ interface Props {
 }
 
 export default function ChartCard(props: Props) {
-  const { title, width, children, value, unit, rate } = props
+  const { title, width = '100%', children, value, unit, rate } = props
   const theme = useTheme()
 
   return (
-    <Card width={width}>
+    <Card width={width} style={{ height: '100%' }}>
       <Box
         sx={{
+          width: '100%',
           padding: '20px 24px 28px',
           gap: '28px',
-          height: 'max-content',
+          height: '100%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between'
@@ -39,12 +40,12 @@ export default function ChartCard(props: Props) {
                 sx={{
                   ml: 15,
                   backgroundColor: 'rgba(17, 191, 45, 0.16)',
-                  width: '56px',
-                  height: '24px',
                   display: 'flex',
+                  minWidth: '56px',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderRadius: '12px'
+                  borderRadius: '49px',
+                  padding: '5px 12px'
                 }}
               >
                 <Typography
@@ -52,7 +53,7 @@ export default function ChartCard(props: Props) {
                     color: '#11BF2D'
                   }}
                 >
-                  +{rate}%
+                  {rate}
                 </Typography>
               </Box>
             )}

@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { UTCTimestamp } from 'lightweight-charts'
 import { Axios } from 'utils/axios'
 import { LineSeriesData } from 'components/Chart'
+import { TIME_INTERVAL } from 'pages/Dashboard'
 
+const oneDayInMs = 86400000
 interface StatisticsRaw {
   APY: string
   Circulating_Supply: string
@@ -38,9 +40,17 @@ interface MatterPriceRaw {
   trades_amount: string
 }
 
-const trim = (string: string) => {
+interface LineDataResponse {
+  [TIME_INTERVAL.ONE_DAY]: LineSeriesData
+  [TIME_INTERVAL.TEN_DAYS]: LineSeriesData
+  [TIME_INTERVAL.ONE_MONTH]: LineSeriesData
+}
+
+const trim = (string: string, toDecimal?: number) => {
   const digitIndex = string.indexOf('.')
   if (digitIndex === -1) return string
+
+  if (toDecimal && toDecimal > 0) return string.slice(0, digitIndex + toDecimal + 1)
 
   const zeroIndex = string.indexOf('0', digitIndex)
   if (zeroIndex === -1) return string
@@ -49,7 +59,7 @@ const trim = (string: string) => {
   return string.slice(0, zeroIndex)
 }
 
-export function useDashboardData(): Statistics & { matterPriceData: LineSeriesData | undefined } {
+export function useDashboardData(): Statistics & { matterPriceData: LineDataResponse | undefined } {
   const [statistics, setStatistics] = useState<Statistics>({
     totalSupply: '-',
     totalValueLocked: '-',
@@ -60,7 +70,7 @@ export function useDashboardData(): Statistics & { matterPriceData: LineSeriesDa
     totalTradingVolume: '-',
     totalFeeEarned: '-'
   })
-  const [matterPriceData, setMatterPriceData] = useState<LineSeriesData | undefined>(undefined)
+  const [matterPriceData, setMatterPriceData] = useState<LineDataResponse | undefined>(undefined)
   useEffect(() => {
     Axios.get<StatisticsRaw>('getMatterDao')
       .then(r => {
@@ -83,17 +93,47 @@ export function useDashboardData(): Statistics & { matterPriceData: LineSeriesDa
       .then(r => {
         if (r.data.code === 200) {
           const data = r.data.data
-          const formatted = data.reduce((acc, item: MatterPriceRaw, idx) => {
-            if (idx > 0 && data[idx - 1]?.timestamp === item.timestamp) {
-              acc.shift()
+          const firstIndex = data.length - 1
+          const formatted = data.reduceRight(
+            (acc, item: MatterPriceRaw, idx) => {
+              const {
+                [TIME_INTERVAL.ONE_DAY]: oneDayArr,
+                [TIME_INTERVAL.TEN_DAYS]: tenDayArr,
+                [TIME_INTERVAL.ONE_MONTH]: oneMonthArr
+              } = acc
+              if (idx < firstIndex && data[idx + 1]?.timestamp === item.timestamp) {
+                oneDayArr.pop()
+              }
+              const res = {
+                time: +item.timestamp as UTCTimestamp,
+                value: +item.price,
+                rate: trim(item.rate * 100 + '', 2) + '%'
+              }
+              oneDayArr.push(res)
+
+              if (idx === firstIndex) {
+                tenDayArr.push(res)
+                oneMonthArr.push(res)
+
+                return acc
+              }
+
+              if (res.time >= +tenDayArr[tenDayArr.length - 1].time + oneDayInMs * 10) {
+                acc[TIME_INTERVAL.TEN_DAYS].push(res)
+              }
+              if (res.time >= +oneMonthArr[oneMonthArr.length - 1].time + oneDayInMs * 30) {
+                oneMonthArr.push(res)
+              }
+
+              return acc
+            },
+            {
+              [TIME_INTERVAL.ONE_DAY]: [] as LineSeriesData,
+              [TIME_INTERVAL.TEN_DAYS]: [] as LineSeriesData,
+              [TIME_INTERVAL.ONE_MONTH]: [] as LineSeriesData
             }
-            acc.unshift({
-              time: +item.timestamp as UTCTimestamp,
-              value: +item.price,
-              rate: item.rate + '%'
-            })
-            return acc
-          }, [] as LineSeriesData)
+          )
+
           setMatterPriceData(formatted)
           console.log(formatted)
         }
