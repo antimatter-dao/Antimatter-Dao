@@ -67,7 +67,8 @@ const StyledTableHead = styled(TableHead)(({ theme }) => ({
     },
     '&:last-child': {
       paddingRight: 20,
-      borderTopRightRadius: 8
+      borderTopRightRadius: 8,
+      textAlign: 'end'
     }
   }
 }))
@@ -88,7 +89,8 @@ const StyledTableRow = styled(TableRow)({
     '&:last-child': {
       padding: '14px 20px',
       borderTopRightRadius: 8,
-      borderBottomRightRadius: 8
+      borderBottomRightRadius: 8,
+      textAlign: 'end'
     }
   },
   '&:hover': {

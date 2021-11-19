@@ -81,7 +81,7 @@ export default function Bridge() {
       <Card width="100%">
         <Box padding="32px 24px">
           <Tabs
-            titles={['Brige', 'Stake']}
+            titles={['Bridge', 'Stake']}
             contents={[<TabContentBridge key={0} balance={'-'} />, <TabContentStake key={1} />]}
           />
         </Box>

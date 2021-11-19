@@ -1,21 +1,31 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import Card from 'components/Card/Card'
 import NumericalCard from 'components/Card/NumericalCard'
-import { Matter } from 'constants/index'
+import { Matter, sMatter } from 'constants/index'
 import { useActiveWeb3React } from 'hooks'
 import { useCurrencyBalance } from 'state/wallet/hooks'
 import Tabs from 'components/Tabs/Tabs'
 import TabContentHistory from './TabContentHistory'
 import TabContentGovernance from './TabContentGovernance'
 
-//Icons
-//import { ReactComponent as ETHIcon } from 'assets/svg/eth_logo.svg'
-
 export default function MyAccount() {
   const theme = useTheme()
 
   const { account } = useActiveWeb3React()
   const matterBalance = useCurrencyBalance(account ?? undefined, Matter)
+  const sMatterBalance = useCurrencyBalance(account ?? undefined, sMatter)
+  const accountStyle = {
+    marginBottom: '30px',
+    fontWeight: 700,
+    fontSize: '24px',
+    textTransform: 'none' as const,
+    color: theme.palette.text.primary,
+    opacity: 0.4,
+    '&.Mui-selected': {
+      color: theme.palette.text.primary,
+      opacity: 1
+    }
+  }
 
   return (
     <>
@@ -78,7 +88,7 @@ export default function MyAccount() {
               <Box display="flex" gap="20px" flexDirection="column" gridArea="totalbalancee">
                 <NumericalCard
                   title="sMATTER Staking"
-                  value={matterBalance !== undefined ? matterBalance.toFixed(4) : '-'}
+                  value={sMatterBalance !== undefined ? sMatterBalance.toFixed(4) : '-'}
                   unit="sMATTER"
                 />
               </Box>
@@ -116,11 +126,12 @@ export default function MyAccount() {
             </Box>
           </Box>
         </Card>
-        <Card width="100%">
-          <Box padding="32px 24px">
-            <Tabs tabContents={[<TabContentHistory key={0} balance={'-'} />, <TabContentGovernance key={1} />]} />
-          </Box>
-        </Card>
+        <Tabs
+          titles={['History', 'Governance']}
+          contents={[<TabContentHistory key={0} balance={'-'} />, <TabContentGovernance key={1} />]}
+          custom
+          tabStyle={accountStyle}
+        />
       </Box>
     </>
   )
