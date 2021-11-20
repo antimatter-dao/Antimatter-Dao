@@ -9,7 +9,7 @@ import { Fraction } from './fraction'
 import { BigintIsh, Rounding, SolidityType, TEN } from '../constants'
 import { parseBigintIsh, validateSolidityTypeInstance } from '../utils'
 
-const Big = toFormat(_Big)
+export const Big = toFormat(_Big)
 
 export class CurrencyAmount extends Fraction {
   public readonly currency: Currency

@@ -28,17 +28,19 @@ const Backdrop = styled('div')({
   backdropFilter: 'blur(2px)'
 })
 
+const availablePath = [routes.stake, routes.dashboard]
+
 export default function ComingSoonMoadal() {
   const [isOpen, setIsOpen] = useState(false)
   const isDownSm = useBreakpoint('md')
   const location = useLocation()
   useEffect(() => {
-    if (location.pathname === routes.stake && !isDownSm) {
+    if (availablePath.includes(location.pathname) /*&& !isDownSm*/) {
       setIsOpen(false)
     } else {
       setIsOpen(true)
     }
-  }, [isDownSm, location.pathname])
+  }, [location.pathname])
 
   return (
     <>
@@ -55,7 +57,7 @@ export default function ComingSoonMoadal() {
               alignItems: 'center',
               justifyContent: 'center',
               borderRadius: '20px',
-              marginLeft: theme => ({ xs: 0, sm: theme.width.sidebar }),
+              marginLeft: theme => ({ xs: 0, md: theme.width.sidebar }),
               boxShadow: `0px 6px 6px -3px rgb(242 245 250 / 90%), 0px 10px 14px 1px rgb(242 245 250 / 80%), 0px 4px 18px 3px rgb(242 245 250 / 70%)`
               // background: theme => theme.palette.background.default
               // // border: theme => `1px solid ${theme.palette.primary.main}`
@@ -69,7 +71,7 @@ export default function ComingSoonMoadal() {
             >
               Coming Soon <Dots />
             </Typography>
-            <div>{isDownSm ? 'Mobile versiion' : 'This section'} is still implemeting.</div>
+            <div>{isDownSm ? 'Mobile version' : 'This section'} is still implemeting.</div>
             <div>Please come back later</div>
           </Paper>
           <Backdrop

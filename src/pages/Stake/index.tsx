@@ -140,14 +140,21 @@ export default function Stake() {
                 <Typography sx={{ color: theme => theme.palette.primary.main }}>Get MATTER at a discount</Typography>
               </Box> */}
             </Box>
-            <Box display="flex" gap="20px">
+            <Box display="flex" gap="20px" flexDirection={{ md: 'row', xs: 'column' }}>
               <NumericalCard title="APY" value={new Date().getTime() > 1637107200000 ? apy : '--'} unit="%" gray />
               <NumericalCard title="Total Staked" value={totalStakedBalance} unit="Matter" gray />
               <NumericalCard title="Total Value Deposited" value={totalDeposited} unit="$" gray />
             </Box>
           </Box>
         </Card>
-        <Box display="grid" gridTemplateColumns=" 2fr 1.5fr 1.5fr" gap="20px" maxWidth="100%" sx={{ width: '100%' }}>
+        <Box
+          display="grid"
+          gridTemplateColumns={{ md: '100%', lg: ' 2fr 1.5fr 1.5fr' }}
+          gap="20px"
+          flexWrap="wrap"
+          maxWidth="100%"
+          sx={{ width: '100%' }}
+        >
           <NumericalCard title="MATTER Earned" value={earned} unit="Matter" fontSize="44px" height="280px">
             <>
               {supportChain && earned && earned !== '0' && (

@@ -45,8 +45,8 @@ const BodyWrapper = styled('div')(({ theme }) => ({
   overflowY: 'auto',
   overflowX: 'hidden',
   position: 'relative',
-  [theme.breakpoints.down('sm')]: {
-    padding: `20px 0 80px`
+  [theme.breakpoints.down('md')]: {
+    padding: `20px 20px 80px`
   }
 }))
 
