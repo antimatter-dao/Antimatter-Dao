@@ -1,6 +1,6 @@
 import { ComponentMeta } from '@storybook/react'
 
-import Table from 'components/Table'
+import Table from 'components/Table/Table'
 
 export default {
   title: 'Table/Table',
