@@ -1,4 +1,16 @@
-import { TableContainer, TableHead, TableCell, TableRow, TableBody, Box, Typography, styled } from '@mui/material'
+import {
+  TableContainer,
+  TableHead,
+  TableCell,
+  TableRow,
+  TableBody,
+  Box,
+  Typography,
+  styled,
+  TableFooter
+} from '@mui/material'
+import PaginationView from 'components/Pagination'
+import { useState } from 'react'
 import useBreakpoint from '../../hooks/useBreakpoint'
 
 const Profile = styled('div')(`
@@ -124,6 +136,7 @@ const CardRow = styled('div')(`
 
 export default function Table({ header, rows }: { header: string[]; rows: (string | number | JSX.Element)[][] }) {
   const matches = useBreakpoint()
+  const [curPage, setCurPage] = useState(4)
   return (
     <>
       {matches ? (
@@ -163,6 +176,15 @@ export default function Table({ header, rows }: { header: string[]; rows: (strin
                 </StyledTableRow>
               ))}
             </TableBody>
+            <TableFooter>
+              <PaginationView
+                count={20}
+                page={curPage}
+                setPage={num => {
+                  setCurPage(num)
+                }}
+              />
+            </TableFooter>
           </table>
         </StyledTableContainer>
       )}
