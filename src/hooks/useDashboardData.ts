@@ -50,7 +50,8 @@ const trim = (string: string, toDecimal?: number) => {
   const digitIndex = string.indexOf('.')
   if (digitIndex === -1) return string
 
-  if (toDecimal && toDecimal > 0) return string.slice(0, digitIndex + toDecimal + 1)
+  if ((toDecimal || toDecimal === 0) && toDecimal >= 0)
+    return toDecimal === 0 ? string.slice(0, digitIndex) : string.slice(0, digitIndex + toDecimal + 1)
 
   const zeroIndex = string.indexOf('0', digitIndex)
   if (zeroIndex === -1) return string
@@ -79,10 +80,10 @@ export function useDashboardData(): Statistics & { matterPriceData: LineDataResp
           setStatistics({
             totalSupply: trim(data.Total_Supply, 0),
             totalValueLocked: data.Total_Value_Locked,
-            circulatingSupply: trim(data.Circulating_Supply),
+            circulatingSupply: trim(data.Circulating_Supply, 0),
             matterBuyback: data.Matter_Buyback,
             apy: trim(+data.APY * 100 + '', 2),
-            totalMatterStake: trim(data.Total_matter_stake, 2),
+            totalMatterStake: trim(+data.Total_matter_stake * 100 + '', 2),
             totalTradingVolume: data.Total_Trading_Volume,
             totalFeeEarned: data.Total_fee_earned
           })
