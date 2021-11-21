@@ -77,12 +77,12 @@ export function useDashboardData(): Statistics & { matterPriceData: LineDataResp
         if (r.data.code === 200) {
           const data = r.data.data
           setStatistics({
-            totalSupply: trim(data.Total_Supply),
+            totalSupply: trim(data.Total_Supply, 0),
             totalValueLocked: data.Total_Value_Locked,
             circulatingSupply: trim(data.Circulating_Supply),
             matterBuyback: data.Matter_Buyback,
-            apy: data.APY,
-            totalMatterStake: data.Total_matter_stake,
+            apy: trim(+data.APY * 100 + '', 2),
+            totalMatterStake: trim(data.Total_matter_stake, 2),
             totalTradingVolume: data.Total_Trading_Volume,
             totalFeeEarned: data.Total_fee_earned
           })

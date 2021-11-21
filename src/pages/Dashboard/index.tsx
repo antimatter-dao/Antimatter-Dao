@@ -37,7 +37,7 @@ export default function Dashboard() {
     totalSupply,
     totalValueLocked,
     circulatingSupply,
-    matterBuyback,
+    // matterBuyback,
     apy,
     totalMatterStake,
     totalTradingVolume,
@@ -74,7 +74,7 @@ export default function Dashboard() {
                 <NumericalCard title="Total Trading Volume" value={totalTradingVolume} unit="$" />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <NumericalCard title="MATTER Market Cap" value={totalSupply} unit="UST" />
+                <NumericalCard title="MATTER Market Cap" value={totalSupply} unit="USDT" />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="Circulating Supply" value={circulatingSupply} unit="MATTER" />
@@ -83,7 +83,7 @@ export default function Dashboard() {
                 <NumericalCard title="Total MATTER Staked" value={totalMatterStake} unit="%" />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <NumericalCard title="MATTER Buyback" value={matterBuyback} unit="MATTER" rate="0" />
+                {/* <NumericalCard title="MATTER Buyback" value={matterBuyback} unit="MATTER" rate="0" /> */}
               </Grid>
             </Grid>
           </Grid>
