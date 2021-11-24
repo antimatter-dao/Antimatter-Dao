@@ -292,6 +292,7 @@ function Capsule({ val }: { val: string }) {
       fontSize={12}
       sx={{
         minWidth: '56px',
+        textAlign: 'center',
         padding: '5px 12px',
         borderRadius: 3,
         backgroundColor: theme => (val[0] === '-' ? theme.palette.error.light : theme.palette.secondary.main),

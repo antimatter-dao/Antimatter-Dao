@@ -108,7 +108,7 @@ export function useDashboardData(): Statistics & { matterPriceData: LineDataResp
               const res = {
                 time: +item.timestamp as UTCTimestamp,
                 value: +item.price,
-                rate: trim(item.rate * 100 + '', 2) + '%'
+                rate: trim(item.rate + '', 2) + '%'
               }
               oneDayArr.push(res)
 
@@ -120,10 +120,16 @@ export function useDashboardData(): Statistics & { matterPriceData: LineDataResp
               }
 
               if (res.time >= +tenDayArr[tenDayArr.length - 1].time + oneDayInMs * 10) {
-                acc[TIME_INTERVAL.TEN_DAYS].push(res)
+                const prev = +tenDayArr[tenDayArr.length - 1].value
+                console.log(prev, res.value, (res.value - prev) / prev)
+                acc[TIME_INTERVAL.TEN_DAYS].push({
+                  ...res,
+                  rate: trim(((res.value - prev) / prev) * 100 + '', 2) + '%'
+                })
               }
               if (res.time >= +oneMonthArr[oneMonthArr.length - 1].time + oneDayInMs * 30) {
-                oneMonthArr.push(res)
+                const prev = +oneMonthArr[tenDayArr.length - 1].value
+                oneMonthArr.push({ ...res, rate: trim(((res.value - prev) / prev) * 100 + '', 2) + '%' })
               }
 
               return acc
