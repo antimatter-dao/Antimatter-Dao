@@ -14,7 +14,7 @@ export default function StakeActionModal({
   balance,
   title
 }: {
-  isOpen: boolean
+  isOpen?: boolean
   onDismiss: () => void
   onAction: (setHash: (hash: string) => void) => () => void
   balance?: string

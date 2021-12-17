@@ -15,7 +15,8 @@ import { CurrencyAmount } from 'constants/token'
 
 export enum StakeType {
   DEPOSIT,
-  WITHDRAW
+  WITHDRAW,
+  STAKE_REWARD
 }
 
 export default function StakeInputModal({
@@ -26,7 +27,7 @@ export default function StakeInputModal({
   balance
 }: {
   type: StakeType
-  isOpen: boolean
+  isOpen?: boolean
   balance: CurrencyAmount | undefined
   onDismiss: () => void
   onAction: (val: string | undefined, setHash: (hash: string) => void) => () => void
@@ -69,7 +70,11 @@ export default function StakeInputModal({
     <Modal closeIcon customIsOpen={isOpen} customOnDismiss={onDismiss}>
       <Box padding="22px 32px" display="grid" gap="32px">
         <Typography fontSize={20} sx={{ color: theme => theme.palette.text.secondary }}>
-          {type === StakeType.DEPOSIT ? 'Deposit MATTER Token' : 'Withdraw MATTER Token'}
+          {type === StakeType.DEPOSIT
+            ? 'Deposit MATTER Token'
+            : type == StakeType.WITHDRAW
+            ? 'Withdraw MATTER Token'
+            : 'Stake Your Reward'}
         </Typography>
         <Box>
           <InputNumerical

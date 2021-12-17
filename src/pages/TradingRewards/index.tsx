@@ -1,4 +1,8 @@
 import { useState, useCallback, useMemo } from 'react'
+// import { useActiveWeb3React } from 'hooks'
+import { useTransactionAdder } from 'state/transactions/hooks'
+import { useStakeCallback } from 'hooks/useStake'
+import useModal from 'hooks/useModal'
 import Card from 'components/Card/Card'
 import NumericalCard from 'components/Card/NumericalCard'
 import { ReactComponent as BullAndBear } from 'assets/svg/bull_and_bear_icon.svg'
@@ -7,9 +11,8 @@ import Button, { BlackButton } from 'components/Button/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import TextButton from 'components/Button/TextButton'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import useModal from 'hooks/useModal'
-import ClaimModal from './ClaimModal'
-import TransactiontionSubmittedModal from 'components/Modal/TransactionModals/TransactiontionSubmittedModal'
+import StakeInputModal, { StakeType } from 'pages/Stake/StakeInputModal'
+import StakeActionModal from 'pages/Stake/StakeActionModal'
 
 const Tag = ({ k, v }: { k: string; v: string }) => {
   return (
@@ -37,6 +40,7 @@ const Tag = ({ k, v }: { k: string; v: string }) => {
 }
 
 export default function TradingRewards() {
+  // const { account } = useActiveWeb3React()
   const [apr] = useState('-')
   const [rewardsCurrency] = useState('Matter')
   const [claimableReward] = useState('0.00')
@@ -45,23 +49,46 @@ export default function TradingRewards() {
   const [approved, setApproved] = useState(false)
   const [approving] = useState(false)
 
+  const { showModal, hideModal } = useModal()
+  const { stakeCallback } = useStakeCallback()
+  const addTransaction = useTransactionAdder()
+
   const onApprove = useCallback(() => setApproved(true), [])
   const onInvest = useCallback(() => {}, [])
+
   const onClaim = useCallback(() => {
     showModal(
-      <ClaimModal
-        amount={claimableReward}
-        currency={rewardsCurrency}
-        onAction={() => showModal(<TransactiontionSubmittedModal header="Successful" />)}
-        pending={approving}
-        pendingText="Approving"
-        actionText="Approve"
+      // <ClaimModal
+      //   amount={claimableReward}
+      //   currency={rewardsCurrency}
+      //   onAction={() => showModal(<TransactiontionSubmittedModal header="Successful" />)}
+      //   pending={approving}
+      //   pendingText="Approving"
+      //   actionText="Approve"
+      // />
+
+      <StakeActionModal
+        title="MATTER Compound"
+        buttonActionText="Comfirm"
+        buttonPendingText="Confirming"
+        // isOpen={compoundModalOpen}
+        onDismiss={() => hideModal()}
+        onAction={() => () => {}}
+        balance={'0'}
       />
     )
   }, [claimableReward, rewardsCurrency, approving])
-  const onStake = useCallback(() => {}, [])
-
-  const { showModal } = useModal()
+  const onStake = useCallback(() => {
+    showModal(
+      <StakeInputModal
+        type={StakeType.STAKE_REWARD}
+        // isOpen={depositModalOpen}
+        onDismiss={() => hideModal()}
+        onAction={() => () => {}}
+        balance={undefined}
+      />
+    )
+  }, [])
 
   const getActions = useMemo(() => {
     if (!approved) {
