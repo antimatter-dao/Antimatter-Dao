@@ -7,6 +7,8 @@ import Button, { BlackButton } from 'components/Button/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import TextButton from 'components/Button/TextButton'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import useModal from 'hooks/useModal'
+import ClaimModal from './ClaimModal'
 
 const Tag = ({ k, v }: { k: string; v: string }) => {
   return (
@@ -36,12 +38,29 @@ const Tag = ({ k, v }: { k: string; v: string }) => {
 export default function TradingRewards() {
   const [apr] = useState('-')
   const [rewardsCurrency] = useState('Matter')
+  const [claimableReward] = useState('0.00')
   const [totalInvested] = useState('-')
   const [reward] = useState('-')
   const [approved, setApproved] = useState(false)
+  const [approving] = useState(false)
 
   const onApprove = useCallback(() => setApproved(true), [])
   const onInvest = useCallback(() => {}, [])
+  const onClaim = useCallback(() => {
+    showModal(
+      <ClaimModal
+        amount={claimableReward}
+        currency={rewardsCurrency}
+        onAction={() => {}}
+        pending={approving}
+        pendingText="Approving"
+        actionText="Approve"
+      />
+    )
+  }, [claimableReward, rewardsCurrency, approving])
+  const onStake = useCallback(() => {}, [])
+
+  const { showModal } = useModal()
 
   const getActions = useMemo(() => {
     if (!approved) {
@@ -54,10 +73,10 @@ export default function TradingRewards() {
 
     return (
       <Box display="flex" gap={8}>
-        <Button onClick={() => {}} height="60px">
+        <Button onClick={onClaim} height="60px">
           Claim All Rewards
         </Button>
-        <OutlineButton onClick={() => {}} primary>
+        <OutlineButton onClick={onStake} primary>
           Stake My Rewards
         </OutlineButton>
       </Box>
