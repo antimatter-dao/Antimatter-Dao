@@ -1,7 +1,6 @@
 import { useState, useCallback, useMemo } from 'react'
 // import { useActiveWeb3React } from 'hooks'
 import { useTransactionAdder } from 'state/transactions/hooks'
-import { useStakeCallback } from 'hooks/useStake'
 import useModal from 'hooks/useModal'
 import Card from 'components/Card/Card'
 import NumericalCard from 'components/Card/NumericalCard'
@@ -16,26 +15,24 @@ import StakeActionModal from 'pages/Stake/StakeActionModal'
 
 const Tag = ({ k, v }: { k: string; v: string }) => {
   return (
-    <>
-      <Box display="flex" alignItems="center" gap={12}>
-        <Box
-          sx={{
-            backgroundColor: theme => theme.palette.background.default,
-            borderRadius: 50,
-            display: 'flex',
-            alignItems: 'center',
-            padding: '9px 16px'
-          }}
-        >
-          <Typography color="#7D7D7D" fontSize={12}>
-            {k}
-          </Typography>
-          <Typography fontSize={12} ml={2}>
-            {v}
-          </Typography>
-        </Box>
+    <Box display="flex" alignItems="center" gap={12}>
+      <Box
+        sx={{
+          backgroundColor: theme => theme.palette.background.default,
+          borderRadius: 50,
+          display: 'flex',
+          alignItems: 'center',
+          padding: '9px 16px'
+        }}
+      >
+        <Typography color="#7D7D7D" fontSize={12}>
+          {k}
+        </Typography>
+        <Typography fontSize={12} ml={2}>
+          {v}
+        </Typography>
       </Box>
-    </>
+    </Box>
   )
 }
 
@@ -50,28 +47,16 @@ export default function TradingRewards() {
   const [approving] = useState(false)
 
   const { showModal, hideModal } = useModal()
-  const { stakeCallback } = useStakeCallback()
-  const addTransaction = useTransactionAdder()
 
   const onApprove = useCallback(() => setApproved(true), [])
   const onInvest = useCallback(() => {}, [])
 
   const onClaim = useCallback(() => {
     showModal(
-      // <ClaimModal
-      //   amount={claimableReward}
-      //   currency={rewardsCurrency}
-      //   onAction={() => showModal(<TransactiontionSubmittedModal header="Successful" />)}
-      //   pending={approving}
-      //   pendingText="Approving"
-      //   actionText="Approve"
-      // />
-
       <StakeActionModal
         title="MATTER Compound"
         buttonActionText="Comfirm"
         buttonPendingText="Confirming"
-        // isOpen={compoundModalOpen}
         onDismiss={() => hideModal()}
         onAction={() => () => {}}
         balance={'0'}
@@ -82,7 +67,6 @@ export default function TradingRewards() {
     showModal(
       <StakeInputModal
         type={StakeType.STAKE_REWARD}
-        // isOpen={depositModalOpen}
         onDismiss={() => hideModal()}
         onAction={() => () => {}}
         balance={undefined}
@@ -139,17 +123,7 @@ export default function TradingRewards() {
         />
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
-            <NumericalCard
-              title="My total volume of invested"
-              value={totalInvested}
-              unit="MATTER"
-              height={168}
-              // actions={
-              //   <Typography fontSize={12} fontWeight={500} color="#7D7D7D">
-              //     until the next epoch on October 26
-              //   </Typography>
-              // }
-            />
+            <NumericalCard title="My total volume of invested" value={totalInvested} unit="MATTER" height={168} />
           </Grid>
           <Grid item xs={12} md={6}>
             <NumericalCard
@@ -163,9 +137,6 @@ export default function TradingRewards() {
               }
             />
           </Grid>
-          {/* <Grid item xs={12} md={6}>
-            <NumericalCard title="My total value of trade" value="-" unit="MATTER" height={168} />
-          </Grid> */}
           <Grid item xs={12} md={12}>
             <Card>
               <Box padding="22px 24px" height={168}>
