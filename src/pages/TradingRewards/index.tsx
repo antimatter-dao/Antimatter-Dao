@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import Card from 'components/Card/Card'
 import NumericalCard from 'components/Card/NumericalCard'
 import { ReactComponent as BullAndBear } from 'assets/svg/bull_and_bear_icon.svg'
 import { Typography, Box, Grid } from '@mui/material'
 import Button, { BlackButton } from 'components/Button/Button'
+import OutlineButton from 'components/Button/OutlineButton'
 import TextButton from 'components/Button/TextButton'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
@@ -37,9 +38,31 @@ export default function TradingRewards() {
   const [rewardsCurrency] = useState('Matter')
   const [totalInvested] = useState('-')
   const [reward] = useState('-')
+  const [approved, setApproved] = useState(false)
 
-  const onApprove = useCallback(() => {}, [])
+  const onApprove = useCallback(() => setApproved(true), [])
   const onInvest = useCallback(() => {}, [])
+
+  const getActions = useMemo(() => {
+    if (!approved) {
+      return (
+        <Button onClick={onApprove} height="60px">
+          Approve
+        </Button>
+      )
+    }
+
+    return (
+      <Box display="flex" gap={8}>
+        <Button onClick={() => {}} height="60px">
+          Claim All Rewards
+        </Button>
+        <OutlineButton onClick={() => {}} primary>
+          Stake My Rewards
+        </OutlineButton>
+      </Box>
+    )
+  }, [approved])
 
   return (
     <>
@@ -65,11 +88,7 @@ export default function TradingRewards() {
           unit="MATTER"
           height={344}
           width={388}
-          actions={
-            <Button onClick={onApprove} height="60px">
-              Approve
-            </Button>
-          }
+          actions={getActions}
         />
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
