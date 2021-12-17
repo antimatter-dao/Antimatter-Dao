@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
 // import { useActiveWeb3React } from 'hooks'
-import { useTransactionAdder } from 'state/transactions/hooks'
 import useModal from 'hooks/useModal'
 import Card from 'components/Card/Card'
 import NumericalCard from 'components/Card/NumericalCard'
