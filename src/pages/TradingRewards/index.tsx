@@ -1,10 +1,11 @@
+import { useState, useCallback } from 'react'
 import Card from 'components/Card/Card'
 import NumericalCard from 'components/Card/NumericalCard'
 import { ReactComponent as BullAndBear } from 'assets/svg/bull_and_bear_icon.svg'
 import { Typography, Box, Grid } from '@mui/material'
 import Button, { BlackButton } from 'components/Button/Button'
 import TextButton from 'components/Button/TextButton'
-import { ReactComponent as ArrowRight } from 'assets/componentsIcon/arrow_right.svg'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 const Tag = ({ k, v }: { k: string; v: string }) => {
   return (
@@ -32,6 +33,14 @@ const Tag = ({ k, v }: { k: string; v: string }) => {
 }
 
 export default function TradingRewards() {
+  const [apr] = useState('-')
+  const [rewardsCurrency] = useState('Matter')
+  const [totalInvested] = useState('-')
+  const [reward] = useState('-')
+
+  const onApprove = useCallback(() => {}, [])
+  const onInvest = useCallback(() => {}, [])
+
   return (
     <>
       <Card width="100%">
@@ -39,12 +48,12 @@ export default function TradingRewards() {
           <Box display="flex" alignItems="center">
             <BullAndBear />
             <Typography fontSize={24} fontWeight={700} ml={20}>
-              BNB Bull & BNB Bear
+              Dual Investment
             </Typography>
           </Box>
           <Box display="flex" gap="12px">
-            <Tag k="Estimated APRR" v="-%" />
-            <Tag k="Rewards in" v="Matter" />
+            <Tag k="Estimated APR" v={`${apr}%`} />
+            <Tag k="Rewards in" v={rewardsCurrency} />
           </Box>
         </Box>
       </Card>
@@ -57,29 +66,29 @@ export default function TradingRewards() {
           height={344}
           width={388}
           actions={
-            <Button height="60px" disabled>
-              Coming Soon...
+            <Button onClick={onApprove} height="60px">
+              Approve
             </Button>
           }
         />
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
             <NumericalCard
-              title="Countdown"
-              value="-"
-              unit="$"
+              title="My total volume of invested"
+              value={totalInvested}
+              unit="MATTER"
               height={168}
-              actions={
-                <Typography fontSize={12} fontWeight={500} color="#7D7D7D">
-                  until the next epoch on October 26
-                </Typography>
-              }
+              // actions={
+              //   <Typography fontSize={12} fontWeight={500} color="#7D7D7D">
+              //     until the next epoch on October 26
+              //   </Typography>
+              // }
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <NumericalCard
               title="Reward Pool"
-              value="-"
+              value={reward}
               height={168}
               actions={
                 <Typography fontSize={12} fontWeight={500} color="#7D7D7D">
@@ -88,10 +97,10 @@ export default function TradingRewards() {
               }
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <NumericalCard title="My total value of trade" value="-" unit="MATTER" height={168} />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Grid> */}
+          <Grid item xs={12} md={12}>
             <Card>
               <Box padding="22px 24px" height={168}>
                 <Typography
@@ -101,7 +110,7 @@ export default function TradingRewards() {
                     fontWeight: 500
                   }}
                 >
-                  Trading Rewards
+                  Investing Rewards
                 </Typography>
                 <Typography
                   sx={{
@@ -111,20 +120,23 @@ export default function TradingRewards() {
                     mt: 16
                   }}
                 >
-                  Rewards are based on your total fees paid and open interest on the dYdX exchange
+                  Rewards are calculated based on your investment amount in &quot;Dual Investment&quot;
                 </Typography>
                 <Box display="flex" alignItems="center" gap="20px" mt={23}>
-                  <BlackButton width="144px" height="32px" style={{ borderRadius: '50px' }} disabled>
-                    Coming Soon...
+                  <BlackButton
+                    onClick={onInvest}
+                    width="100px"
+                    height="32px"
+                    style={{ borderRadius: '50px', fontSize: 14 }}
+                  >
+                    Invest
                   </BlackButton>
                   <TextButton>
                     <Box display="flex" alignItems="center">
                       <Typography fontSize={14} fontWeight={500}>
                         Learn more
                       </Typography>
-                      <Box ml={6}>
-                        <ArrowRight />
-                      </Box>
+                      <ArrowForwardIosIcon sx={{ fontSize: 12, ml: 2 }} />
                     </Box>
                   </TextButton>
                 </Box>
