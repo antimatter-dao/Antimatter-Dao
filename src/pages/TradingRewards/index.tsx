@@ -9,6 +9,7 @@ import TextButton from 'components/Button/TextButton'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import useModal from 'hooks/useModal'
 import ClaimModal from './ClaimModal'
+import TransactiontionSubmittedModal from 'components/Modal/TransactionModals/TransactiontionSubmittedModal'
 
 const Tag = ({ k, v }: { k: string; v: string }) => {
   return (
@@ -51,7 +52,7 @@ export default function TradingRewards() {
       <ClaimModal
         amount={claimableReward}
         currency={rewardsCurrency}
-        onAction={() => {}}
+        onAction={() => showModal(<TransactiontionSubmittedModal header="Successful" />)}
         pending={approving}
         pendingText="Approving"
         actionText="Approve"
