@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosPromise } from 'axios'
+import axios, { AxiosPromise } from 'axios'
 
 const axiosInstance = axios.create({
   baseURL: 'https://test-nftapi.antimatter.finance/app/',
@@ -15,7 +15,7 @@ export const Axios = {
   }
 }
 
-export type AxiosResponseType<T = any, D = any> = AxiosResponse<T, D>
+// export type AxiosResponseType<T = any, D = any> = AxiosResponse<T, D>
 
 export interface ResponseType<T = any> {
   msg: string

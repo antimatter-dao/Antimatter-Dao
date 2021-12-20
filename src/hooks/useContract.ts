@@ -3,12 +3,14 @@ import { abi as GOVERNANCE_ABI } from '../constants/abis/governance.json'
 import ANTIMATTER_ABI from '../constants/abis/antimatter.json'
 import ANTIMATTER_GOVERNANCE_ABI from '../constants/abis/governance.json'
 import ANTIMATTER_DAO_ABI from '../constants/abis/dao.json'
+import REWARD_INVEST_ABI from '../constants/abis/reward_invest.json'
 import { useMemo } from 'react'
 import {
   ANTIMATTER_ADDRESS,
   GOVERNANCE_ADDRESS,
   ANTIMATTER_GOVERNANCE_ADDRESS,
-  ANTIMATTER_DAO_ADDRESS
+  ANTIMATTER_DAO_ADDRESS,
+  REWARD_INVEST_ADDRESS
 } from '../constants'
 import ENS_PUBLIC_RESOLVER_ABI from '../constants/abis/ens-public-resolver.json'
 import ENS_ABI from '../constants/abis/ens-registrar.json'
@@ -106,4 +108,9 @@ export function useAntiMatterGovernanceContract(): Contract | null {
 
 export function useAntiMatterDaoContract(): Contract | null {
   return useContract(ANTIMATTER_DAO_ADDRESS, ANTIMATTER_DAO_ABI, true)
+}
+
+export function useRewardInvestContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(chainId ? REWARD_INVEST_ADDRESS[chainId] || undefined : undefined, REWARD_INVEST_ABI, true)
 }

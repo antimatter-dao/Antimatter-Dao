@@ -124,8 +124,10 @@ export const BLOCKED_ADDRESSES: string[] = [
 ]
 
 export const Matter = new Token(
+  // 1,
+  // '0x9B99CcA871Be05119B2012fd4474731dd653FEBe',
   3,
-  '0x9B99CcA871Be05119B2012fd4474731dd653FEBe',
+  '0x9385071D0E02620B34A58166b587d8Ced75f2A71',
   18,
   'MATER',
   'Antimatter.Finance Governance Token'
@@ -135,4 +137,12 @@ export const ANTIMATTER_DAO_ADDRESS = '0xCB8429f22541E8F5cd8ea6c20BFFdcE7cDA6522
 
 export const CURRENT_SUPPORTED_CHAINS = {
   stake: [3]
+}
+
+export const REWARD_INVEST_ADDRESS: { [key in ChainId]: string } = {
+  [ChainId.MAINNET]: '0x5544d94B1E4d4ffEf0DD67ECFccAd880A4dbf2BB',
+  [ChainId.ROPSTEN]: '0x5544d94B1E4d4ffEf0DD67ECFccAd880A4dbf2BB',
+  [ChainId.RINKEBY]: '0x5544d94B1E4d4ffEf0DD67ECFccAd880A4dbf2BB',
+  [ChainId.KOVAN]: '0x5544d94B1E4d4ffEf0DD67ECFccAd880A4dbf2BB',
+  [ChainId.GÖRLI]: '0x5544d94B1E4d4ffEf0DD67ECFccAd880A4dbf2BB'
 }
