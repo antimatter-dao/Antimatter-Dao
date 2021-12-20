@@ -22,7 +22,7 @@ export default function NumericalCard(props: Props) {
   const theme = useTheme()
 
   return (
-    <Card primary={primary} gray={gray} style={{ position: 'relative' }}>
+    <Card primary={primary} gray={gray} width={width || '100%'} style={{ position: 'relative' }}>
       <Box width={width || '100%'}>
         {children}
         <Box
@@ -80,7 +80,7 @@ export default function NumericalCard(props: Props) {
                   lineHeight: 1
                 }}
               >
-                {value}
+                {value !== undefined && +value ? (+value < 0.01 ? '<0.01' : value) : value}
               </Typography>
               {unit && <Typography sx={{ fontSize: 16, fontWeight: 700, ml: 4, lineHeight: 1 }}>{unit}</Typography>}
             </Box>

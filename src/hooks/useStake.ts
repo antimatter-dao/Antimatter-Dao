@@ -3,8 +3,10 @@ import { useMemo, useCallback } from 'react'
 import { useAntiMatterDaoContract } from './useContract'
 import { useSingleCallResult } from 'state/multicall/hooks'
 import { useActiveWeb3React } from 'hooks'
-import { Matter } from 'constants/index'
+import { ANTIMATTER_DAO_ADDRESS, Matter } from 'constants/index'
 import { parseBalance } from 'utils/parseAmount'
+import { Token } from 'constants/token'
+import { useTokenBalance } from 'state/wallet/hooks'
 
 export function useStakeCallback(): {
   stakeCallback: undefined | ((val: string) => Promise<any>)
@@ -34,9 +36,11 @@ export function useStakeCallback(): {
 }
 
 export function useStakingInfo() {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const contract = useAntiMatterDaoContract()
   const args = useMemo(() => [account ?? undefined], [account])
+
+  const totalStakedBalanceRes = useTokenBalance(ANTIMATTER_DAO_ADDRESS, Matter)
 
   const apyRes = useSingleCallResult(contract, 'APR')
   const totalDepositedRes = useSingleCallResult(contract, 'TVL')
@@ -44,13 +48,23 @@ export function useStakingInfo() {
   const stakedBalanceRes = useSingleCallResult(contract, 'balanceOf', args)
 
   const res = useMemo(() => {
+    const USDC = new Token(chainId ?? 1, '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', 6, 'USDC')
+
     return {
-      apy: apyRes?.result?.[0] ? (+parseBalance(apyRes?.result?.[0], Matter) / 100).toString() : '-',
-      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], Matter) : '-',
+      apy: apyRes?.result?.[0] ? (+parseBalance(apyRes?.result?.[0], Matter) * 100).toFixed(2).toString() : '-',
+      totalDeposited: totalDepositedRes?.result?.[0] ? parseBalance(totalDepositedRes?.result?.[0], USDC) : '-',
       earned: earnedRes?.result?.[0] ? parseBalance(earnedRes.result?.[0], Matter, 4) : '-',
-      stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter, 4) : '-'
+      stakedBalance: earnedRes?.result?.[0] ? parseBalance(stakedBalanceRes.result?.[0], Matter, 4) : '-',
+      totalStakedBalance: totalStakedBalanceRes ? parseFloat(totalStakedBalanceRes.toSignificant()).toFixed(0) : '-'
     }
-  }, [apyRes?.result, earnedRes.result, stakedBalanceRes.result, totalDepositedRes?.result])
+  }, [
+    apyRes?.result,
+    chainId,
+    earnedRes.result,
+    stakedBalanceRes.result,
+    totalDepositedRes?.result,
+    totalStakedBalanceRes
+  ])
   return res
 }
 // ? JSBI.exponentiate(

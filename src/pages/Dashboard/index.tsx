@@ -29,7 +29,7 @@ const TIME_INTERVAL_TITLE = {
 
 export default function Dashboard() {
   const theme = useTheme()
-  const [priceTimeInterval, setPriceTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
+  const [priceTimeInterval, setPriceTimeInterval] = useState(TIME_INTERVAL.ONE_DAY)
   // const [mktValueTimeInterval, setMktValueTimeInterval] = useState(TIME_INTERVAL.TEN_DAYS)
   const [amount, setAmount] = useState('')
 

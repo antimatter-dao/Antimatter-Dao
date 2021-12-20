@@ -41,7 +41,7 @@ export function WarningModalContent({ onDismiss }: { onDismiss: () => void }) {
           person found on the OFAC specially designated nationals, blocked persons list, any other consolidated
           prohibited persons list as determined by any applicable governmental authority.
         </Typography>
-        <Typography variant="inherit">The project is in beta, use at your own risk.</Typography>
+        {/* <Typography variant="inherit">The project is in beta, use at your own risk.</Typography> */}
         <Button onClick={onDismiss}>Understand</Button>
       </Box>
     </Modal>
