@@ -19,7 +19,10 @@ export function getInvestRewardSignByNonce(account: string, amountInt: string, c
 
 export function useInvestRewardData() {
   const { account } = useActiveWeb3React()
-  const [rewardBalance, setRewardBalance] = useState<CurrencyAmount | TokenAmount | undefined>()
+  const [rewardBalance, setRewardBalance] = useState<{
+    rewards: CurrencyAmount | TokenAmount | undefined
+    totalInvest: CurrencyAmount | TokenAmount | undefined
+  }>()
   const blockNumber = useBlockNumber()
 
   useEffect(() => {
@@ -27,10 +30,19 @@ export function useInvestRewardData() {
       if (!account) return
       try {
         const res = await Axios.get('https://dualinvest-testapi.antimatter.finance/web/getInvestReward', { account })
-        if (!res.data?.data?.rewardBalance) {
-          setRewardBalance(new TokenAmount(Matter, '0'))
+        const zeroMatter = new TokenAmount(Matter, '0')
+        if (!res.data?.data?.rewards) {
+          setRewardBalance({
+            rewards: zeroMatter,
+            totalInvest: zeroMatter
+          })
         } else {
-          setRewardBalance(tryParseAmount(res.data.data.rewardBalance, Matter))
+          setRewardBalance({
+            rewards: Number(res.data.data.rewards) ? tryParseAmount(res.data.data.rewards, Matter) : zeroMatter,
+            totalInvest: Number(res.data.data.totalInvest)
+              ? tryParseAmount(res.data.data.totalInvest, Matter)
+              : zeroMatter
+          })
         }
       } catch (error) {
         setRewardBalance(undefined)

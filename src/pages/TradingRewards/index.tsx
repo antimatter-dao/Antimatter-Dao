@@ -47,8 +47,7 @@ const Tag = ({ k, v }: { k: string; v: string }) => {
 export default function TradingRewards() {
   const { chainId, library, account } = useActiveWeb3React()
   const [rewardsCurrency] = useState('Matter')
-  const [totalInvested] = useState('50')
-  const [rewardPool] = useState('-')
+  // const [rewardPool] = useState('-')
   const [claimed, setClaimed] = useState(false)
 
   const { showModal, hideModal } = useModal()
@@ -60,7 +59,7 @@ export default function TradingRewards() {
 
   const rewardMatter = useInvestRewardData()
   const [approvalState, approveCallback] = useApproveCallback(
-    rewardMatter,
+    rewardMatter?.rewards,
     REWARD_INVEST_ADDRESS[chainId || 1] || undefined
   )
   const { result: claimNonce } = useGetRewardClaimNonces()
@@ -68,7 +67,7 @@ export default function TradingRewards() {
   const onClaimRewardCallback = useRewardInvestClaimCallback()
   const onClaimReward = useCallback(
     (setHash: (hash: string) => void) => async () => {
-      if (!rewardMatter || !rewardMatter.greaterThan('0') || !account || !chainId) {
+      if (!rewardMatter?.rewards || !rewardMatter.rewards.greaterThan('0') || !account || !chainId) {
         return
       }
 
@@ -81,7 +80,12 @@ export default function TradingRewards() {
       }
       const signArr: string[] = []
       try {
-        const signData = await getInvestRewardSignByNonce(account, rewardMatter.raw.toString(), chainId, claimNonce)
+        const signData = await getInvestRewardSignByNonce(
+          account,
+          rewardMatter.rewards.raw.toString(),
+          chainId,
+          claimNonce
+        )
         if (signData.data.code !== 0) {
           showModal(<MessageBox type="error">Fetch sign faild</MessageBox>)
           return
@@ -121,7 +125,7 @@ export default function TradingRewards() {
         buttonPendingText="Confirming"
         onDismiss={() => hideModal()}
         onAction={onClaimReward}
-        balance={rewardMatter?.toSignificant()}
+        balance={rewardMatter?.rewards?.toSignificant()}
       />
     )
   }, [showModal, onClaimReward, rewardMatter, hideModal])
@@ -170,7 +174,7 @@ export default function TradingRewards() {
         </Button>
       )
     }
-    if (!rewardMatter || !rewardMatter.greaterThan('0')) {
+    if (!rewardMatter?.rewards || !rewardMatter.rewards.greaterThan('0')) {
       return (
         <Box display="flex" gap={8}>
           <Button disabled height="60px">
@@ -243,7 +247,7 @@ export default function TradingRewards() {
       <Box display="flex" gap={20} mt={24}>
         <NumericalCard
           title="Total Claimable Rewards"
-          value={rewardMatter?.toSignificant() || '--'}
+          value={rewardMatter?.rewards?.toSignificant() || '--'}
           fontSize="44px"
           unit="MATTER"
           height={344}
@@ -251,10 +255,15 @@ export default function TradingRewards() {
           actions={getActions}
         />
         <Grid container spacing={6}>
-          <Grid item xs={12} md={6}>
-            <NumericalCard title="My total volume of invested" value={totalInvested} unit="MATTER" height={168} />
+          <Grid item xs={12} md={12}>
+            <NumericalCard
+              title="My total volume of invested"
+              value={rewardMatter?.totalInvest ? rewardMatter.totalInvest.toSignificant() : '--'}
+              unit="MATTER"
+              height={168}
+            />
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <NumericalCard
               title="Reward Pool"
               value={rewardPool}
@@ -265,7 +274,7 @@ export default function TradingRewards() {
                 </Typography>
               }
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={12}>
             <Card>
               <Box padding="22px 24px" height={168}>
