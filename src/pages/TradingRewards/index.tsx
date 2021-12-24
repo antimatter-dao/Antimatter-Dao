@@ -259,7 +259,7 @@ export default function TradingRewards() {
             <NumericalCard
               title="My total volume of invested"
               value={rewardMatter?.totalInvest ? rewardMatter.totalInvest.toSignificant() : '--'}
-              unit="MATTER"
+              unit="$"
               height={168}
             />
           </Grid>
