@@ -9,7 +9,7 @@ import { useRewardInvestContract } from './useContract'
 import { useSingleCallResult } from '../state/multicall/hooks'
 
 export function getInvestRewardSignByNonce(account: string, amountInt: string, chainId: number, nonce: string) {
-  return Axios.post('https://dualinvest-testapi.antimatter.finance:8081/web/getInvestRewardSign', {
+  return Axios.post('https://node1.antimatter.finance/web/getInvestRewardSign', {
     account,
     amount: amountInt,
     chainId,
@@ -29,7 +29,7 @@ export function useInvestRewardData() {
     ;(async () => {
       if (!account) return
       try {
-        const res = await Axios.get('https://dualinvest-testapi.antimatter.finance/web/getInvestReward', { account })
+        const res = await Axios.get('https://dualinvest-api.antimatter.finance/web/getInvestReward', { account })
         const zeroMatter = new TokenAmount(Matter, '0')
         if (!res.data?.data?.rewards) {
           setRewardBalance({

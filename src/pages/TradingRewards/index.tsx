@@ -130,10 +130,10 @@ export default function TradingRewards() {
     )
   }, [showModal, onClaimReward, rewardMatter, hideModal])
 
-  const currentSupportChain = CURRENT_SUPPORTED_CHAINS.stake[0] || 1
+  const currentSupportChain = CURRENT_SUPPORTED_CHAINS.reward[0] || 1
   const [supportChain, switchToSupportChain] = useMemo(() => {
     if (!chainId || !account || !library) return [false, () => {}]
-    if (CURRENT_SUPPORTED_CHAINS.stake.includes(chainId)) {
+    if (CURRENT_SUPPORTED_CHAINS.reward.includes(chainId)) {
       return [true, () => {}]
     }
     return [
@@ -298,7 +298,7 @@ export default function TradingRewards() {
                   Rewards are calculated based on your investment amount in &quot;Dual Investment&quot;
                 </Typography>
                 <Box display="flex" alignItems="center" gap="20px" mt={23}>
-                  <ExternalLink href="">
+                  <ExternalLink href="https://invest.antimatter.finance/">
                     <BlackButton
                       onClick={onInvest}
                       width="100px"
@@ -309,7 +309,7 @@ export default function TradingRewards() {
                     </BlackButton>
                   </ExternalLink>
                   <TextButton>
-                    <ExternalLink href="" style={{ color: 'inherit' }}>
+                    <ExternalLink href="https://dao.antimatter.finance/#/" style={{ color: 'inherit' }}>
                       <Box display="flex" alignItems="center">
                         <Typography fontSize={14} fontWeight={500}>
                           Learn more
