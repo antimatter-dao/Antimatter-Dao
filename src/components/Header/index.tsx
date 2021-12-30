@@ -163,7 +163,6 @@ export default function Header() {
           <Divider orientation="vertical" color="#00000030" sx={{ width: '2px', height: 22 }} />
           <Typography fontSize="16px">Dao</Typography>
         </Box>
-
         {Tabs.map(({ tag, tabs }) => (
           <List key={tag}>
             <ListItem
@@ -209,10 +208,10 @@ export default function Header() {
             ))}
           </List>
         ))}
-
         <Box sx={{ mt: 'auto', alignSelf: 'flex-end', height: '100%', display: 'flex', alignItems: 'flex-end' }}>
           <Web3Status />
         </Box>
+        <Box sx={{ opacity: 0 }}>1</Box>
       </Box>
     ),
     []
