@@ -3,6 +3,10 @@ import { UTCTimestamp } from 'lightweight-charts'
 import { Axios } from 'utils/axios'
 import { LineSeriesData } from 'components/Chart'
 import { TIME_INTERVAL } from 'pages/Dashboard'
+import { getContract } from 'utils'
+import { getOtherNetworkLibrary } from 'connectors/MultiNetworkConnector'
+import ERC20_ABI from 'constants/abis/erc20.json'
+import { Token, TokenAmount } from 'constants/token'
 
 const oneDayInMs = 86400000
 interface StatisticsRaw {
@@ -151,4 +155,70 @@ export function useDashboardData(): Statistics & { matterPriceData: LineDataResp
   return useMemo(() => {
     return { ...statistics, matterPriceData }
   }, [statistics, matterPriceData])
+}
+
+export function useDualinvestDashboardData() {
+  const [dualData, setDualData] = useState<{
+    totalBtcDeposit: number
+    totalUsdtDeposit: number
+    totalInvestAmount: number
+  }>({
+    totalBtcDeposit: 0,
+    totalUsdtDeposit: 0,
+    totalInvestAmount: 0
+  })
+  const [btcPrice, setBtcPrice] = useState(0)
+  const [btcFree, setBtcFree] = useState(0)
+  const [usdtFree, setUsdtFree] = useState(0)
+  const library = useMemo(() => getOtherNetworkLibrary(56), [])
+  const feeAddress = '0x538e72209a0b9e7d2ef46E6EcAa3E70C0a0EfC88'
+
+  useEffect(() => {
+    if (!library) return
+    const btcAddress = '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c'
+    const contract = getContract(btcAddress, ERC20_ABI, library)
+    contract.balanceOf(feeAddress).then((res: any) => {
+      const _amount = new TokenAmount(new Token(56, btcAddress, 18), res.toString()).toSignificant()
+      setBtcFree(Number(_amount))
+    })
+  }, [library])
+
+  useEffect(() => {
+    if (!library) return
+    const usdtAddress = '0x55d398326f99059ff775485246999027b3197955'
+    const contract = getContract(usdtAddress, ERC20_ABI, library)
+    contract.balanceOf(feeAddress).then((res: any) => {
+      const _amount = new TokenAmount(new Token(56, usdtAddress, 18), res.toString()).toSignificant()
+      setUsdtFree(Number(_amount))
+    })
+  }, [library])
+
+  useEffect(() => {
+    Axios.get('https://openapi.debank.com/v1/token?chain_id=eth&id=0x2260fac5e5542a773aa44fbcfedf7c193bc2c599').then(
+      (res: any) => {
+        setBtcPrice(res.data.price)
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      const res = await Axios.get('https://dualinvest-api.antimatter.finance/web/getDashboard')
+      const data = res.data.data
+      setDualData({
+        totalBtcDeposit: Number(data.totalBtcDeposit),
+        totalUsdtDeposit: Number(data.totalUsdtDeposit),
+        totalInvestAmount: Number(data.totalInvestAmount)
+      })
+    })()
+  }, [])
+
+  return useMemo(
+    () => ({
+      depositAmount: dualData.totalBtcDeposit * btcPrice + dualData.totalUsdtDeposit,
+      tradingVolume: dualData.totalInvestAmount,
+      transactionFee: btcFree * btcPrice + usdtFree
+    }),
+    [btcFree, btcPrice, dualData.totalBtcDeposit, dualData.totalInvestAmount, dualData.totalUsdtDeposit, usdtFree]
+  )
 }
