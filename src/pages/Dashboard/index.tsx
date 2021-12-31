@@ -4,7 +4,7 @@ import NumericalCard from 'components/Card/NumericalCard'
 import ChartCard from './ChartCard'
 import BridgeCard from './BridgeCard'
 import { DefaultButton } from 'components/Button/Button'
-import { useDashboardData } from 'hooks/useDashboardData'
+import { useDashboardData, useDualinvestDashboardData } from 'hooks/useDashboardData'
 import { ChainList } from 'constants/chain'
 import LineChart from 'components/Chart'
 import Spinner from 'components/Spinner'
@@ -45,6 +45,8 @@ export default function Dashboard() {
     matterPriceData
   } = useDashboardData()
 
+  const dualData = useDualinvestDashboardData()
+
   const onPriceTimeInterval = useCallback(option => {
     setPriceTimeInterval(option)
   }, [])
@@ -68,10 +70,26 @@ export default function Dashboard() {
           <Grid item xs={12} lg={9}>
             <Grid container spacing={6}>
               <Grid item xs={12} sm={6} md={4}>
-                <NumericalCard title="Total Locked Value" value={totalValueLocked} unit="$" />
+                <NumericalCard
+                  title="Total Locked Value"
+                  value={
+                    isNaN(Number(totalValueLocked))
+                      ? totalValueLocked
+                      : (Number(totalValueLocked) + dualData.tradingVolume).toFixed(2)
+                  }
+                  unit="$"
+                />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <NumericalCard title="Total Trading Volume" value={totalTradingVolume} unit="$" />
+                <NumericalCard
+                  title="Total Trading Volume"
+                  value={
+                    isNaN(Number(totalTradingVolume))
+                      ? totalTradingVolume
+                      : (Number(totalTradingVolume) + dualData.depositAmount).toFixed(2)
+                  }
+                  unit="$"
+                />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
                 <NumericalCard title="MATTER Market Cap" value={totalSupply} unit="USDT" />
@@ -89,7 +107,16 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} lg={3}>
             <Box sx={{ display: 'flex', gap: '6px', flexDirection: 'column' }}>
-              <NumericalCard title="Cumulative Transaction Fees" value={totalFeeEarned} unit="USDT" primary />
+              <NumericalCard
+                title="Cumulative Transaction Fees"
+                value={
+                  isNaN(Number(totalFeeEarned))
+                    ? totalFeeEarned
+                    : (Number(totalFeeEarned) + dualData.transactionFee).toFixed(2)
+                }
+                unit="USDT"
+                primary
+              />
               <NumericalCard title="Current APY" value={apy} unit="%" primary />
             </Box>
           </Grid>
