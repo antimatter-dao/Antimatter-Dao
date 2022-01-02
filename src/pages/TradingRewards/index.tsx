@@ -266,11 +266,11 @@ export default function TradingRewards() {
           <Grid item xs={12} md={6}>
             <NumericalCard
               title="My total amount of invested"
-              value={'16'}
+              value={rewardMatter?.totalInvestAmount || '--'}
               height={168}
               actions={
                 <Typography fontSize={12} fontWeight={500} color="#7D7D7D">
-                  25 MATTER rewards for every investment subscribed
+                  {rewardMatter?.rewardAmount || '--'} MATTER rewards for every investment subscribed
                 </Typography>
               }
             />

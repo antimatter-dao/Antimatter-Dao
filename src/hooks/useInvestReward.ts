@@ -23,6 +23,7 @@ export function useInvestRewardData() {
     rewards: CurrencyAmount | TokenAmount | undefined
     totalInvest: CurrencyAmount | TokenAmount | undefined
     totalInvestAmount: string
+    rewardAmount: string
   }>()
   const blockNumber = useBlockNumber()
 
@@ -36,7 +37,8 @@ export function useInvestRewardData() {
           setRewardBalance({
             rewards: zeroMatter,
             totalInvest: zeroMatter,
-            totalInvestAmount: res.data.data.totalInvestAmount
+            totalInvestAmount: res.data.data.totalInvestAmount,
+            rewardAmount: res.data.data.rewardAmount
           })
         } else {
           setRewardBalance({
@@ -44,7 +46,8 @@ export function useInvestRewardData() {
             totalInvest: Number(res.data.data.totalInvest)
               ? tryParseAmount(res.data.data.totalInvest, Matter)
               : zeroMatter,
-            totalInvestAmount: res.data.data.totalInvestAmount
+            totalInvestAmount: res.data.data.totalInvestAmount,
+            rewardAmount: res.data.data.rewardAmount
           })
         }
       } catch (error) {
