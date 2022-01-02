@@ -255,7 +255,7 @@ export default function TradingRewards() {
           actions={getActions}
         />
         <Grid container spacing={6}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={6}>
             <NumericalCard
               title="My total volume of invested"
               value={rewardMatter?.totalInvest ? rewardMatter.totalInvest.toSignificant() : '--'}
@@ -263,18 +263,18 @@ export default function TradingRewards() {
               height={168}
             />
           </Grid>
-          {/* <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6}>
             <NumericalCard
-              title="Reward Pool"
-              value={rewardPool}
+              title="My total amount of invested"
+              value={'16'}
               height={168}
               actions={
                 <Typography fontSize={12} fontWeight={500} color="#7D7D7D">
-                  will be distributed this epoch
+                  25 MATTER rewards for every investment subscribed
                 </Typography>
               }
             />
-          </Grid> */}
+          </Grid>
           <Grid item xs={12} md={12}>
             <Card>
               <Box padding="22px 24px" height={168}>
