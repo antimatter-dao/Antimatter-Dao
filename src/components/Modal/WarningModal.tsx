@@ -11,7 +11,7 @@ export default function WarningModal() {
   const { showModal, hideModal } = useModal()
 
   useEffect(() => {
-    if (isDev) return
+    if (!isDev) return
     showModal(<WarningModalContent onDismiss={hideModal} />)
   }, [hideModal, showModal])
 

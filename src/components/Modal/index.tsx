@@ -72,6 +72,7 @@ export default function Modal(props: Props) {
                     maxHeight: 'unset',
                     height: `calc(100vh - ${theme.height.header})`,
                     borderRadius: '20px 20px 0 0',
+                    margin: 'auto',
                     marginTop: theme.height.header,
                     marginBottom: 0
                   }

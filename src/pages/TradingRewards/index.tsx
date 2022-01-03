@@ -20,6 +20,7 @@ import { useIsRewardInvestClaimPending, useRewardInvestClaimCallback } from 'hoo
 import TransacitonPendingModal from 'components/Modal/TransactionModals/TransactionPendingModal'
 import MessageBox from 'components/Modal/TransactionModals/MessageBox'
 import TransactionSubmittedModal from 'components/Modal/TransactionModals/TransactiontionSubmittedModal'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 const Tag = ({ k, v }: { k: string; v: string }) => {
   return (
@@ -49,6 +50,7 @@ export default function TradingRewards() {
   const [rewardsCurrency] = useState('Matter')
   // const [rewardPool] = useState('-')
   const [claimed, setClaimed] = useState(false)
+  const isDownMd = useBreakpoint('md')
 
   const { showModal, hideModal } = useModal()
 
@@ -231,7 +233,14 @@ export default function TradingRewards() {
   return (
     <>
       <Card width="100%">
-        <Box display="flex" justifyContent="space-between" height={132} padding="26px 24px">
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          height={isDownMd ? 'auto' : 132}
+          padding="26px 24px"
+          flexWrap={'wrap'}
+          gap={10}
+        >
           <Box display="flex" alignItems="center">
             <BullAndBear />
             <Typography fontSize={24} fontWeight={700} ml={20}>
@@ -244,14 +253,14 @@ export default function TradingRewards() {
           </Box>
         </Box>
       </Card>
-      <Box display="flex" gap={20} mt={24}>
+      <Box display="flex" gap={20} mt={24} flexWrap={'wrap'}>
         <NumericalCard
           title="Total Claimable Rewards"
           value={rewardMatter?.rewards?.toSignificant() || '--'}
           fontSize="44px"
           unit="MATTER"
-          height={344}
-          width={388}
+          height={isDownMd ? 250 : 344}
+          width={isDownMd ? '100%' : 388}
           actions={getActions}
         />
         <Grid container spacing={6}>
