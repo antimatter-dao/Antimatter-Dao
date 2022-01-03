@@ -253,18 +253,19 @@ export default function TradingRewards() {
           </Box>
         </Box>
       </Card>
-      <Box display="flex" gap={20} mt={24} flexWrap={'wrap'}>
+      <Box display="flex" gap={20} mt={24} flexWrap={isDownMd ? 'wrap' : 'unset'}>
         <NumericalCard
           title="Total Claimable Rewards"
           value={rewardMatter?.rewards?.toSignificant() || '--'}
           fontSize="44px"
           unit="MATTER"
-          height={isDownMd ? 250 : 344}
+          height={isDownMd ? 250 : '100%'}
+          boxHeight="100%"
           width={isDownMd ? '100%' : 388}
           actions={getActions}
         />
         <Grid container spacing={6}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} lg={6}>
             <NumericalCard
               title="My total volume of invested"
               value={rewardMatter?.totalInvest ? rewardMatter.totalInvest.toSignificant() : '--'}
@@ -272,7 +273,7 @@ export default function TradingRewards() {
               height={168}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} lg={6}>
             <NumericalCard
               title="My total amount of invested"
               value={rewardMatter?.totalInvestAmount || '--'}
@@ -284,7 +285,7 @@ export default function TradingRewards() {
               }
             />
           </Grid>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} lg={12}>
             <Card>
               <Box padding="22px 24px" height={168}>
                 <Typography

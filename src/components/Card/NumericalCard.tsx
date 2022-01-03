@@ -12,18 +12,33 @@ interface Props {
   unit?: string
   fontSize?: string
   gray?: boolean
+  boxHeight?: string
   rate?: string
   actions?: React.ReactNode
   children?: React.ReactNode
 }
 
 export default function NumericalCard(props: Props) {
-  const { title, primary, value, subValue, unit, fontSize, gray, width, height, rate, actions, children } = props
+  const {
+    title,
+    primary,
+    value,
+    subValue,
+    unit,
+    fontSize,
+    gray,
+    width,
+    height,
+    rate,
+    actions,
+    children,
+    boxHeight
+  } = props
   const theme = useTheme()
 
   return (
     <Card primary={primary} gray={gray} width={width || '100%'} style={{ position: 'relative' }}>
-      <Box width={width || '100%'}>
+      <Box width={width || '100%'} height={boxHeight || 'auto'}>
         {children}
         <Box
           sx={{
